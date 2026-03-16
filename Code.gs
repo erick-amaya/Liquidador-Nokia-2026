@@ -1,5 +1,5 @@
 // ============================================================
-// GOOGLE APPS SCRIPT — Backend para Ingetel Liquidador Nokia 2026
+// GOOGLE APPS SCRIPT — Backend para Liquidador Nokia 2026
 // ============================================================
 // INSTRUCCIONES DE INSTALACIÓN:
 // 1. Abre https://script.google.com
@@ -11,7 +11,7 @@
 // 5. Copia la URL generada y pégala en el HTML como GAS_URL
 // ============================================================
 
-const SPREADSHEET_ID = 'TU_SPREADSHEET_ID_AQUI'; // ← Reemplaza con el ID de tu Google Sheet
+const SPREADSHEET_ID = '1BJbrJVuYADu41s2uBv42AIVCdFstNr7zvpsCyPHrTqI'; // ← Reemplaza con el ID de tu Google Sheet
 const SHEET_NAME = 'Data';
 
 function getSheet() {
