@@ -187,5 +187,5 @@ La app aparece como ícono nativo en tu pantalla de inicio, se abre en pantalla 
 
 ## 📞 Soporte
 
-**Ingetel SAS** — Ingeniería en Telecomunicaciones  
-Proveedor de servicios Nokia CNS/NI — Colombia
+**SCYTEL NETWORKS SAS** — Integrated Telecommunication Services  
+Comprehensive Solutions Connectivity without Limits...
