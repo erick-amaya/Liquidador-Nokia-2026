@@ -791,8 +791,8 @@ let ST={
 const cop=v=>v==null||v===''?'—':'$'+Math.round(v).toLocaleString('es-CO');
 const copInput=v=>v==null?'':Math.round(v).toLocaleString('es-CO');
 const pct=v=>v==null?'—':(v*100).toFixed(1)+'%';
-const mcls=v=>v>=.4?'bg-g':v>=.2?'bg-o':'bg-r';
-const mfcls=v=>v>=.4?'':v>=.2?'warn':'dang';
+const mcls=v=>v>=.3?'bg-g':v>=.2?'bg-o':'bg-r';
+const mfcls=v=>v>=.3?'':v>=.2?'warn':'dang';
 function toast(m,t='ok'){const el=document.getElementById('toast');el.textContent=m;el.style.borderLeftColor=t==='err'?'#c0392b':'#1a9c1a';el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800)}
 function openModal(id){document.getElementById(id).classList.add('open')}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
@@ -1066,7 +1066,7 @@ function buildActTable(sitio,c,modo){
 
 function renderLiqSitio(sitio){
   const c=calcSitio(sitio);
-  const mc2=c.margen>=.4?'#1a7a1a':c.margen>=.2?'#FFC000':'#c0392b';
+  const mc2=c.margen>=.3?'#1a7a1a':c.margen>=.2?'#FFC000':'#c0392b';
   const gastosSitio=ST.gastos.filter(g=>g.sitio===sitio.id);
 
   const infoHeader=`
@@ -1260,7 +1260,7 @@ function renderLiqSitio(sitio){
 
 function renderLiqTSS(sitio){
   const c=calcSitio(sitio);
-  const mc2=c.margen>=.4?'#1a7a1a':c.margen>=.2?'#FFC000':'#c0392b';
+  const mc2=c.margen>=.3?'#1a7a1a':c.margen>=.2?'#FFC000':'#c0392b';
   const rowsN=sitio.actividades.map((act,i)=>{
     const p=getPrecio('BASE',act.id,null,sitio.cat,act.ciudad);
     return`<tr>
@@ -1458,7 +1458,7 @@ function updCosto(sid,campo,val){
   saveState();
   const cc=calcSitio(s);
   // Dynamic color same logic as mc2 in renderLiqSitio
-  const mc=cc.margen>=.4?'#1a7a1a':cc.margen>=.2?'#FFC000':'#c0392b';
+  const mc=cc.margen>=.3?'#1a7a1a':cc.margen>=.2?'#FFC000':'#c0392b';
   const setTxt=(id,v)=>{const el=document.getElementById(id+sid);if(el)el.textContent=v;};
   const setClr=(id,clr)=>{const el=document.getElementById(id+sid);if(el)el.style.color=clr;};
   setTxt('liq-bo-val-',cop(cc.backoffice));
@@ -1472,8 +1472,8 @@ function updCosto(sid,campo,val){
 }
 // ── Google Sheets Sync ─────────────────────────────────────
 // Reemplaza esta URL con la de tu Google Apps Script desplegado
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbyQYYOjcxpSSHwpqn0Cz4PGbl0E74TZxDTGdYDUvGkXy0PfFQ75ZG2611YoIQIOTKyPPw/exec';
-const USE_SHEETS = GAS_URL !== 'https://script.google.com/macros/s/AKfycbyQYYOjcxpSSHwpqn0Cz4PGbl0E74TZxDTGdYDUvGkXy0PfFQ75ZG2611YoIQIOTKyPPw/exec';
+const GAS_URL = 'TU_APPS_SCRIPT_URL_AQUI';
+const USE_SHEETS = GAS_URL !== 'TU_APPS_SCRIPT_URL_AQUI';
 
 let _syncTimer = null;
 let _syncPending = false;
