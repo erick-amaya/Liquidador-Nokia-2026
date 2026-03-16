@@ -274,7 +274,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
             <th rowspan="2">Sitio</th><th rowspan="2">Fecha</th>
             <th rowspan="2">LC</th><th rowspan="2">Empresa</th><th rowspan="2">Cat</th>
             <th class="num th-nokia" colspan="5">VENTA NOKIA</th>
-            <th class="num th-subc" colspan="6">COSTO SUBCONTRATISTA</th>
+            <th class="num th-subc" colspan="7">COSTO SUBCONTRATISTA</th>
             <th class="num" rowspan="2">Utilidad</th><th class="num" rowspan="2">% Mg</th><th rowspan="2"></th>
           </tr>
           <tr>
@@ -283,7 +283,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
             <th class="num th-nokia" style="border-right:2px solid #60a5fa">Total Venta</th>
             <th class="num th-subc">SubC TI</th><th class="num th-subc">SubC CW</th>
             <th class="num th-subc">Mat TI</th><th class="num th-subc">Mat CW</th>
-            <th class="num th-subc">Logística</th><th class="num th-subc" style="border-right:2px solid #fbbf24">Adicionales</th>
+            <th class="num th-subc">Logística</th><th class="num th-subc">Adicionales</th>
+            <th class="num th-subc" style="border-right:2px solid #fbbf24;background:#fef3c7!important;color:#78350f!important">Total Costo</th>
           </tr>
         </thead>
         <tbody id="tbody-cons"></tbody>
@@ -936,7 +937,8 @@ function renderConsolidado(){
       <td class="num" style="background:#fffbeb">${cop(c.matTI)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matCW)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.logist)}</td>
-      <td class="num" style="background:#fffbeb;border-right:2px solid #fbbf24">${cop(c.adicion)}</td>
+      <td class="num" style="background:#fffbeb">${cop(c.adicion)}</td>
+      <td class="num fw7" style="background:#fef3c7;border-right:2px solid #fbbf24">${cop(c.totalCosto)}</td>
       <td class="num fw7 ${c.utilidad>=0?'tg':'tr'}">${cop(c.utilidad)}</td>
       <td class="num"><span class="badge ${mcls(c.margen)}">${pct(c.margen)}</span></td>
       <td><button class="btn bou btn-sm" onclick="abrirLiquidador('${s.id}')">Abrir</button>
@@ -953,6 +955,7 @@ function renderConsolidado(){
     <td class="num">${cop(tSTC)}</td><td class="num">${cop(tSCW)}</td>
     <td class="num">${cop(tMTI)}</td><td class="num">${cop(tMCW)}</td>
     <td class="num">${cop(tLog)}</td><td class="num">${cop(tAd)}</td>
+    <td class="num fw8" style="background:#fef3c7">${cop(tC)}</td>
     <td class="num fw8 ${tU>=0?'tg':'tr'}">${cop(tU)}</td>
     <td class="num"><span class="badge ${mcls(tM)}">${pct(tM)}</span></td><td></td>
   </tr>`;
@@ -1490,15 +1493,12 @@ function saveState(){
 
 function syncToSheets(){
   if(!USE_SHEETS) return;
-  const payload = JSON.stringify({sitios:ST.sitios, gastos:ST.gastos});
-  fetch(GAS_URL, {
-    method:'POST',
-    headers:{'Content-Type':'text/plain'},
-    body: payload
-  })
+  const formData = new FormData();
+  formData.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos}));
+  fetch(GAS_URL, {method:'POST', body:formData})
   .then(r=>r.json())
   .then(d=>{
-    if(d.ok)toast('✓ Guardado en Sheets ('+d.sitios+' sitios)');
+    if(d.ok)toast('✓ Sheets: '+d.sitios+' sitios guardados');
     else console.warn('Sheets error:',d.error);
   })
   .catch(e=>console.warn('Sync failed:',e));
