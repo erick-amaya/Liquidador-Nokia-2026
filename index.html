@@ -274,7 +274,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
             <th rowspan="2">Sitio</th><th rowspan="2">Fecha</th>
             <th rowspan="2">LC</th><th rowspan="2">Empresa</th><th rowspan="2">Cat</th>
             <th class="num th-nokia" colspan="5">VENTA NOKIA</th>
-            <th class="num th-subc" colspan="7">COSTO SUBCONTRATISTA</th>
+            <th class="num th-subc" colspan="6">COSTO SUBCONTRATISTA</th>
             <th class="num" rowspan="2">Utilidad</th><th class="num" rowspan="2">% Mg</th><th rowspan="2"></th>
           </tr>
           <tr>
@@ -283,8 +283,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
             <th class="num th-nokia" style="border-right:2px solid #60a5fa">Total Venta</th>
             <th class="num th-subc">SubC TI</th><th class="num th-subc">SubC CW</th>
             <th class="num th-subc">Mat TI</th><th class="num th-subc">Mat CW</th>
-            <th class="num th-subc">Logística</th><th class="num th-subc">Adicionales</th>
-            <th class="num th-subc" style="border-right:2px solid #fbbf24;background:#fef3c7!important;color:#78350f!important">Total Costo</th>
+            <th class="num th-subc">Logística</th><th class="num th-subc" style="border-right:2px solid #fbbf24">Adicionales</th>
           </tr>
         </thead>
         <tbody id="tbody-cons"></tbody>
@@ -937,8 +936,7 @@ function renderConsolidado(){
       <td class="num" style="background:#fffbeb">${cop(c.matTI)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matCW)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.logist)}</td>
-      <td class="num" style="background:#fffbeb">${cop(c.adicion)}</td>
-      <td class="num fw7" style="background:#fef3c7;border-right:2px solid #fbbf24">${cop(c.totalCosto)}</td>
+      <td class="num" style="background:#fffbeb;border-right:2px solid #fbbf24">${cop(c.adicion)}</td>
       <td class="num fw7 ${c.utilidad>=0?'tg':'tr'}">${cop(c.utilidad)}</td>
       <td class="num"><span class="badge ${mcls(c.margen)}">${pct(c.margen)}</span></td>
       <td><button class="btn bou btn-sm" onclick="abrirLiquidador('${s.id}')">Abrir</button>
@@ -955,7 +953,6 @@ function renderConsolidado(){
     <td class="num">${cop(tSTC)}</td><td class="num">${cop(tSCW)}</td>
     <td class="num">${cop(tMTI)}</td><td class="num">${cop(tMCW)}</td>
     <td class="num">${cop(tLog)}</td><td class="num">${cop(tAd)}</td>
-    <td class="num fw8" style="background:#fef3c7">${cop(tC)}</td>
     <td class="num fw8 ${tU>=0?'tg':'tr'}">${cop(tU)}</td>
     <td class="num"><span class="badge ${mcls(tM)}">${pct(tM)}</span></td><td></td>
   </tr>`;
@@ -1475,7 +1472,7 @@ function updCosto(sid,campo,val){
 }
 // ── Google Sheets Sync ─────────────────────────────────────
 // Reemplaza esta URL con la de tu Google Apps Script desplegado
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbylcCQ_1rIzuOCuQSuvO3_24upAXQsbzHmxq_bSOdyLCR2xZFEiY40ws993VH3wIb7HtQ/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwsgZgLl8L4UF2t_7y3lDCJVlhYXey6sGotNuun6yCJHHB-MgU0L7VRkDefUdXiptYjtA/exec';
 const USE_SHEETS = true; // Sheets sync activo
 
 let _syncTimer = null;
@@ -1493,15 +1490,36 @@ function saveState(){
 
 function syncToSheets(){
   if(!USE_SHEETS) return;
+  // Include pre-calculated totals so Sheets doesn't need the price catalog
+  const calcs=ST.sitios.map(s=>{
+    const cc=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
+    return{
+      id:s.id,nombre:s.nombre,tipo:s.tipo,fecha:s.fecha,
+      ciudad:(s.ciudad||'').replace('Ciudad_',''),
+      lc:s.lc,empresa:sub?sub.empresa:'',cat:s.cat,
+      tiene_cw:s.tiene_cw,
+      nokiaTI:cc.nokiaTI,nokiaADJ:cc.nokiaADJ,nokiaCW:cc.nokiaCW,nokiaCR:cc.nokiaCR,
+      totalVenta:cc.totalVenta,
+      subcTI:cc.subcTI,subcADJ:cc.subcADJ||0,subcCW:cc.subcCW,
+      matTI:cc.matTI,matCW:cc.matCW,logist:cc.logist,adicion:cc.adicion,
+      backoffice:cc.backoffice,totalCosto:cc.totalCosto,
+      utilidad:cc.utilidad,margen:parseFloat((cc.margen*100).toFixed(1)),
+      actividades:s.actividades
+    };
+  });
   const formData = new FormData();
-  formData.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos}));
+  formData.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs}));
   fetch(GAS_URL, {method:'POST', body:formData})
   .then(r=>r.json())
   .then(d=>{
-    if(d.ok)toast('✓ Sheets: '+d.sitios+' sitios guardados');
+    if(d.ok)toast('\u2713 Sheets: '+d.sitios+' sitios guardados');
     else console.warn('Sheets error:',d.error);
   })
-  .catch(e=>console.warn('Sync failed:',e));
+  .catch(()=>{
+    const p=new URLSearchParams();
+    p.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs}));
+    fetch(GAS_URL,{method:'POST',mode:'no-cors',body:p});
+  });
 }
 
 async function loadFromSheets(){
