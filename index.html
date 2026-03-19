@@ -221,8 +221,20 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Proyecto Nokia 2026</h1>
     <div class="flex gap8">
-      <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:180px" oninput="buscarSitio(this.value)">
-      <select class="fc" id="dash-tipo-cuadrilla" style="width:145px" onchange="renderDashboard()">
+      <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:160px" oninput="buscarSitio(this.value)">
+      <select class="fc" id="dash-year" style="width:80px" onchange="renderDashboard()">
+        <option value="todos">Todos</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+      </select>
+      <select class="fc" id="dash-mes" style="width:115px" onchange="renderDashboard()">
+        <option value="todos">Todos los meses</option>
+        <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
+        <option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option>
+        <option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option>
+        <option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
+      </select>
+      <select class="fc" id="dash-tipo-cuadrilla" style="width:140px" onchange="renderDashboard()">
         <option value="todos">Todos los tipos</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
@@ -950,7 +962,18 @@ function calcSitio(sitio){
 // ============================================================
 function renderDashboard(){
   const filTCDash=(document.getElementById('dash-tipo-cuadrilla')?.value)||'todos';
-  const sitiosDash=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCDash));
+  const filYear=(document.getElementById('dash-year')?.value)||'todos';
+  const filMes=(document.getElementById('dash-mes')?.value)||'todos';
+  const sitiosDash=ST.sitios.filter(s=>{
+    if(!matchTipoCuadrilla(s,filTCDash)) return false;
+    if(filYear!=='todos'||filMes!=='todos'){
+      if(!s.fecha) return false;
+      const d=new Date(s.fecha);
+      if(filYear!=='todos'&&d.getFullYear()!==parseInt(filYear)) return false;
+      if(filMes!=='todos'&&d.getMonth()!==parseInt(filMes)) return false;
+    }
+    return true;
+  });
   const calcs=sitiosDash.map(s=>({s,c:calcSitio(s)}));
   const tV=calcs.reduce((s,x)=>s+x.c.totalVenta,0);
   const tC=calcs.reduce((s,x)=>s+x.c.totalCosto,0);
