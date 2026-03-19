@@ -221,7 +221,18 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Proyecto Nokia 2026</h1>
     <div class="flex gap8">
-      <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:220px" oninput="buscarSitio(this.value)">
+      <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:180px" oninput="buscarSitio(this.value)">
+      <select class="fc" id="dash-tipo-cuadrilla" style="width:145px" onchange="renderDashboard()">
+        <option value="todos">Todos los tipos</option>
+        <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TSS Ingetel">TSS Ingetel</option>
+        <option value="Ingetel">Ingetel (TI+TSS)</option>
+        <option value="TI Scytel">TI Scytel</option>
+        <option value="TSS Scytel">TSS Scytel</option>
+        <option value="Scytel">Scytel (TI+TSS)</option>
+        <option value="TSS">TSS (todas)</option>
+        <option value="TI">TI (todas)</option>
+      </select>
       <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo Sitio</button>
       <button class="btn bo no-print" onclick="openModal('m-nuevo-tss')">＋ TSS</button>
     </div>
@@ -256,6 +267,10 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
           <button class="btn bk btn-lg" onclick="exportarExcel()">⬇ Exportar</button>
         </div>
       </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-h"><h2>Utilidad &amp; Margen</h2></div>
+        <div class="card-b" id="dash-util-margen"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -264,11 +279,18 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-sitios" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado — Todos los Sitios</h1>
+      <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
       <select class="fc" id="fil-tipo-cuadrilla" style="width:140px" onchange="renderConsolidado()">
         <option value="todos">Todos los tipos</option>
         <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TSS Ingetel">TSS Ingetel</option>
+        <option value="Ingetel">Ingetel (TI+TSS)</option>
         <option value="TI Scytel">TI Scytel</option>
+        <option value="TSS Scytel">TSS Scytel</option>
+        <option value="Scytel">Scytel (TI+TSS)</option>
+        <option value="TSS">TSS (todas)</option>
+        <option value="TI">TI (todas)</option>
       </select>
       <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo</button>
     </div>
@@ -303,6 +325,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <!-- LIQUIDADOR -->
 <div id="screen-liquidador" class="screen">
   <div class="fb mb14">
+    <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">
       Liquidador: <span id="liq-tit" style="color:var(--g)">Selecciona un sitio</span>
     </h1>
@@ -321,6 +344,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-gastos" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Gastos y Adicionales</h1>
+      <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <button class="btn bd no-print" onclick="openModal('m-gastos')">＋ Agregar</button>
   </div>
   <div class="card">
@@ -338,6 +362,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-reportes" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Reportes por Mes</h1>
+      <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
       <select class="fc" id="rep-year" style="width:100px" onchange="renderReportes()">
         <option value="2026">2026</option><option value="2025">2025</option>
@@ -345,7 +370,13 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <select class="fc" id="rep-tipo-cuadrilla" style="width:140px" onchange="renderReportes()">
         <option value="todos">Todos los tipos</option>
         <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TSS Ingetel">TSS Ingetel</option>
+        <option value="Ingetel">Ingetel (TI+TSS)</option>
         <option value="TI Scytel">TI Scytel</option>
+        <option value="TSS Scytel">TSS Scytel</option>
+        <option value="Scytel">Scytel (TI+TSS)</option>
+        <option value="TSS">TSS (todas)</option>
+        <option value="TI">TI (todas)</option>
       </select>
       <select class="fc" id="rep-mes" style="width:120px" onchange="renderReportes()">
         <option value="todos">Todos los meses</option>
@@ -390,11 +421,18 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-analitica" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Analítica Gerencial</h1>
+      <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <select class="fc" id="ana-tipo-cuadrilla" style="width:140px" onchange="renderAnalitica()">
       <option value="todos">Todos los tipos</option>
-      <option value="TI Ingetel">TI Ingetel</option>
-      <option value="TI Scytel">TI Scytel</option>
-    </select>
+        <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TSS Ingetel">TSS Ingetel</option>
+        <option value="Ingetel">Ingetel (TI+TSS)</option>
+        <option value="TI Scytel">TI Scytel</option>
+        <option value="TSS Scytel">TSS Scytel</option>
+        <option value="Scytel">Scytel (TI+TSS)</option>
+        <option value="TSS">TSS (todas)</option>
+        <option value="TI">TI (todas)</option>
+      </select>
     <span style="font-size:10px;color:var(--g3)">Métricas actualizadas automáticamente</span>
   </div>
   <div class="g4 mb14" id="ana-stats"></div>
@@ -416,6 +454,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-catalogo" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Catálogo de Precios 2026</h1>
+      <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
       <select class="fc" id="cat-zona" onchange="renderCatalogo()" style="width:180px">
         <option value="Ciudad_Principal">Ciudad Principal</option>
@@ -423,6 +462,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="Ciudad_Intermedia">Ciudad Intermedia</option>
         <option value="Dificil Acceso">Difícil Acceso</option>
       </select>
+      <button class="btn" style="background:#144E4A;color:#CDFBF2;font-weight:700;border-radius:20px;padding:6px 16px" onclick="guardarCatalogo()">💾 Guardar Catálogo</button>
       <span id="cat-lock-badge" class="badge bg-r" style="padding:5px 10px;font-size:10px">🔒 Lectura</span>
     </div>
   </div>
@@ -809,6 +849,17 @@ const cop=v=>v==null||v===''?'—':'$'+Math.round(v).toLocaleString('es-CO');
 const copInput=v=>v==null?'':Math.round(v).toLocaleString('es-CO');
 const pct=v=>v==null?'—':(v*100).toFixed(1)+'%';
 const mcls=v=>v>=.3?'bg-g':v>=.2?'bg-o':'bg-r';
+// tipoCuadrilla filter match helper
+function matchTipoCuadrilla(s, filTC){
+  if(!filTC||filTC==='todos') return true;
+  const sub=SUBCS.find(x=>x.lc===s.lc);
+  const tc=sub?.tipoCuadrilla||'TI Ingetel';
+  if(filTC==='Ingetel') return tc==='TI Ingetel'||tc==='TSS Ingetel';
+  if(filTC==='Scytel')  return tc==='TI Scytel'||tc==='TSS Scytel';
+  if(filTC==='TI')      return tc==='TI Ingetel'||tc==='TI Scytel';
+  if(filTC==='TSS')     return tc==='TSS Ingetel'||tc==='TSS Scytel';
+  return tc===filTC;
+}
 const mfcls=v=>v>=.3?'':v>=.2?'warn':'dang';
 function toast(m,t='ok'){const el=document.getElementById('toast');el.textContent=m;el.style.borderLeftColor=t==='err'?'#c0392b':'#1a9c1a';el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800)}
 function openModal(id){document.getElementById(id).classList.add('open')}
@@ -898,12 +949,14 @@ function calcSitio(sitio){
 // DASHBOARD
 // ============================================================
 function renderDashboard(){
-  const calcs=ST.sitios.map(s=>({s,c:calcSitio(s)}));
+  const filTCDash=(document.getElementById('dash-tipo-cuadrilla')?.value)||'todos';
+  const sitiosDash=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCDash));
+  const calcs=sitiosDash.map(s=>({s,c:calcSitio(s)}));
   const tV=calcs.reduce((s,x)=>s+x.c.totalVenta,0);
   const tC=calcs.reduce((s,x)=>s+x.c.totalCosto,0);
   const tU=tV-tC,avgM=tV>0?tU/tV:0;
   document.getElementById('stats-cards').innerHTML=`
-    <div class="stat"><div class="sl">Total Sitios</div><div class="sv">${ST.sitios.length}</div><div class="ss">${ST.sitios.filter(s=>s.tipo==='TSS').length} TSS · ${ST.sitios.filter(s=>s.tipo==='TI').length} TI</div></div>
+    <div class="stat"><div class="sl">Total Sitios</div><div class="sv">${sitiosDash.length}</div><div class="ss">${sitiosDash.filter(s=>s.tipo==='TSS').length} TSS · ${sitiosDash.filter(s=>s.tipo==='TI').length} TI</div></div>
     <div class="stat" style="border-color:var(--b)"><div class="sl">Venta Nokia</div><div class="sv" style="font-size:16px">${cop(tV)}</div><div class="ss">TI+ADJ+CW+CR</div></div>
     <div class="stat" style="border-color:var(--o)"><div class="sl">Costo SubC</div><div class="sv" style="font-size:16px;color:var(--o)">${cop(tC)}</div><div class="ss">SubC+Mat+Log+Adic</div></div>
     <div class="stat" style="border-color:${avgM>=.4?'var(--g)':avgM>=.2?'var(--o)':'var(--r)'}">
@@ -925,6 +978,23 @@ function renderDashboard(){
       <div class="fb" style="margin-bottom:2px"><span style="font-size:10px;font-weight:600">${s.nombre}</span><span style="font-size:10px;color:var(--g4)">${pct(c.margen)}</span></div>
       <div class="mbar"><div class="mfill ${mfcls(c.margen)}" style="width:${Math.min(c.margen*100,100)}%"></div></div>
     </div>`).join('');
+  // Utilidad & Margen card
+  const umEl=document.getElementById('dash-util-margen');
+  if(umEl){
+    const mc=avgM>=.3?'#1a7a1a':avgM>=.2?'#FFC000':'#c0392b';
+    umEl.innerHTML=`
+      <table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:12px">
+        <tr><td style="padding:5px 0;color:var(--b);font-weight:700">Total Venta Nokia</td><td style="text-align:right;font-weight:800;font-size:14px;color:var(--b)">${cop(tV)}</td></tr>
+        <tr><td style="padding:5px 0;color:var(--r)">Total Costo</td><td style="text-align:right;font-weight:700;color:var(--r)">${cop(tC)}</td></tr>
+        <tr><td colspan="2"><hr class="div"></td></tr>
+        <tr><td style="padding:5px 0;font-weight:800">UTILIDAD</td><td style="text-align:right;font-weight:900;font-size:20px;color:${mc}">${cop(tU)}</td></tr>
+      </table>
+      <div class="fb" style="margin-bottom:5px">
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px">% Margen</span>
+        <span style="font-size:20px;font-weight:900;color:${mc}">${pct(avgM)}</span>
+      </div>
+      <div class="mbar"><div class="mfill ${mfcls(avgM)}" style="width:${Math.min(avgM*100,100)}%"></div></div>`;
+  }
 }
 
 // ============================================================
@@ -936,7 +1006,7 @@ function renderConsolidado(){
   const sitiosFiltrados=ST.sitios.filter(s=>{
     if(filTC==='todos') return true;
     const sub=SUBCS.find(x=>x.lc===s.lc);
-    return (sub?.tipoCuadrilla||'Task')===filTC;
+    return matchTipoCuadrilla(s, filTC);
   });
   const rows=sitiosFiltrados.map(s=>{
     const c=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
@@ -1687,10 +1757,11 @@ function renderReportes(){
   const year=parseInt(document.getElementById('rep-year').value)||2026;
   const mesFiltro=document.getElementById('rep-mes').value;
   const isTodos=mesFiltro==='todos';
+  const filTCRep=(document.getElementById('rep-tipo-cuadrilla')?.value)||'todos';
 
   const mesesData=Array.from({length:12},(_,m)=>{
     const sitiosMes=ST.sitios.filter(s=>{
-      if(filTCRep!=='todos'){const sub=SUBCS.find(x=>x.lc===s.lc);if((sub?.tipoCuadrilla||'Task')!==filTCRep)return false;}
+      if(!matchTipoCuadrilla(s, filTCRep)) return false;
       if(!s.fecha)return false;
       const d=new Date(s.fecha);
       return d.getFullYear()===year&&d.getMonth()===m;
@@ -1806,10 +1877,7 @@ function exportarReporteExcel(){
 // ============================================================
 function renderAnalitica(){
   const filTCAna=(document.getElementById('ana-tipo-cuadrilla')?.value)||'todos';
-  const sitiosAna=filTCAna==='todos'?ST.sitios:ST.sitios.filter(s=>{
-    const sub=SUBCS.find(x=>x.lc===s.lc);
-    return (sub?.tipoCuadrilla||'Task')===filTCAna;
-  });
+  const sitiosAna=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna));
   const calcs=sitiosAna.map(s=>({s,c:calcSitio(s)}));
   if(!calcs.length){document.getElementById('ana-stats').innerHTML='<div class="alert al-i">Sin datos aún.</div>';return;}
 
@@ -1932,6 +2000,20 @@ function renderAnalitica(){
 // ============================================================
 // CATÁLOGO
 // ============================================================
+function guardarCatalogo(){
+  try{localStorage.setItem('igt26_cat',JSON.stringify({CAT,SUBCS}));}catch(e){}
+  saveState();
+  toast('✓ Catálogo guardado correctamente');
+}
+function loadCatalogo(){
+  try{
+    const d=JSON.parse(localStorage.getItem('igt26_cat')||'{}');
+    if(d.CAT&&d.CAT.BASE){CAT.BASE=d.CAT.BASE;CAT.ADJ=d.CAT.ADJ;CAT.CR=d.CAT.CR;}
+    if(d.SUBCS&&d.SUBCS.length){
+      d.SUBCS.forEach(s=>{const i=SUBCS.findIndex(x=>x.lc===s.lc);if(i>=0)SUBCS[i]=s;else SUBCS.push(s);});
+    }
+  }catch(e){}
+}
 function renderCatalogo(){
   const zona=document.getElementById('cat-zona').value;
   const zi=ZI[zona]??0;
@@ -1969,7 +2051,9 @@ function renderCatalogo(){
     </select>`:`<span class="badge bg-gl">${s.cat}</span>`}</td>
     <td><select class="fc" style="padding:2px 7px;font-size:11px" ${!isAdmin?'disabled':''} onchange="SUBCS[${i}].tipoCuadrilla=this.value;saveState()">
       <option value="TI Ingetel" ${(s.tipoCuadrilla||'TI Ingetel')==='TI Ingetel'?'selected':''}>TI Ingetel</option>
+      <option value="TSS Ingetel" ${(s.tipoCuadrilla||'TI Ingetel')==='TSS Ingetel'?'selected':''}>TSS Ingetel</option>
       <option value="TI Scytel" ${(s.tipoCuadrilla||'TI Ingetel')==='TI Scytel'?'selected':''}>TI Scytel</option>
+      <option value="TSS Scytel" ${(s.tipoCuadrilla||'TI Ingetel')==='TSS Scytel'?'selected':''}>TSS Scytel</option>
     </select></td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.tel}" onchange="SUBCS[${i}].tel=this.value">`:`${s.tel||'—'}`}</td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.email}" onchange="SUBCS[${i}].email=this.value">`:`${s.email||'—'}`}</td>
@@ -2088,6 +2172,7 @@ function refreshSelects(){
 function hoy(){return new Date().toISOString().split('T')[0]}
 
 function init(){
+  loadCatalogo();
   refreshSelects();
   document.getElementById('ns-fecha').value=hoy();
   document.getElementById('tss-fecha').value=hoy();
