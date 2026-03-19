@@ -267,10 +267,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <div class="flex gap8">
       <select class="fc" id="fil-tipo-cuadrilla" style="width:140px" onchange="renderConsolidado()">
         <option value="todos">Todos los tipos</option>
-        <option value="Task">Task</option>
-        <option value="Time">Time</option>
-        <option value="Task-S">Task-S</option>
-        <option value="Time-S">Time-S</option>
+        <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TI Scytel">TI Scytel</option>
       </select>
       <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo</button>
     </div>
@@ -346,10 +344,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       </select>
       <select class="fc" id="rep-tipo-cuadrilla" style="width:140px" onchange="renderReportes()">
         <option value="todos">Todos los tipos</option>
-        <option value="Task">Task</option>
-        <option value="Time">Time</option>
-        <option value="Task-S">Task-S</option>
-        <option value="Time-S">Time-S</option>
+        <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TI Scytel">TI Scytel</option>
       </select>
       <select class="fc" id="rep-mes" style="width:120px" onchange="renderReportes()">
         <option value="todos">Todos los meses</option>
@@ -396,10 +392,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Analítica Gerencial</h1>
     <select class="fc" id="ana-tipo-cuadrilla" style="width:140px" onchange="renderAnalitica()">
       <option value="todos">Todos los tipos</option>
-      <option value="Task">Task</option>
-      <option value="Time">Time</option>
-      <option value="Task-S">Task-S</option>
-      <option value="Time-S">Time-S</option>
+      <option value="TI Ingetel">TI Ingetel</option>
+      <option value="TI Scytel">TI Scytel</option>
     </select>
     <span style="font-size:10px;color:var(--g3)">Métricas actualizadas automáticamente</span>
   </div>
@@ -755,23 +749,23 @@ let CAT={
 };
 
 let SUBCS=[
-  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'Task'},
-  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com',tipoCuadrilla:'Task'},
-  {lc:'JOSE SUAREZ',empresa:'FIMAT',cat:'A',tel:'3016089573',email:'josesuarezb95@gmail.com',tipoCuadrilla:'Task'},
-  {lc:'HUGO SALIM MARTINEZ',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
-  {lc:'JOHN CARLOS GAMBA',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
-  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com',tipoCuadrilla:'Task'},
-  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:'',tipoCuadrilla:'Task'},
-  {lc:'FABIAN CAMILO MONTOYA',empresa:'INGETEL',cat:'A',tel:'3171224391',email:'',tipoCuadrilla:'Task'},
-  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com',tipoCuadrilla:'Task'},
-  {lc:'CARLOS RODRIGUEZ',empresa:'CARLOS RODRIGUEZ',cat:'A',tel:'',email:'cuadrilla5sfd@gmail.com',tipoCuadrilla:'Task'},
-  {lc:'YORMAN ORTEGA',empresa:'INGETEL',cat:'A',tel:'',email:'yormano643@gmail.com',tipoCuadrilla:'Task'},
-  {lc:'MAURICIO LOPEZ',empresa:'INGETEL',cat:'A',tel:'3132181373',email:'mauricio.lopz@telcobras.com',tipoCuadrilla:'Task'},
-  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com',tipoCuadrilla:'Task'},
-  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com',tipoCuadrilla:'Task'},
-  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:'',tipoCuadrilla:'Task'},
-  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
-  {lc:'INGETEL (Cuadrilla Propia)',empresa:'INGETEL',cat:'INGETEL',tel:'',email:'',tipoCuadrilla:'Task'},
+  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JOSE SUAREZ',empresa:'FIMAT',cat:'A',tel:'3016089573',email:'josesuarezb95@gmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'HUGO SALIM MARTINEZ',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JOHN CARLOS GAMBA',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'FABIAN CAMILO MONTOYA',empresa:'INGETEL',cat:'A',tel:'3171224391',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'CARLOS RODRIGUEZ',empresa:'CARLOS RODRIGUEZ',cat:'A',tel:'',email:'cuadrilla5sfd@gmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'YORMAN ORTEGA',empresa:'INGETEL',cat:'A',tel:'',email:'yormano643@gmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'MAURICIO LOPEZ',empresa:'INGETEL',cat:'A',tel:'3132181373',email:'mauricio.lopz@telcobras.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'INGETEL (Cuadrilla Propia)',empresa:'INGETEL',cat:'INGETEL',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
 ];
 
 const PINS={admin:'N0ki@',operador:'1234'};
@@ -1974,10 +1968,8 @@ function renderCatalogo(){
       <option ${s.cat==='AAA'?'selected':''}>AAA</option><option value="INGETEL" ${s.cat==='INGETEL'?'selected':''}>INGETEL</option>
     </select>`:`<span class="badge bg-gl">${s.cat}</span>`}</td>
     <td><select class="fc" style="padding:2px 7px;font-size:11px" ${!isAdmin?'disabled':''} onchange="SUBCS[${i}].tipoCuadrilla=this.value;saveState()">
-      <option ${(s.tipoCuadrilla||'Task')==='Task'?'selected':''}>Task</option>
-      <option ${(s.tipoCuadrilla||'Task')==='Time'?'selected':''}>Time</option>
-      <option ${(s.tipoCuadrilla||'Task')==='Task-S'?'selected':''}>Task-S</option>
-      <option ${(s.tipoCuadrilla||'Task')==='Time-S'?'selected':''}>Time-S</option>
+      <option value="TI Ingetel" ${(s.tipoCuadrilla||'TI Ingetel')==='TI Ingetel'?'selected':''}>TI Ingetel</option>
+      <option value="TI Scytel" ${(s.tipoCuadrilla||'TI Ingetel')==='TI Scytel'?'selected':''}>TI Scytel</option>
     </select></td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.tel}" onchange="SUBCS[${i}].tel=this.value">`:`${s.tel||'—'}`}</td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.email}" onchange="SUBCS[${i}].email=this.value">`:`${s.email||'—'}`}</td>
@@ -1991,7 +1983,7 @@ function updCatPrice(id,lista,col,zi,val){
   a[col][zi]=parseInt(val)||0;
   toast('Precio actualizado');
 }
-function addSubcRow(){SUBCS.push({lc:'Nuevo LC',empresa:'Empresa',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'});renderCatalogo();refreshSelects()}
+function addSubcRow(){SUBCS.push({lc:'Nuevo LC',empresa:'Empresa',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'});renderCatalogo();refreshSelects()}
 function addCatRow(lista){CAT[lista].push({id:'act_'+Date.now(),nombre:'Nueva Actividad',unidad:'Sitio',nokia:[0,0,0,0],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]});renderCatalogo();toast('Actividad agregada');}
 
 // ============================================================
