@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>Liquidador Sitios · Nokia 2026</title>
+<title>Liquidador Sitios · Ingetel Nokia 2026</title>
 <!-- PWA / iPhone -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -264,7 +264,16 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-sitios" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado — Todos los Sitios</h1>
-    <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo</button>
+    <div class="flex gap8">
+      <select class="fc" id="fil-tipo-cuadrilla" style="width:140px" onchange="renderConsolidado()">
+        <option value="todos">Todos los tipos</option>
+        <option value="Task">Task</option>
+        <option value="Time">Time</option>
+        <option value="Task-S">Task-S</option>
+        <option value="Time-S">Time-S</option>
+      </select>
+      <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo</button>
+    </div>
   </div>
   <div class="card">
     <div style="padding:0;overflow-x:auto">
@@ -335,6 +344,13 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <select class="fc" id="rep-year" style="width:100px" onchange="renderReportes()">
         <option value="2026">2026</option><option value="2025">2025</option>
       </select>
+      <select class="fc" id="rep-tipo-cuadrilla" style="width:140px" onchange="renderReportes()">
+        <option value="todos">Todos los tipos</option>
+        <option value="Task">Task</option>
+        <option value="Time">Time</option>
+        <option value="Task-S">Task-S</option>
+        <option value="Time-S">Time-S</option>
+      </select>
       <select class="fc" id="rep-mes" style="width:120px" onchange="renderReportes()">
         <option value="todos">Todos los meses</option>
         <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
@@ -378,6 +394,13 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 <div id="screen-analitica" class="screen">
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Analítica Gerencial</h1>
+    <select class="fc" id="ana-tipo-cuadrilla" style="width:140px" onchange="renderAnalitica()">
+      <option value="todos">Todos los tipos</option>
+      <option value="Task">Task</option>
+      <option value="Time">Time</option>
+      <option value="Task-S">Task-S</option>
+      <option value="Time-S">Time-S</option>
+    </select>
     <span style="font-size:10px;color:var(--g3)">Métricas actualizadas automáticamente</span>
   </div>
   <div class="g4 mb14" id="ana-stats"></div>
@@ -458,7 +481,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     </div>
     <div style="padding:0">
       <table class="tbl" id="tbl-subc">
-        <thead><tr><th>LC / Nombre</th><th>Empresa</th><th>Categoría</th><th>Teléfono</th><th>Email</th><th id="th-subc-act"></th></tr></thead>
+        <thead><tr><th>LC / Nombre</th><th>Empresa</th><th>Categoría</th><th>Tipo Cuadrilla</th><th>Teléfono</th><th>Email</th><th id="th-subc-act"></th></tr></thead>
         <tbody id="tbody-subc"></tbody>
       </table>
     </div>
@@ -732,23 +755,23 @@ let CAT={
 };
 
 let SUBCS=[
-  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com'},
-  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com'},
-  {lc:'JOSE SUAREZ',empresa:'FIMAT',cat:'A',tel:'3016089573',email:'josesuarezb95@gmail.com'},
-  {lc:'HUGO SALIM MARTINEZ',empresa:'OCET',cat:'A',tel:'',email:''},
-  {lc:'JOHN CARLOS GAMBA',empresa:'OCET',cat:'A',tel:'',email:''},
-  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com'},
-  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:''},
-  {lc:'FABIAN CAMILO MONTOYA',empresa:'INGETEL',cat:'A',tel:'3171224391',email:''},
-  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com'},
-  {lc:'CARLOS RODRIGUEZ',empresa:'CARLOS RODRIGUEZ',cat:'A',tel:'',email:'cuadrilla5sfd@gmail.com'},
-  {lc:'YORMAN ORTEGA',empresa:'INGETEL',cat:'A',tel:'',email:'yormano643@gmail.com'},
-  {lc:'MAURICIO LOPEZ',empresa:'INGETEL',cat:'A',tel:'3132181373',email:'mauricio.lopz@telcobras.com'},
-  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com'},
-  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com'},
-  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:''},
-  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'',email:''},
-  {lc:'INGETEL (Cuadrilla Propia)',empresa:'INGETEL',cat:'INGETEL',tel:'',email:''},
+  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'Task'},
+  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com',tipoCuadrilla:'Task'},
+  {lc:'JOSE SUAREZ',empresa:'FIMAT',cat:'A',tel:'3016089573',email:'josesuarezb95@gmail.com',tipoCuadrilla:'Task'},
+  {lc:'HUGO SALIM MARTINEZ',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
+  {lc:'JOHN CARLOS GAMBA',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
+  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com',tipoCuadrilla:'Task'},
+  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:'',tipoCuadrilla:'Task'},
+  {lc:'FABIAN CAMILO MONTOYA',empresa:'INGETEL',cat:'A',tel:'3171224391',email:'',tipoCuadrilla:'Task'},
+  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com',tipoCuadrilla:'Task'},
+  {lc:'CARLOS RODRIGUEZ',empresa:'CARLOS RODRIGUEZ',cat:'A',tel:'',email:'cuadrilla5sfd@gmail.com',tipoCuadrilla:'Task'},
+  {lc:'YORMAN ORTEGA',empresa:'INGETEL',cat:'A',tel:'',email:'yormano643@gmail.com',tipoCuadrilla:'Task'},
+  {lc:'MAURICIO LOPEZ',empresa:'INGETEL',cat:'A',tel:'3132181373',email:'mauricio.lopz@telcobras.com',tipoCuadrilla:'Task'},
+  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com',tipoCuadrilla:'Task'},
+  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com',tipoCuadrilla:'Task'},
+  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:'',tipoCuadrilla:'Task'},
+  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'},
+  {lc:'INGETEL (Cuadrilla Propia)',empresa:'INGETEL',cat:'INGETEL',tel:'',email:'',tipoCuadrilla:'Task'},
 ];
 
 const PINS={admin:'N0ki@',operador:'1234'};
@@ -914,8 +937,14 @@ function renderDashboard(){
 // CONSOLIDATED
 // ============================================================
 function renderConsolidado(){
+  const filTC=(document.getElementById('fil-tipo-cuadrilla')?.value)||'todos';
   let tV=0,tC=0,tTI=0,tADJ=0,tCW=0,tCR=0,tSTC=0,tSCW=0,tMTI=0,tMCW=0,tLog=0,tAd=0;
-  const rows=ST.sitios.map(s=>{
+  const sitiosFiltrados=ST.sitios.filter(s=>{
+    if(filTC==='todos') return true;
+    const sub=SUBCS.find(x=>x.lc===s.lc);
+    return (sub?.tipoCuadrilla||'Task')===filTC;
+  });
+  const rows=sitiosFiltrados.map(s=>{
     const c=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
     tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=c.nokiaADJ;
     tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=c.subcTI;tSCW+=c.subcCW;
@@ -1472,7 +1501,7 @@ function updCosto(sid,campo,val){
 }
 // ── Google Sheets Sync ─────────────────────────────────────
 // Reemplaza esta URL con la de tu Google Apps Script desplegado
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbydDk2KXTm_tT09RDa0qOr-PSG94cJpqKI6xsBq8OVaZ4AxHKn6VTxuYhfslOozq8LVrw/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbylcCQ_1rIzuOCuQSuvO3_24upAXQsbzHmxq_bSOdyLCR2xZFEiY40ws993VH3wIb7HtQ/exec';
 const USE_SHEETS = true; // Sheets sync activo
 
 let _syncTimer = null;
@@ -1490,36 +1519,18 @@ function saveState(){
 
 function syncToSheets(){
   if(!USE_SHEETS) return;
-  // Include pre-calculated totals so Sheets doesn't need the price catalog
-  const calcs=ST.sitios.map(s=>{
-    const cc=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
-    return{
-      id:s.id,nombre:s.nombre,tipo:s.tipo,fecha:s.fecha,
-      ciudad:(s.ciudad||'').replace('Ciudad_',''),
-      lc:s.lc,empresa:sub?sub.empresa:'',cat:s.cat,
-      tiene_cw:s.tiene_cw,
-      nokiaTI:cc.nokiaTI,nokiaADJ:cc.nokiaADJ,nokiaCW:cc.nokiaCW,nokiaCR:cc.nokiaCR,
-      totalVenta:cc.totalVenta,
-      subcTI:cc.subcTI,subcADJ:cc.subcADJ||0,subcCW:cc.subcCW,
-      matTI:cc.matTI,matCW:cc.matCW,logist:cc.logist,adicion:cc.adicion,
-      backoffice:cc.backoffice,totalCosto:cc.totalCosto,
-      utilidad:cc.utilidad,margen:parseFloat((cc.margen*100).toFixed(1)),
-      actividades:s.actividades
-    };
-  });
-  const formData = new FormData();
-  formData.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs}));
-  fetch(GAS_URL, {method:'POST', body:formData})
+  const payload = JSON.stringify({sitios:ST.sitios, gastos:ST.gastos});
+  fetch(GAS_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body: payload
+  })
   .then(r=>r.json())
   .then(d=>{
-    if(d.ok)toast('\u2713 Sheets: '+d.sitios+' sitios guardados');
+    if(d.ok)toast('✓ Guardado en Sheets ('+d.sitios+' sitios)');
     else console.warn('Sheets error:',d.error);
   })
-  .catch(()=>{
-    const p=new URLSearchParams();
-    p.append('data', JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs}));
-    fetch(GAS_URL,{method:'POST',mode:'no-cors',body:p});
-  });
+  .catch(e=>console.warn('Sync failed:',e));
 }
 
 async function loadFromSheets(){
@@ -1685,6 +1696,7 @@ function renderReportes(){
 
   const mesesData=Array.from({length:12},(_,m)=>{
     const sitiosMes=ST.sitios.filter(s=>{
+      if(filTCRep!=='todos'){const sub=SUBCS.find(x=>x.lc===s.lc);if((sub?.tipoCuadrilla||'Task')!==filTCRep)return false;}
       if(!s.fecha)return false;
       const d=new Date(s.fecha);
       return d.getFullYear()===year&&d.getMonth()===m;
@@ -1799,7 +1811,12 @@ function exportarReporteExcel(){
 // ANALÍTICA GERENCIAL - PROFESSIONAL CHARTS
 // ============================================================
 function renderAnalitica(){
-  const calcs=ST.sitios.map(s=>({s,c:calcSitio(s)}));
+  const filTCAna=(document.getElementById('ana-tipo-cuadrilla')?.value)||'todos';
+  const sitiosAna=filTCAna==='todos'?ST.sitios:ST.sitios.filter(s=>{
+    const sub=SUBCS.find(x=>x.lc===s.lc);
+    return (sub?.tipoCuadrilla||'Task')===filTCAna;
+  });
+  const calcs=sitiosAna.map(s=>({s,c:calcSitio(s)}));
   if(!calcs.length){document.getElementById('ana-stats').innerHTML='<div class="alert al-i">Sin datos aún.</div>';return;}
 
   const tV=calcs.reduce((s,x)=>s+x.c.totalVenta,0);
@@ -1813,7 +1830,7 @@ function renderAnalitica(){
     <div class="stat"><div class="sl">Mejor Margen</div><div class="sv tg">${pct(best.c.margen)}</div><div class="ss">${best.s.nombre}</div></div>
     <div class="stat" style="border-color:var(--b)"><div class="sl">Mayor Venta</div><div class="sv" style="font-size:13px">${cop(Math.max(...calcs.map(x=>x.c.totalVenta)))}</div></div>
     <div class="stat" style="border-color:var(--r)"><div class="sl">Menor Margen</div><div class="sv tr">${pct(worst.c.margen)}</div><div class="ss">${worst.s.nombre}</div></div>
-    <div class="stat" style="border-color:var(--o)"><div class="sl">SubCs Activos</div><div class="sv">${[...new Set(ST.sitios.map(s=>s.lc))].length}</div><div class="ss">de ${SUBCS.length} registrados</div></div>`;
+    <div class="stat" style="border-color:var(--o)"><div class="sl">SubCs Activos</div><div class="sv">${[...new Set(sitiosAna.map(s=>s.lc))].length}</div><div class="ss">de ${SUBCS.length} registrados</div></div>`;
 
   ['chart-venta-acum','chart-lc','chart-sitio-mg','chart-util-mes','chart-scatter','chart-dist'].forEach(id=>destroyChart(id));
 
@@ -1956,6 +1973,12 @@ function renderCatalogo(){
       <option ${s.cat==='A'?'selected':''}>A</option><option ${s.cat==='AA'?'selected':''}>AA</option>
       <option ${s.cat==='AAA'?'selected':''}>AAA</option><option value="INGETEL" ${s.cat==='INGETEL'?'selected':''}>INGETEL</option>
     </select>`:`<span class="badge bg-gl">${s.cat}</span>`}</td>
+    <td><select class="fc" style="padding:2px 7px;font-size:11px" ${!isAdmin?'disabled':''} onchange="SUBCS[${i}].tipoCuadrilla=this.value;saveState()">
+      <option ${(s.tipoCuadrilla||'Task')==='Task'?'selected':''}>Task</option>
+      <option ${(s.tipoCuadrilla||'Task')==='Time'?'selected':''}>Time</option>
+      <option ${(s.tipoCuadrilla||'Task')==='Task-S'?'selected':''}>Task-S</option>
+      <option ${(s.tipoCuadrilla||'Task')==='Time-S'?'selected':''}>Time-S</option>
+    </select></td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.tel}" onchange="SUBCS[${i}].tel=this.value">`:`${s.tel||'—'}`}</td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.email}" onchange="SUBCS[${i}].email=this.value">`:`${s.email||'—'}`}</td>
     <td>${isAdmin?`<button class="btn-del" onclick="SUBCS.splice(${i},1);renderCatalogo()">✕</button>`:''}</td>
@@ -1968,7 +1991,7 @@ function updCatPrice(id,lista,col,zi,val){
   a[col][zi]=parseInt(val)||0;
   toast('Precio actualizado');
 }
-function addSubcRow(){SUBCS.push({lc:'Nuevo LC',empresa:'Empresa',cat:'A',tel:'',email:''});renderCatalogo();refreshSelects()}
+function addSubcRow(){SUBCS.push({lc:'Nuevo LC',empresa:'Empresa',cat:'A',tel:'',email:'',tipoCuadrilla:'Task'});renderCatalogo();refreshSelects()}
 function addCatRow(lista){CAT[lista].push({id:'act_'+Date.now(),nombre:'Nueva Actividad',unidad:'Sitio',nokia:[0,0,0,0],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]});renderCatalogo();toast('Actividad agregada');}
 
 // ============================================================
