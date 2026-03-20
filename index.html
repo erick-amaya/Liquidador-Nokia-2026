@@ -904,6 +904,12 @@ const copInput=v=>v==null?'':Math.round(v).toLocaleString('es-CO');
 const pct=v=>v==null?'—':(v*100).toFixed(1)+'%';
 const mcls=v=>v>=.3?'bg-g':v>=.2?'bg-o':'bg-r';
 // tipoCuadrilla filter match helper
+function hasSN(s){return !!(s&&s.actividades&&s.actividades.some(function(a){return a.sec==='SITIO NUEVO';}));}
+function tipoBadge(s){
+  if(hasSN(s)) return '<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>';
+  if(s.tipo==='TSS') return '<span class="badge bg-b" style="font-size:8px">TSS</span>';
+  return '<span class="badge bg-k" style="font-size:8px">TI</span>';
+}
 function matchTipoCuadrilla(s, filTC){
   if(!filTC||filTC==='todos') return true;
   const sub=SUBCS.find(x=>x.lc===s.lc);
@@ -1032,7 +1038,7 @@ function renderDashboard(){
       <div class="sl">Margen Promedio</div><div class="sv" style="color:${avgM>=.4?'var(--go)':avgM>=.2?'var(--o)':'var(--r)'}">${pct(avgM)}</div><div class="ss">Utilidad: ${cop(tU)}</div></div>
     <div class="stat" style="border-color:var(--g3)"><div class="sl">Gastos Registrados</div><div class="sv">${ST.gastos.length}</div><div class="ss">${cop(ST.gastos.reduce((s,g)=>s+(g.valor||0),0))}</div></div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
-    <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge" style="background:${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'#7c3aed':s.tipo==='TSS'?'#1e3a5f':'#1a1a1a'};color:#fff;font-size:8px">${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'TI (SN)':s.tipo}</span>${s.catEfectiva?' <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
+    <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${tipoBadge(s)}${s.catEfectiva?' <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
     <td style="font-size:10px">${s.lc}</td>
     <td><span class="badge bg-gl" style="font-size:8px">${s.cat||'A'}</span></td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
@@ -1098,7 +1104,7 @@ function renderConsolidado(){
     tMTI+=c.matTI;tMCW+=c.matCW;tLog+=c.logist;tAd+=c.adicion;
     let tMIMO=0; tMIMO+=mimoTotal; tMIMOtot+=mimoTotal;
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>':`<span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>`}${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${tipoBadge(s)}${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
       <td style="font-size:10px">${s.fecha}</td>
       <td style="font-size:10px">${s.lc}</td>
       <td style="font-size:10px">${sub?.empresa||'—'}</td>
@@ -1147,7 +1153,7 @@ function renderConsolidadoTSS(){
     const cc=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
     tV+=cc.totalVenta;tC+=cc.totalCosto;
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge" style="background:${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'#7c3aed':s.tipo==='TSS'?'#1e3a5f':'#1a1a1a'};color:#fff;font-size:8px">${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'TI (SN)':s.tipo}</span></td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${tipoBadge(s)}</td>
       <td style="font-size:10px">${s.fecha||'—'}</td>
       <td style="font-size:10px">${s.lc||'—'}</td>
       <td><span class="badge bg-b" style="font-size:8px">${(s.ciudad||'').replace('Ciudad_','')}</span></td>
