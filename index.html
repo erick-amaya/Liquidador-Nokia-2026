@@ -719,19 +719,22 @@ function _renderFP(id){
   if(!el) return;
   var st=_fpState[id]||{year:'todos',mes:'todos'};
   var years=['2026','2025','2024'];
-  var rows='<div class="fp-all" onclick="_fpPick(''+id+'','todos','todos')">&#10003; Todas las Fechas</div>';
+  var q="'";
+  var rows='<div class="fp-all" onclick="_fpPick('+q+id+q+','+q+'todos'+q+','+q+'todos'+q+')">✓ Todas las Fechas</div>';
   for(var yi=0;yi<years.length;yi++){
     var y=years[yi];
     var ySel=st.year===y;
-    rows+='<div class="fp-year '+(ySel&&st.mes==='todos'?'fp-selected':'')+'" onclick="_fpPick(''+id+'',''+y+'','todos')">'+(ySel?'&#9660; ':'&#9658; ')+y+'</div>';
+    var yCls=ySel&&st.mes==='todos'?'fp-selected':'';
+    rows+='<div class="fp-year '+yCls+'" onclick="_fpPick('+q+id+q+','+q+y+q+','+q+'todos'+q+')">'+(ySel?'▾ ':'▸ ')+y+'</div>';
     if(ySel){
       for(var mi=0;mi<MESES_FULL.length;mi++){
         var mSel=st.mes===String(mi);
-        rows+='<div class="fp-mes '+(mSel?'fp-selected':'')+'" onclick="_fpPick(''+id+'',''+y+'',''+mi+'')">'+MESES_FULL[mi]+'</div>';
+        var mCls=mSel?'fp-selected':'';
+        rows+='<div class="fp-mes '+mCls+'" onclick="_fpPick('+q+id+q+','+q+y+q+','+q+mi+q+')">'+MESES_FULL[mi]+'</div>';
       }
     }
   }
-  el.innerHTML='<button class="fecha-picker-btn" onclick="event.stopPropagation();var d=this.nextElementSibling;d.classList.toggle('open')">'+_fpLabel(id)+' &#9660;</button><div class="fecha-picker-drop">'+rows+'</div>';
+  el.innerHTML='<button class="fecha-picker-btn" onclick="_fpToggle(this)">'+_fpLabel(id)+' ▾</button><div class="fecha-picker-drop">'+rows+'</div>';
 }
 
 function _fpPick(id,year,mes){
@@ -742,6 +745,7 @@ function _fpPick(id,year,mes){
   if(_fpCbs[id]) _fpCbs[id]();
 }
 
+function _fpToggle(btn){var d=btn.nextElementSibling;if(d)d.classList.toggle('open');}
 function fpGetYear(id){ return (_fpState[id]||{year:'todos'}).year; }
 function fpGetMes(id){ return (_fpState[id]||{mes:'todos'}).mes; };
 
