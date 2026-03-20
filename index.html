@@ -904,7 +904,7 @@ const copInput=v=>v==null?'':Math.round(v).toLocaleString('es-CO');
 const pct=v=>v==null?'—':(v*100).toFixed(1)+'%';
 const mcls=v=>v>=.3?'bg-g':v>=.2?'bg-o':'bg-r';
 // tipoCuadrilla filter match helper
-function hasSN(s){return !!(s&&s.actividades&&s.actividades.some(function(a){return a.sec==='SITIO NUEVO';}));}
+function hasSN(s){return !!(s&&s.actividades&&s.actividades.some(function(a){return a.sec==='SITIO NUEVO'||a.sec==='SITIO_NUEVO';}));}
 function tipoBadge(s){
   if(hasSN(s)) return '<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>';
   if(s.tipo==='TSS') return '<span class="badge bg-b" style="font-size:8px">TSS</span>';
@@ -2015,7 +2015,7 @@ function mostrarDetalleMes(mesIdx,year,mesNom){
   document.getElementById('tbody-rep-det').innerHTML=sitiosMes.map(s=>{
     const c=calcSitio(s);
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td><td>${s.lc}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO'||a.sec==='SITIO_NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td><td>${s.lc}</td>
       <td class="num">${cop(c.totalVenta)}</td><td class="num">${cop(c.totalCosto)}</td>
       <td class="num fw7 ${c.utilidad>=0?'tg':'tr'}">${cop(c.utilidad)}</td>
       <td class="num"><span class="badge ${mcls(c.margen)}">${pct(c.margen)}</span></td>
@@ -2338,7 +2338,7 @@ function buscarSitio(q){
   document.getElementById('tbody-dash').innerHTML=f.map(s=>{
     const c=calcSitio(s);
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO'||a.sec==='SITIO_NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td>
       <td><span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}">${s.tipo}</span></td>
       <td style="font-size:10px">${s.lc}</td>
       <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
