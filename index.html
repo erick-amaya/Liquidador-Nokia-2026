@@ -253,8 +253,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
   <div style="display:grid;grid-template-columns:1fr 340px;gap:14px">
     <div class="card">
       <div class="card-h"><h2>Sitios del Proyecto</h2></div>
-      <div style="padding:0;overflow-x:auto;max-height:480px;overflow-y:auto">
-        <table class="tbl" id="tbl-dash" style="min-width:700px">
+      <div style="padding:0;overflow-x:auto;max-height:calc(100vh - 320px);overflow-y:auto">
+        <table class="tbl" id="tbl-dash">
           <thead style="position:sticky;top:0;z-index:2"><tr>
             <th>Sitio</th><th>Tipo</th><th>LC</th><th>Ciudad</th>
             <th class="num th-nokia">Venta Nokia</th>
@@ -268,7 +268,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <div>
       <div class="card">
         <div class="card-h"><h2>Márgenes</h2></div>
-        <div class="card-b" id="margen-bars" style="max-height:480px;overflow-y:auto"></div>
+        <div class="card-b" id="margen-bars" style="max-height:calc(100vh - 400px);overflow-y:auto"></div>
       </div>
       <div class="card">
         <div class="card-h"><h2>Acciones Rápidas</h2></div>
@@ -308,9 +308,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     </div>
   </div>
   <div class="card">
-    <div style="padding:0;overflow-x:auto;max-height:600px;overflow-y:auto">
-      <table class="tbl" id="tbl-cons" style="min-width:1100px">
-        <colgroup><col><col><col><col><col></colgroup>
+    <div style="padding:0;overflow-x:auto;max-height:calc(100vh - 240px);overflow-y:auto">
+      <table class="tbl" id="tbl-cons">
         <thead style="position:sticky;top:0;z-index:2">
           <tr>
             <th rowspan="2">Sitio</th><th rowspan="2">Fecha</th>
@@ -446,9 +445,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="TSS">TSS (todas)</option>
         <option value="TI">TI (todas)</option>
       </select>
-    <select class="fc" id="ana-lc-filter" style="width:180px" onchange="renderAnalitica()">
-      <option value="">Todos los LC</option>
-    </select>
+    <span style="font-size:10px;color:var(--g3)">Métricas actualizadas automáticamente</span>
   </div>
   <div class="g4 mb14" id="ana-stats"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
@@ -826,36 +823,10 @@ let SUBCS=[
 const PINS={admin:'N0ki@',operador:'1234'};
 let ST={
   user:'',role:'',isAdmin:false,
-  sitios:[
-    {id:'CAL.Vallegrande-2',nombre:'CAL.Vallegrande-2',tipo:'TI',fecha:'2026-01-26',ciudad:'Ciudad_Principal',lc:'JOHAN VELOZA',cat:'A',
-      cw_nokia:0,cw_costo:0,tiene_cw:false,costos:{matTI:0,matCW:0,backoffice:0},
-      actividades:[
-        {sec:'MODERNIZACION',tipo:'BASE',id:'PM',cant:1},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'IMP_RF',cant:5},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'IMP_BB',cant:1},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'DESMONTE_RF',cant:5},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'DESMONTE_BB',cant:2},
-        {sec:'ADJ',tipo:'ADJ',id:'IMP_Rectificador',cant:1},
-      ]},
-    {id:'CAU.Santa Leticia',nombre:'CAU.Santa Leticia',tipo:'TI',fecha:'2026-01-26',ciudad:'Dificil Acceso',lc:'ALVARO GONZALEZ',cat:'A',
-      cw_nokia:0,cw_costo:0,tiene_cw:false,costos:{matTI:0,matCW:0,backoffice:0},
-      actividades:[
-        {sec:'MODERNIZACION',tipo:'BASE',id:'PM',cant:1},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'IMP_RF',cant:4},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'DESMONTE_RF',cant:3},
-        {sec:'MODERNIZACION',tipo:'BASE',id:'DESMONTE_BB',cant:1},
-        {sec:'ADJ',tipo:'ADJ',id:'Logistica_Inversa_Antenas',cant:1},
-      ]},
-    {id:'TSS',nombre:'TSS',tipo:'TSS',fecha:'2026-01-15',ciudad:'varios',lc:'JOHAN VELOZA',cat:'A',
-      cw_nokia:0,cw_costo:0,tiene_cw:false,costos:{matTI:0,matCW:0,backoffice:0},
-      actividades:[
-        {sec:'TSS',tipo:'BASE',id:'TSS_V',ciudad:'Ciudad_Secundaria',sitioid:'IBG.Ricaurte',cant:1},
-        {sec:'TSS',tipo:'BASE',id:'TSS_V',ciudad:'Ciudad_Intermedia',sitioid:'TOL.Natagaima',cant:1},
-        {sec:'TSS',tipo:'BASE',id:'TSS_VR',ciudad:'Ciudad_Intermedia',sitioid:'TOL.Espinal-2',cant:1},
-      ]}
-  ],
+  sitios:[{"id":"CAL.Vallegrande-2","nombre":"CAL.Vallegrande-2","tipo":"TI","fecha":"2026-01-01","ciudad":"Ciudad_Principal","lc":"JOHAN VELOZA","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"IMP_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":2.0,"unidad":"Unidad"},{"id":"IMP_RF","sec":"5G","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"IMP_Rectificador","sec":"ADJ","tipo":"ADJ","cant":1.0,"unidad":"Sitio"}]},{"id":"CAU.Santa Leticia","nombre":"CAU.Santa Leticia","tipo":"TI","fecha":"2026-01-23","ciudad":"Dificil Acceso","lc":"ALVARO GONZALEZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":1.0,"unidad":"Unidad"}]},{"id":"FLO.Ciudadela-2","nombre":"FLO.Ciudadela-2","tipo":"TI","fecha":"2026-02-01","ciudad":"Ciudad_Principal","lc":"MOISES LADINO","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"FLO.Berlin","nombre":"FLO.Berlin","tipo":"TI","fecha":"2026-02-03","ciudad":"Ciudad_Intermedia","lc":"ALVARO GONZALEZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"}]},{"id":"NAR.Leiva-2","nombre":"NAR.Leiva-2","tipo":"TI","fecha":"2026-02-07","ciudad":"Ciudad_Intermedia","lc":"JECSON ANDRES FESTES","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"TOL.El Vergel","nombre":"TOL.El Vergel","tipo":"TI","fecha":"2026-02-09","ciudad":"Dificil Acceso","lc":"JOHAN VELOZA","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":1.0,"unidad":"Unidad"}]},{"id":"FLO.Bocana-2","nombre":"FLO.Bocana-2","tipo":"TI","fecha":"2026-02-09","ciudad":"Ciudad_Intermedia","lc":"MOISES LADINO","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":7.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"FLO.Villa Monica","nombre":"FLO.Villa Monica","tipo":"TI","fecha":"2026-02-09","ciudad":"Ciudad_Intermedia","lc":"ALVARO GONZALEZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"}]},{"id":"VAL.Yumbo-2","nombre":"VAL.Yumbo-2","tipo":"TI","fecha":"2026-01-01","ciudad":"Ciudad_Principal","lc":"JHON ALVARO MUÑOZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"POP.La Esmeralda","nombre":"POP.La Esmeralda","tipo":"TI","fecha":"2026-02-16","ciudad":"Ciudad_Secundaria","lc":"JECSON  FESTES","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":9.0,"unidad":"Unidad"}]},{"id":"CAD.Guarinocito","nombre":"CAD.Guarinocito","tipo":"TI","fecha":"2026-02-19","ciudad":"Dificil Acceso","lc":"Baldomiro Benavides (Esp)","cat":"AA","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"}]},{"id":"CAQ.Getucha","nombre":"CAQ.Getucha","tipo":"TI","fecha":"2026-02-19","ciudad":"Dificil Acceso","lc":"ALVARO GONZALEZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":9.0,"unidad":"Unidad"},{"id":"IMP_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"TOL.Chaparral","nombre":"TOL.Chaparral","tipo":"TI","fecha":"2026-02-23","ciudad":"Ciudad_Intermedia","lc":"JOHAN VELOZA","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"TOL.Mariquita","nombre":"TOL.Mariquita","tipo":"TI","fecha":"2026-02-24","ciudad":"Ciudad_Intermedia","lc":"JECSON  FESTES","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":2.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"}]},{"id":"CAL.Compartir","nombre":"CAL.Compartir","tipo":"TI","fecha":"2026-03-01","ciudad":"Ciudad_Principal","lc":"MOISES LADINO","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":8.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":7.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"}]},{"id":"CAQ.Doncello","nombre":"CAQ.Doncello","tipo":"TI","fecha":"2026-03-06","ciudad":"Dificil Acceso","lc":"ALVARO GONZALEZ","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"IMP_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":2.0,"unidad":"Unidad"}]},{"id":"NAR.Tumaco-2","nombre":"NAR.Tumaco-2","tipo":"TI","fecha":"2026-03-09","ciudad":"Ciudad_Intermedia","lc":"BALDOMIRO BENAVIDES","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":7.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":10.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":3.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":2.0,"unidad":"Unidad"}]},{"id":"HUI.Palestina-2","nombre":"HUI.Palestina-2","tipo":"TI","fecha":"2026-03-09","ciudad":"Ciudad_Intermedia","lc":"JECSON  FESTES","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":4.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":2.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":1.0,"unidad":"Unidad"}]},{"id":"ANT.Pueblo Nuevo","nombre":"ANT.Pueblo Nuevo","tipo":"TI","fecha":"2026-03-14","ciudad":"Ciudad_Intermedia","lc":"JOSE DORRONSORO","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":5.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":6.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":1.0,"unidad":"Unidad"}]},{"id":"CAL.Prados del Sur","nombre":"CAL.Prados del Sur","tipo":"TI","fecha":"2026-03-14","ciudad":"Ciudad_Principal","lc":"MOISES LADINO","cat":"A","tiene_cw":false,"cw_nokia":0,"cw_costo":0,"costos":{"backoffice":0},"actividades":[{"id":"PM","sec":"MODERNIZACION","tipo":"BASE","cant":1.0,"unidad":"Sitio"},{"id":"IMP_RF","sec":"MODERNIZACION","tipo":"BASE","cant":6.0,"unidad":"Unidad"},{"id":"DESMONTE_RF","sec":"MODERNIZACION","tipo":"BASE","cant":7.0,"unidad":"Unidad"},{"id":"DESMONTE_BB","sec":"MODERNIZACION","tipo":"BASE","cant":2.0,"unidad":"Unidad"},{"id":"Logistica_Inversa_Antenas","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"},{"id":"REUB_RF_Airscale_AHPCx","sec":"ADJ","tipo":"ADJ","cant":3.0,"unidad":"Unidad"}]}],
   gastos:[]
 };
+const _DEFAULT_SITIOS_COUNT=20;
 
 // ============================================================
 // HELPERS
@@ -921,13 +892,15 @@ function doLogout(){if(!confirm('¿Cerrar sesión?'))return;document.getElementB
 // ============================================================
 function getPrecio(tipo,id,zona,cat,ciudadTSS){
   const z=ZI[ciudadTSS||zona]??0;
-  const lista=tipo==='BASE'?CAT.BASE:tipo==='ADJ'?CAT.ADJ:CAT.CR;
-  const def=lista.find(a=>a.id===id);
+  const tipoN=(tipo==='BASE'||tipo==='TI')?'BASE':tipo==='ADJ'?'ADJ':'CR';
+  const primary=tipoN==='BASE'?CAT.BASE:tipoN==='ADJ'?CAT.ADJ:CAT.CR;
+  let def=primary.find(a=>a.id===id);
+  if(!def) def=CAT.BASE.find(a=>a.id===id)||CAT.ADJ.find(a=>a.id===id)||CAT.CR.find(a=>a.id===id);
   if(!def)return{nokia:0,subc:0,def:null};
-  const nokia=def.nokia[z]||0;
+  const nokia=def.nokia?.[z]||0;
   const cats=['A','AA','AAA'];
-  const c=cats.includes(cat)?cat:'A';
-  const subc=def[c]?(def[c][z]||0):0;
+  const cv=cats.includes(cat)?cat:'A';
+  const subc=def[cv]?.[z]||0;
   return{nokia,subc,def};
 }
 
@@ -940,8 +913,9 @@ function calcSitio(sitio){
   const acts=sitio.actividades.map(act=>{
     const p=getPrecio(act.tipo,act.id,sitio.ciudad,cat,act.ciudad||null);
     const tN=p.nokia*(act.cant||0),tS=p.subc*(act.cant||0);
-    if(act.tipo==='CR'){nokiaCR+=tN;subcCR+=tS}
-    else if(act.tipo==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
+    const at=act.tipo||'BASE';
+    if(at==='CR'){nokiaCR+=tN;subcCR+=tS}
+    else if(at==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
     else{nokiaTI+=tN;subcTI+=tS}
     return{...act,def:p.def,preNokia:p.nokia,preSubc:p.subc,totalNokia:tN,totalSubc:tS};
   });
@@ -1530,27 +1504,28 @@ function updCant(sid,idx,val){
   if(!s||!s.actividades[idx]) return;
   s.actividades[idx].cant=parseFloat(val)||0;
   saveState();
-  // Re-calculate and update all totals inline (no full re-render to preserve input focus)
+  // Live update all totals
   const cc=calcSitio(s);
   const mc=cc.margen>=.3?'#1a7a1a':cc.margen>=.2?'#FFC000':'#c0392b';
   const set=(id,v)=>{const el=document.getElementById(id+sid);if(el)el.textContent=v;};
   const setC=(id,clr)=>{const el=document.getElementById(id+sid);if(el)el.style.color=clr;};
-  // Update activity row totals
-  const totEl=document.getElementById(`act-tot-${sid}-${idx}`);
-  if(totEl) totEl.textContent=cop(cc.acts[idx]?.totalNokia||0);
-  const totSEl=document.getElementById(`act-tots-${sid}-${idx}`);
-  if(totSEl) totSEl.textContent=cop(cc.acts[idx]?.totalSubc||0);
-  // Update summary totals
+  // Per-row totals
+  cc.acts.forEach((act,i)=>{
+    const nEl=document.getElementById(`act-tot-${sid}-${i}`);
+    const sEl=document.getElementById(`act-tots-${sid}-${i}`);
+    if(nEl) nEl.textContent=cop(act.totalNokia||0);
+    if(sEl) sEl.textContent=cop(act.totalSubc||0);
+  });
+  // Summary totals
   set('liq-ti-val-',cop(cc.nokiaTI));
   set('liq-adj-val-',cop(cc.nokiaADJ));
   set('liq-cr-val-',cop(cc.nokiaCR));
-  set('liq-tot-nokia-',cop(cc.totalVenta));
-  set('liq-subc-val-',cop(cc.subcTI+cc.subcADJ));
+  set('liq-tv-val-',cop(cc.totalVenta));
+  set('liq-subc-val-',cop(cc.subcTI+cc.subcADJ+cc.subcCR));
   set('liq-tot-val-',cop(cc.totalCosto));
   set('liq-tot2-val-',cop(cc.totalCosto));
   set('liq-ut-val-',cop(cc.utilidad)); setC('liq-ut-val-',mc);
   set('liq-mg-val-',pct(cc.margen));   setC('liq-mg-val-',mc);
-  set('liq-tv-val-',cop(cc.totalVenta));
   const bar=document.getElementById('liq-bar-'+sid);
   if(bar){bar.style.width=Math.min(cc.margen*100,100)+'%';bar.style.background=mc;}
 }
@@ -1664,8 +1639,11 @@ async function loadFromSheets(){
 }
 
 function loadState(){
-  // Cargar desde localStorage primero (respaldo local)
-  try{const d=JSON.parse(localStorage.getItem('igt26')||'{}');if(d.sitios&&d.sitios.length){ST.sitios=d.sitios;if(d.gastos)ST.gastos=d.gastos;}}catch(e){}
+  try{
+    const d=JSON.parse(localStorage.getItem('igt26')||'{}');
+    if(d.sitios&&d.sitios.length>=_DEFAULT_SITIOS_COUNT){ST.sitios=d.sitios;if(d.gastos)ST.gastos=d.gastos;}
+    else if(d.gastos&&d.gastos.length){ST.gastos=d.gastos;}
+  }catch(e){}
 }
 
 async function syncInit(){
@@ -1928,19 +1906,7 @@ function exportarReporteExcel(){
 // ============================================================
 function renderAnalitica(){
   const filTCAna=(document.getElementById('ana-tipo-cuadrilla')?.value)||'todos';
-  const filLC=(document.getElementById('ana-lc-filter')?.value)||'';
-  // Populate LC dropdown with unique LCs from filtered sites
-  const lcSel=document.getElementById('ana-lc-filter');
-  if(lcSel){
-    const curLC=lcSel.value;
-    const allLCs=[...new Set(ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna)).map(s=>s.lc).filter(Boolean))].sort();
-    lcSel.innerHTML='<option value="">Todos los LC</option>'+allLCs.map(l=>`<option value="${l}" ${l===curLC?'selected':''}>${l}</option>`).join('');
-  }
-  const sitiosAna=ST.sitios.filter(s=>{
-    if(!matchTipoCuadrilla(s,filTCAna)) return false;
-    if(filLC && s.lc!==filLC) return false;
-    return true;
-  });
+  const sitiosAna=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna));
   const calcs=sitiosAna.map(s=>({s,c:calcSitio(s)}));
   if(!calcs.length){document.getElementById('ana-stats').innerHTML='<div class="alert al-i">Sin datos aún.</div>';return;}
 
