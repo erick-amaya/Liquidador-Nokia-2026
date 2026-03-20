@@ -907,7 +907,7 @@ function getPrecio(tipo,id,zona,cat,ciudadTSS){
   const nokia=def.nokia?.[z]||0;
   const cats=['A','AA','AAA'];
   const c=cats.includes(cat)?cat:'A';
-  const subc=def[c]?.(def[c][z]||0)||0;
+  const subc=def[c]?.[z]||0;
   return{nokia,subc,def};
 }
 
