@@ -224,7 +224,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <div class="flex gap8">
       <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:160px" oninput="buscarSitio(this.value)">
       <select class="fc" id="dash-year" style="width:80px" onchange="renderDashboard()">
-        <option value="todos">Todos</option>
+        <option value="todos">Todos los Años</option>
         <option value="2026">2026</option>
         <option value="2025">2025</option>
       </select>
@@ -294,19 +294,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado — Todos los Sitios</h1>
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
-      <select class="fc" id="fil-lc-sitios" style="width:180px" onchange="renderConsolidado()">
+      <select class="fc" id="fil-lc-sitios" style="width:200px" onchange="renderConsolidado()">
         <option value="">Todas las Cuadrillas (LC)</option>
-      </select>
-      <select class="fc" id="fil-tipo-cuadrilla" style="width:140px" onchange="renderConsolidado()">
-        <option value="todos">Todas las Cuadrillas</option>
-        <option value="TI Ingetel">TI Ingetel</option>
-        <option value="TSS Ingetel">TSS Ingetel</option>
-        <option value="Ingetel">Ingetel (TI+TSS)</option>
-        <option value="TI Scytel">TI Scytel</option>
-        <option value="TSS Scytel">TSS Scytel</option>
-        <option value="Scytel">Scytel (TI+TSS)</option>
-        <option value="TSS">TSS (todas)</option>
-        <option value="TI">TI (todas)</option>
       </select>
       <button class="btn bp no-print" onclick="openModal('m-nuevo-sitio')">＋ Nuevo</button>
     </div>
@@ -344,18 +333,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado TSS</h1>
     <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
-      <select class="fc" id="tss-fil-tc" style="width:160px" onchange="renderConsolidadoTSS()">
-        <option value="todos">Todas las Cuadrillas</option>
-        <option value="TI Ingetel">TI Ingetel</option>
-        <option value="TSS Ingetel">TSS Ingetel</option>
-        <option value="Ingetel">Ingetel (TI+TSS)</option>
-        <option value="TI Scytel">TI Scytel</option>
-        <option value="TSS Scytel">TSS Scytel</option>
-        <option value="Scytel">Scytel (TI+TSS)</option>
-        <option value="TSS">TSS (todas)</option>
-        <option value="TI">TI (todas)</option>
-      </select>
-      <select class="fc" id="tss-fil-lc" style="width:180px" onchange="renderConsolidadoTSS()">
+      <select class="fc" id="tss-fil-lc" style="width:200px" onchange="renderConsolidadoTSS()">
         <option value="">Todas las Cuadrillas (LC)</option>
       </select>
     </div>
@@ -425,8 +403,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <select class="fc" id="rep-year" style="width:100px" onchange="renderReportes()">
         <option value="todos">Todos los años</option><option value="2026">2026</option><option value="2025">2025</option>
       </select>
-      <select class="fc" id="rep-tipo-cuadrilla" style="width:140px" onchange="renderReportes()">
-        <option value="todos">Todas las Cuadrillas</option>
+      <select class="fc" id="rep-tipo-cuadrilla" data-lc="true" style="width:140px" onchange="renderReportes()">
+        <option value="todos">Todas las Cuadrillas (LC)</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -491,8 +469,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="TSS">TSS (todas)</option>
         <option value="TI">TI (todas)</option>
       </select>
-    <select class="fc" id="ana-lc-filter" style="width:180px" onchange="renderAnalitica()">
-      <option value="">Todas las Cuadrillas</option>
+    <select class="fc" id="ana-lc-filter" style="width:200px" onchange="renderAnalitica()">
+      <option value="">Todas las Cuadrillas (LC)</option>
     </select>
   </div>
   <div class="g4 mb14" id="ana-stats"></div>
@@ -1012,7 +990,7 @@ function renderDashboard(){
       <div class="sl">Margen Promedio</div><div class="sv" style="color:${avgM>=.4?'var(--go)':avgM>=.2?'var(--o)':'var(--r)'}">${pct(avgM)}</div><div class="ss">Utilidad: ${cop(tU)}</div></div>
     <div class="stat" style="border-color:var(--g3)"><div class="sl">Gastos Registrados</div><div class="sv">${ST.gastos.length}</div><div class="ss">${cop(ST.gastos.reduce((s,g)=>s+(g.valor||0),0))}</div></div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
-    <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''} ${s.catEfectiva?'<span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
+    <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>':`<span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>`} ${s.catEfectiva?'<span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
     <td><span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}">${s.tipo}</span></td>
     <td style="font-size:10px">${s.lc}</td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
@@ -1050,7 +1028,7 @@ function renderDashboard(){
 // CONSOLIDATED
 // ============================================================
 function renderConsolidado(){
-  const filTC=(document.getElementById('fil-tipo-cuadrilla')?.value)||'todos';
+  const filTC='todos';
   const filLCSit=(document.getElementById('fil-lc-sitios')?.value)||'';
   const lcSelSit=document.getElementById('fil-lc-sitios');
   if(lcSelSit){const cur=lcSelSit.value;const lcs=[...new Set(ST.sitios.filter(s=>matchTipoCuadrilla(s,filTC)).map(s=>s.lc).filter(Boolean))].sort();lcSelSit.innerHTML='<option value="">Todas las Cuadrillas (LC)</option>'+lcs.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');if(cur)lcSelSit.value=cur;}
@@ -1067,18 +1045,23 @@ function renderConsolidado(){
       const p=getPrecio(a.tipo||'BASE',a.id,s.ciudad,s.catEfectiva||s.cat,null);
       return sum+p.nokia*(a.cant||0);
     },0);
-    tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=c.nokiaADJ;
+    const adjTotal=s.actividades.filter(a=>a.sec==='ADJ'||a.tipo==='ADJ').reduce((sum,a)=>{
+      const p=getPrecio('ADJ',a.id,s.ciudad,s.catEfectiva||s.cat,null);
+      return sum+p.nokia*(a.cant||0);
+    },0);
+    tADJ+=adjTotal;
+    tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=adjTotal;
     tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=c.subcTI;tSCW+=c.subcCW;
     tMTI+=c.matTI;tMCW+=c.matCW;tLog+=c.logist;tAd+=c.adicion;
     let tMIMO=0; tMIMO+=mimoTotal; tMIMOtot+=mimoTotal;
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>':`<span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>`}${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
       <td style="font-size:10px">${s.fecha}</td>
       <td style="font-size:10px">${s.lc}</td>
       <td style="font-size:10px">${sub?.empresa||'—'}</td>
       <td><span class="badge bg-gl" style="font-size:8px">${s.cat}</span></td>
-      <td class="num" style="background:#eff6ff">${cop(c.nokiaTI)}${s.actividades.some(a=>a.sec==='SITIO NUEVO')?' <span style="font-size:9px;color:#7c3aed">(SN)</span>':''}</td>
-      <td class="num" style="background:#eff6ff">${cop(c.nokiaADJ)}</td>
+      <td class="num" style="background:#eff6ff">${cop(c.nokiaTI)}</td>
+      <td class="num" style="background:#eff6ff">${cop(adjTotal)}</td>
       <td class="num" style="background:#eff6ff">${c.nokiaCW>0?cop(c.nokiaCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaCR)}</td>
       <td class="num fw7" style="background:#dbeafe;border-right:2px solid #93c5fd">${mimoTotal>0?cop(mimoTotal):'<span class="tm">$0</span>'}</td>
@@ -1110,7 +1093,7 @@ function renderConsolidado(){
 // LIQUIDADOR - DOBLE CARD (Nokia + SubC)
 // ============================================================
 function renderConsolidadoTSS(){
-  const filTC=(document.getElementById('tss-fil-tc')?.value)||'todos';
+  const filTC='todos';
   const filLC=(document.getElementById('tss-fil-lc')?.value)||'';
   // Populate LC dropdown
   const lcSel=document.getElementById('tss-fil-lc');
@@ -1265,8 +1248,8 @@ function renderLiqSitio(sitio){
             <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','lc',this.value)">
               ${SUBCS.map(s=>`<option value="${s.lc}" ${sitio.lc===s.lc?'selected':''}>${s.lc} (Cat ${s.cat})</option>`).join('')}
             </select></div>
-          <div class="fg mb0"><label class="fl">Fecha</label>
-            <input type="date" class="fc" style="border:2px solid #1a5276" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+          <div class="fg mb0" style="min-width:0"><label class="fl">Fecha</label>
+            <input type="date" class="fc" style="border:2px solid #1a5276;width:100%" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
           <div class="fg mb0"><label class="fl">Categoría Especial</label>
             <div style="display:flex;gap:6px;align-items:center">
