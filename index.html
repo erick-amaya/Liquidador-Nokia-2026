@@ -1375,7 +1375,6 @@ function renderLiqSitio(sitio){
           <tr><td colspan="2"><hr class="div"></td></tr>
           <tr><td style="font-weight:700">Total Costo</td><td style="text-align:right;font-weight:800;color:var(--r)" id="liq-tot-val-${sitio.id}">${cop(c.totalCosto)}</td></tr>
         </table>
-        <button class="btn bd btn-sm no-print" style="margin-top:10px;width:100%" onclick="openGastoFor('${sitio.id}')">＋ Agregar Gasto</button>
       </div>
     </div>`;
 
@@ -1398,8 +1397,8 @@ function renderLiqSitio(sitio){
 
   const gastosCard=`
     <div class="card">
-      <div class="card-h" style="background:#FFF0CE;border-left-color:#FFC000;color:#000"><h2>Gastos Registrados</h2>
-        <button class="btn bd btn-sm no-print" onclick="openGastoFor('${sitio.id}')">＋</button>
+      <div class="card-h" style="background:#FFF0CE;border-left-color:#FFC000;color:#000;display:flex;justify-content:space-between;align-items:center"><h2>Gastos Registrados</h2>
+        <button class="btn bd no-print" style="margin-left:auto;border-radius:20px;font-weight:700" onclick="openGastoFor('${sitio.id}')">＋ Agregar Gasto</button>
       </div>
       <div style="padding:0"><table class="tbl">
         <thead><tr style="background:#FFD36C">
