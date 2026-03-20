@@ -236,7 +236,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
       </select>
       <select class="fc" id="dash-tipo-cuadrilla" style="width:140px" onchange="renderDashboard()">
-        <option value="todos">Todos los tipos</option>
+        <option value="todos">Todas las Cuadrillas</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -294,8 +294,11 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado — Todos los Sitios</h1>
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
+      <select class="fc" id="fil-lc-sitios" style="width:180px" onchange="renderConsolidado()">
+        <option value="">Todas las Cuadrillas (LC)</option>
+      </select>
       <select class="fc" id="fil-tipo-cuadrilla" style="width:140px" onchange="renderConsolidado()">
-        <option value="todos">Todos los tipos</option>
+        <option value="todos">Todas las Cuadrillas</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -340,6 +343,22 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Consolidado TSS</h1>
     <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
+    <div class="flex gap8">
+      <select class="fc" id="tss-fil-tc" style="width:160px" onchange="renderConsolidadoTSS()">
+        <option value="todos">Todas las Cuadrillas</option>
+        <option value="TI Ingetel">TI Ingetel</option>
+        <option value="TSS Ingetel">TSS Ingetel</option>
+        <option value="Ingetel">Ingetel (TI+TSS)</option>
+        <option value="TI Scytel">TI Scytel</option>
+        <option value="TSS Scytel">TSS Scytel</option>
+        <option value="Scytel">Scytel (TI+TSS)</option>
+        <option value="TSS">TSS (todas)</option>
+        <option value="TI">TI (todas)</option>
+      </select>
+      <select class="fc" id="tss-fil-lc" style="width:180px" onchange="renderConsolidadoTSS()">
+        <option value="">Todas las Cuadrillas (LC)</option>
+      </select>
+    </div>
   </div>
   <div class="card">
     <div style="padding:0;overflow-x:auto;max-height:calc(100vh - 200px);overflow-y:auto">
@@ -404,10 +423,10 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
       <select class="fc" id="rep-year" style="width:100px" onchange="renderReportes()">
-        <option value="2026">2026</option><option value="2025">2025</option>
+        <option value="todos">Todos los años</option><option value="2026">2026</option><option value="2025">2025</option>
       </select>
       <select class="fc" id="rep-tipo-cuadrilla" style="width:140px" onchange="renderReportes()">
-        <option value="todos">Todos los tipos</option>
+        <option value="todos">Todas las Cuadrillas</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -462,7 +481,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Analítica Gerencial</h1>
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <select class="fc" id="ana-tipo-cuadrilla" style="width:140px" onchange="renderAnalitica()">
-      <option value="todos">Todos los tipos</option>
+      <option value="todos">Todas las Cuadrillas</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -472,7 +491,9 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="TSS">TSS (todas)</option>
         <option value="TI">TI (todas)</option>
       </select>
-    <span style="font-size:10px;color:var(--g3)">Métricas actualizadas automáticamente</span>
+    <select class="fc" id="ana-lc-filter" style="width:180px" onchange="renderAnalitica()">
+      <option value="">Todas las Cuadrillas</option>
+    </select>
   </div>
   <div class="g4 mb14" id="ana-stats"></div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
@@ -991,7 +1012,7 @@ function renderDashboard(){
       <div class="sl">Margen Promedio</div><div class="sv" style="color:${avgM>=.4?'var(--go)':avgM>=.2?'var(--o)':'var(--r)'}">${pct(avgM)}</div><div class="ss">Utilidad: ${cop(tU)}</div></div>
     <div class="stat" style="border-color:var(--g3)"><div class="sl">Gastos Registrados</div><div class="sv">${ST.gastos.length}</div><div class="ss">${cop(ST.gastos.reduce((s,g)=>s+(g.valor||0),0))}</div></div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
-    <td><strong>${s.nombre}</strong>${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;vertical-align:middle">E</span>`:''}</td>
+    <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''} ${s.catEfectiva?'<span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
     <td><span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}">${s.tipo}</span></td>
     <td style="font-size:10px">${s.lc}</td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
@@ -1030,11 +1051,14 @@ function renderDashboard(){
 // ============================================================
 function renderConsolidado(){
   const filTC=(document.getElementById('fil-tipo-cuadrilla')?.value)||'todos';
+  const filLCSit=(document.getElementById('fil-lc-sitios')?.value)||'';
+  const lcSelSit=document.getElementById('fil-lc-sitios');
+  if(lcSelSit){const cur=lcSelSit.value;const lcs=[...new Set(ST.sitios.filter(s=>matchTipoCuadrilla(s,filTC)).map(s=>s.lc).filter(Boolean))].sort();lcSelSit.innerHTML='<option value="">Todas las Cuadrillas (LC)</option>'+lcs.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');if(cur)lcSelSit.value=cur;}
   let tV=0,tC=0,tTI=0,tADJ=0,tCW=0,tCR=0,tSTC=0,tSCW=0,tMTI=0,tMCW=0,tLog=0,tAd=0,tMIMOtot=0;
   const sitiosFiltrados=ST.sitios.filter(s=>{
-    if(filTC==='todos') return true;
-    const sub=SUBCS.find(x=>x.lc===s.lc);
-    return matchTipoCuadrilla(s, filTC);
+    if(!matchTipoCuadrilla(s,filTC)) return false;
+    if(filLCSit&&s.lc!==filLCSit) return false;
+    return true;
   });
   const rows=sitiosFiltrados.map(s=>{
     const c=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
@@ -1086,13 +1110,18 @@ function renderConsolidado(){
 // LIQUIDADOR - DOBLE CARD (Nokia + SubC)
 // ============================================================
 function renderConsolidadoTSS(){
-  const tss=ST.sitios.filter(s=>s.tipo==='TSS');
+  const filTC=(document.getElementById('tss-fil-tc')?.value)||'todos';
+  const filLC=(document.getElementById('tss-fil-lc')?.value)||'';
+  // Populate LC dropdown
+  const lcSel=document.getElementById('tss-fil-lc');
+  if(lcSel){const cur=lcSel.value;const lcs=[...new Set(ST.sitios.filter(s=>s.tipo==='TSS').map(s=>s.lc).filter(Boolean))].sort();lcSel.innerHTML='<option value="">Todas las Cuadrillas (LC)</option>'+lcs.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');if(cur)lcSel.value=cur;}
+  const tss=ST.sitios.filter(s=>s.tipo==='TSS'&&matchTipoCuadrilla(s,filTC)&&(!filLC||s.lc===filLC));
   let tV=0,tC=0;
   const rows=tss.map(s=>{
     const cc=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
     tV+=cc.totalVenta;tC+=cc.totalCosto;
     return`<tr>
-      <td><strong>${s.nombre}</strong></td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td>
       <td style="font-size:10px">${s.fecha||'—'}</td>
       <td style="font-size:10px">${s.lc||'—'}</td>
       <td><span class="badge bg-b" style="font-size:8px">${(s.ciudad||'').replace('Ciudad_','')}</span></td>
@@ -1227,25 +1256,29 @@ function renderLiqSitio(sitio){
         </div>
       </div>
       <div class="card-b">
-        <div class="g3">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
           <div class="fg mb0"><label class="fl">Tipo Ciudad</label>
-            <select class="fc" onchange="updSitio('${sitio.id}','ciudad',this.value)">
+            <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','ciudad',this.value)">
               ${ZONAS.map(z=>`<option value="${z}" ${sitio.ciudad===z?'selected':''}>${z.replace('Ciudad_','')}</option>`).join('')}
             </select></div>
           <div class="fg mb0"><label class="fl">LC / Subcontratista</label>
-            <select class="fc" onchange="updSitio('${sitio.id}','lc',this.value)">
+            <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','lc',this.value)">
               ${SUBCS.map(s=>`<option value="${s.lc}" ${sitio.lc===s.lc?'selected':''}>${s.lc} (Cat ${s.cat})</option>`).join('')}
             </select></div>
           <div class="fg mb0"><label class="fl">Fecha</label>
-            <input type="date" class="fc" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+            <input type="date" class="fc" style="border:2px solid #1a5276" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
           <div class="fg mb0"><label class="fl">Categoría Especial</label>
             <div style="display:flex;gap:6px;align-items:center">
-              <select class="fc" style="width:120px" onchange="setSitioEspecial('${sitio.id}',this.value)">
-                <option value="">Normal (${sitio.cat})</option>
-                <option value="AA" ${sitio.catEfectiva==='AA'?'selected':''}>AA (Especial) ⭐</option>
-                <option value="AAA" ${sitio.catEfectiva==='AAA'?'selected':''}>AAA (Especial) ⭐⭐</option>
-              </select>
+              ${(()=>{
+                const baseCat=sitio.cat||'A';
+                const opts=baseCat==='A'?['AA','AAA']:baseCat==='AA'?['AAA']:[];
+                const disabled=baseCat==='AAA';
+                return`<select class="fc" style="border:2px solid #7c3aed;width:140px" ${disabled?'disabled':''} onchange="setSitioEspecial('${sitio.id}',this.value)">
+                  <option value="">Normal (${baseCat})${disabled?' — máx':''}</option>
+                  ${opts.map(o=>`<option value="${o}" ${sitio.catEfectiva===o?'selected':''}>${o} ⭐</option>`).join('')}
+                </select>`;
+              })()}
               ${sitio.catEfectiva?`<span style="background:#7c3aed;color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">E</span>`:''}
             </div>
           </div>
@@ -1870,7 +1903,8 @@ let _charts={};
 function destroyChart(id){if(_charts[id]){_charts[id].destroy();delete _charts[id]}}
 
 function renderReportes(){
-  const year=parseInt(document.getElementById('rep-year').value)||2026;
+  const yearVal=document.getElementById('rep-year').value;
+  const year=yearVal==='todos'?null:parseInt(yearVal)||2026;
   const mesFiltro=document.getElementById('rep-mes').value;
   const isTodos=mesFiltro==='todos';
   const filTCRep=(document.getElementById('rep-tipo-cuadrilla')?.value)||'todos';
@@ -1880,7 +1914,8 @@ function renderReportes(){
       if(!matchTipoCuadrilla(s, filTCRep)) return false;
       if(!s.fecha)return false;
       const d=new Date(s.fecha);
-      return d.getFullYear()===year&&d.getMonth()===m;
+      if(year!==null&&d.getFullYear()!==year) return false;
+      return d.getMonth()===m;
     });
     const calcs=sitiosMes.map(s=>calcSitio(s));
     const venta=calcs.reduce((s,c)=>s+c.totalVenta,0);
@@ -1899,7 +1934,7 @@ function renderReportes(){
   const totSitios=display.reduce((s,m)=>s+m.sitiosMes.length,0);
 
   document.getElementById('rep-stats').innerHTML=`
-    <div class="stat"><div class="sl">Período</div><div class="sv">${isTodos?year:MESES[parseInt(mesFiltro)]}</div><div class="ss">${totSitios} sitios</div></div>
+    <div class="stat"><div class="sl">Período</div><div class="sv">${year===null?'Todos':(isTodos?year:MESES[parseInt(mesFiltro)])}</div><div class="ss">${totSitios} sitios</div></div>
     <div class="stat" style="border-color:var(--b)"><div class="sl">Venta Nokia</div><div class="sv" style="font-size:15px">${cop(totV)}</div></div>
     <div class="stat" style="border-color:var(--o)"><div class="sl">Costo SubC</div><div class="sv" style="font-size:15px;color:var(--o)">${cop(totC)}</div></div>`;
 
@@ -1948,7 +1983,7 @@ function mostrarDetalleMes(mesIdx,year,mesNom){
   document.getElementById('tbody-rep-det').innerHTML=sitiosMes.map(s=>{
     const c=calcSitio(s);
     return`<tr>
-      <td><strong>${s.nombre}</strong></td><td>${s.lc}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td><td>${s.lc}</td>
       <td class="num">${cop(c.totalVenta)}</td><td class="num">${cop(c.totalCosto)}</td>
       <td class="num fw7 ${c.utilidad>=0?'tg':'tr'}">${cop(c.utilidad)}</td>
       <td class="num"><span class="badge ${mcls(c.margen)}">${pct(c.margen)}</span></td>
@@ -1993,7 +2028,10 @@ function exportarReporteExcel(){
 // ============================================================
 function renderAnalitica(){
   const filTCAna=(document.getElementById('ana-tipo-cuadrilla')?.value)||'todos';
-  const sitiosAna=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna));
+  const filLCAna=(document.getElementById('ana-lc-filter')?.value)||'';
+  const lcSelAna=document.getElementById('ana-lc-filter');
+  if(lcSelAna){const cur=lcSelAna.value;const lcs=[...new Set(ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna)).map(s=>s.lc).filter(Boolean))].sort();lcSelAna.innerHTML='<option value="">Todas las Cuadrillas</option>'+lcs.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');if(cur)lcSelAna.value=cur;}
+  const sitiosAna=ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna)&&(!filLCAna||s.lc===filLCAna));
   const calcs=sitiosAna.map(s=>({s,c:calcSitio(s)}));
   if(!calcs.length){document.getElementById('ana-stats').innerHTML='<div class="alert al-i">Sin datos aún.</div>';return;}
 
@@ -2125,9 +2163,8 @@ function loadCatalogo(){
   try{
     const d=JSON.parse(localStorage.getItem('igt26_cat')||'{}');
     if(d.CAT&&d.CAT.BASE){CAT.BASE=d.CAT.BASE;CAT.ADJ=d.CAT.ADJ;CAT.CR=d.CAT.CR;}
-    if(d.SUBCS&&d.SUBCS.length){
-      d.SUBCS.forEach(s=>{const i=SUBCS.findIndex(x=>x.lc===s.lc);if(i>=0)SUBCS[i]=s;else SUBCS.push(s);});
-    }
+    // Fully replace SUBCS so deletions persist
+    if(d.SUBCS&&d.SUBCS.length) SUBCS.splice(0,SUBCS.length,...d.SUBCS);
   }catch(e){}
 }
 function renderCatalogo(){
@@ -2173,7 +2210,7 @@ function renderCatalogo(){
     </select></td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.tel}" onchange="SUBCS[${i}].tel=this.value">`:`${s.tel||'—'}`}</td>
     <td>${isAdmin?`<input class="fc" style="padding:2px 7px;font-size:11px" value="${s.email}" onchange="SUBCS[${i}].email=this.value">`:`${s.email||'—'}`}</td>
-    <td>${isAdmin?`<button class="btn-del" onclick="SUBCS.splice(${i},1);renderCatalogo()">✕</button>`:''}</td>
+    <td>${isAdmin?`<button class="btn-del" onclick="SUBCS.splice(${i},1);guardarCatalogo();renderCatalogo()">✕</button>`:''}</td>
   </tr>`).join('');
 }
 function updCatPrice(id,lista,col,zi,val){
@@ -2269,7 +2306,7 @@ function buscarSitio(q){
   document.getElementById('tbody-dash').innerHTML=f.map(s=>{
     const c=calcSitio(s);
     return`<tr>
-      <td><strong>${s.nombre}</strong></td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td>
       <td><span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}">${s.tipo}</span></td>
       <td style="font-size:10px">${s.lc}</td>
       <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
