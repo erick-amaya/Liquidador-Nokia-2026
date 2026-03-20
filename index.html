@@ -237,7 +237,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:160px" oninput="buscarSitio(this.value)">
       <div class="fecha-picker" id="fp-dash"></div>
       <select class="fc" id="dash-tipo-cuadrilla" style="width:140px" onchange="renderDashboard()">
-        <option value="todos">Todas las Cuadrillas</option>
+        <option value="todos">Todas las Cuadrillas (LC)</option>
         <option value="TI Ingetel">TI Ingetel</option>
         <option value="TSS Ingetel">TSS Ingetel</option>
         <option value="Ingetel">Ingetel (TI+TSS)</option>
@@ -451,17 +451,6 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
   <div class="fb mb14">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Analítica Gerencial</h1>
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
-    <select class="fc" id="ana-tipo-cuadrilla" style="width:140px" onchange="renderAnalitica()">
-      <option value="todos">Todas las Cuadrillas</option>
-        <option value="TI Ingetel">TI Ingetel</option>
-        <option value="TSS Ingetel">TSS Ingetel</option>
-        <option value="Ingetel">Ingetel (TI+TSS)</option>
-        <option value="TI Scytel">TI Scytel</option>
-        <option value="TSS Scytel">TSS Scytel</option>
-        <option value="Scytel">Scytel (TI+TSS)</option>
-        <option value="TSS">TSS (todas)</option>
-        <option value="TI">TI (todas)</option>
-      </select>
     <select class="fc" id="ana-lc-filter" style="width:200px" onchange="renderAnalitica()">
       <option value="">Todas las Cuadrillas (LC)</option>
     </select>
@@ -701,187 +690,60 @@ const ZI={'Ciudad_Principal':0,'Ciudad_Secundaria':1,'Ciudad_Intermedia':2,'Difi
 const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const MESES_FULL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-// ── Unified date picker ───────────────────────────────────────
-// Usage: <div class="fecha-picker" id="fp-X"></div>  then initFechaPicker('fp-X', onChange)
-// State: {year:'todos'|'2026', mes:'todos'|'0'-'11'}
+// ── Unified date picker ──────────────────────────────────────
 const _fpState={};
+const _fpCbs={};
+
 function initFechaPicker(id, onChange){
-  const el=document.getElementById(id);
-  if(!el) return;
+  _fpCbs[id]=onChange;
   if(!_fpState[id]) _fpState[id]={year:'todos',mes:'todos'};
-  _renderFP(id, onChange);
-  document.addEventListener('click', e=>{
-    if(!el.contains(e.target)) el.querySelector('.fecha-picker-drop')?.classList.remove('open');
-  }, {capture:true});
+  if(!_fpCbs['_listener_'+id]){
+    _fpCbs['_listener_'+id]=true;
+    document.addEventListener('click',function(e){
+      var el=document.getElementById(id);
+      if(el&&!el.contains(e.target)){var d=el.querySelector('.fecha-picker-drop');if(d)d.classList.remove('open');}
+    });
+  }
+  _renderFP(id);
 }
+
 function _fpLabel(id){
-  const st=_fpState[id];
+  var st=_fpState[id]||{year:'todos',mes:'todos'};
   if(st.year==='todos') return 'Todas las Fechas';
   if(st.mes==='todos') return st.year;
   return MESES_FULL[parseInt(st.mes)]+' '+st.year;
 }
-function _renderFP(id, onChange){
-  const el=document.getElementById(id);
+
+function _renderFP(id){
+  var el=document.getElementById(id);
   if(!el) return;
-  const st=_fpState[id];
-  const years=['2026','2025','2024'];
-  let drop=`<div class="fp-all" onclick="_fpSetAll('${id}',${JSON.stringify(onChange.toString())})">✓ Todas las Fechas</div>`;
-  years.forEach(y=>{
-    const ySel=st.year===y;
-    drop+=`<div class="fp-year ${ySel&&st.mes==='todos'?'fp-selected':''}" onclick="_fpSetYear('${id}','${y}',${JSON.stringify(onChange.toString())})"><span>${ySel?'▾':'▸'}</span>${y}</div>`;
+  var st=_fpState[id]||{year:'todos',mes:'todos'};
+  var years=['2026','2025','2024'];
+  var rows='<div class="fp-all" onclick="_fpPick(''+id+'','todos','todos')">&#10003; Todas las Fechas</div>';
+  for(var yi=0;yi<years.length;yi++){
+    var y=years[yi];
+    var ySel=st.year===y;
+    rows+='<div class="fp-year '+(ySel&&st.mes==='todos'?'fp-selected':'')+'" onclick="_fpPick(''+id+'',''+y+'','todos')">'+(ySel?'&#9660; ':'&#9658; ')+y+'</div>';
     if(ySel){
-      MESES_FULL.forEach((m,i)=>{
-        const mSel=ySel&&st.mes===String(i);
-        drop+=`<div class="fp-mes ${mSel?'fp-selected':''}" onclick="_fpSetMes('${id}','${i}',${JSON.stringify(onChange.toString())})">${m}</div>`;
-      });
+      for(var mi=0;mi<MESES_FULL.length;mi++){
+        var mSel=st.mes===String(mi);
+        rows+='<div class="fp-mes '+(mSel?'fp-selected':'')+'" onclick="_fpPick(''+id+'',''+y+'',''+mi+'')">'+MESES_FULL[mi]+'</div>';
+      }
     }
-  });
-  el.innerHTML=`<button class="fecha-picker-btn" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">${_fpLabel(id)} ▾</button><div class="fecha-picker-drop">${drop}</div>`;
+  }
+  el.innerHTML='<button class="fecha-picker-btn" onclick="event.stopPropagation();var d=this.nextElementSibling;d.classList.toggle('open')">'+_fpLabel(id)+' &#9660;</button><div class="fecha-picker-drop">'+rows+'</div>';
 }
-function _fpSetAll(id,cbStr){
-  _fpState[id]={year:'todos',mes:'todos'};
-  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
-  _renderFP(id,eval('('+cbStr+')'));
-  if(drop) drop.classList.add('open');
-  eval('('+cbStr+')')(id);
-}
-function _fpSetYear(id,y,cbStr){
-  const st=_fpState[id];
-  st.year=y; st.mes='todos';
-  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
-  _renderFP(id,eval('('+cbStr+')'));
-  if(drop) drop.classList.add('open');
-  eval('('+cbStr+')')(id);
-}
-function _fpSetMes(id,m,cbStr){
-  _fpState[id].mes=String(m);
-  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
-  _renderFP(id,eval('('+cbStr+')'));
-  if(drop) drop.classList.add('open');
-  eval('('+cbStr+')')(id);
-}
-function fpGetYear(id){ return _fpState[id]?.year||'todos'; }
-function fpGetMes(id){ return _fpState[id]?.mes||'todos'; }
 
+function _fpPick(id,year,mes){
+  _fpState[id]={year:year,mes:String(mes)};
+  _renderFP(id);
+  var drop=document.getElementById(id);
+  if(drop){var d=drop.querySelector('.fecha-picker-drop');if(d)d.classList.add('open');}
+  if(_fpCbs[id]) _fpCbs[id]();
+}
 
-let CAT={
-  BASE:[
-    {id:'PM',nombre:'PM (Project Manager)',unidad:'Sitio',
-      nokia:[1899091,2046799,2215607,2321112],A:[null,null,null,null],AA:[null,null,null,null],AAA:[null,null,null,null]},
-    {id:'IMP_RF',nombre:'IMP_RF',unidad:'Unidad',
-      nokia:[1229107,1324704,1433958,1502242],A:[456091,491564,529948,562433],AA:[501700,540721,582942,618676],AAA:[584732,630211,682187,714672]},
-    {id:'IMP_BB',nombre:'IMP_BB',unidad:'Unidad',
-      nokia:[1368107,1474515,1596125,1672131],A:[507670,547156,589880,626038],AA:[558437,601871,648868,688642],AAA:[650859,701482,759336,795495]},
-    {id:'DESMONTE_RF',nombre:'DESMONTE_RF',unidad:'Unidad',
-      nokia:[853223,919585,995427,1042829],A:[316610,341235,367880,390430],AA:[348271,375358,404668,429473],AAA:[405910,437481,473562,496112]},
-    {id:'DESMONTE_BB',nombre:'DESMONTE_BB',unidad:'Unidad',
-      nokia:[1055799,1137916,1231765,1290421],A:[391780,422252,455223,483128],AA:[430958,464477,500745,531441],AAA:[502283,541349,585997,613901]},
-    {id:'TSS_VR',nombre:'TSS_VR (Visita+Reporte)',unidad:'Sitio',
-      nokia:[1134797,1223060,1323930,1386975],A:[530000,530000,730000,830000],AA:[583000,583000,803000,913000],AAA:[639865,681855,729843,899836]},
-    {id:'TSS_V',nombre:'TSS_V (Solo Visita)',unidad:'Sitio',
-      nokia:[624138,672683,728162,762836],A:[400000,400000,600000,700000],AA:[440000,440000,660000,770000],AAA:[496926,498020,596413,762909]},
-    {id:'TSS_R',nombre:'TSS_R (Solo Reporte)',unidad:'Sitio',
-      nokia:[510659,550377,595768,624138],A:[130000,130000,130000,130000],AA:[143000,143000,143000,143000],AAA:[242939,261834,283429,296926]},
-  ],
-  ADJ:[
-    {id:'Pruebas_Probo',nombre:'Pruebas_Probo',unidad:'Sitio',
-      nokia:[917513,988876,1070432,1121405],A:[458756,494438,535216,560702],AA:[504632,543881,588738,616773],AAA:[536495,570445,610244,643494]},
-    {id:'IMP_Power',nombre:'IMP_Power',unidad:'Sitio',
-      nokia:[725546,781978,846471,886779],A:[362773,390989,423235,443389],AA:[399050,430088,465559,487728],AAA:[435129,461016,504198,543874]},
-    {id:'IMP_Rectificador',nombre:'IMP_Rectificador',unidad:'Sitio',
-      nokia:[241848,260659,282157,295593],A:[120924,130329,141078,147796],AA:[133016,143362,155186,162576],AAA:[232056,238005,295232,268624]},
-    {id:'Desmonte_Feeder',nombre:'Desmonte_Feeder',unidad:'Sitio',
-      nokia:[835965,835965,835965,835965],A:[417982,417982,417982,417982],AA:[417982,417982,417982,417982],AAA:[417982,417982,417982,417982]},
-    {id:'Logistica_Inversa_Antenas',nombre:'Logística Inversa Antenas',unidad:'Unidad',
-      nokia:[473992,510858,552991,579324],A:[70000,70000,70000,70000],AA:[70000,70000,70000,70000],AAA:[70000,70000,70000,70000]},
-    {id:'FPMA',nombre:'FPMA',unidad:'Unidad',
-      nokia:[224283,224283,224283,224283],A:[112141,112141,112141,112141],AA:[112141,112141,112141,112141],AAA:[112141,112141,112141,112141]},
-    {id:'REUB_RF_Airscale_AHPCx',nombre:'REUB_RF Airscale AHPCx',unidad:'Unidad',
-      nokia:[449056,462527,499530,549483],A:[224528,231263,249765,274741],AA:[246980,254390,274741,302215],AAA:[324632,362041,379645,385409]},
-    {id:'Log_Func_HW_Airscale',nombre:'Logística Funcional desmontao de HW Airscale (AHPC, AHPCA, BB) por sitio',unidad:'Sitio',
-      nokia:[426611,459792,497713,521414],A:[213305,229896,248856,260707],AA:[213305,229896,248856,260707],AAA:[213305,229896,248856,260707]},
-    {id:'Log_Inv_Flexi',nombre:'Logística Inversa de Módulos Flexi desinstalados encontrados en Sitio',unidad:'Sitio',
-      nokia:[426611,459792,497713,521414],A:[213305,229896,248856,260707],AA:[213305,229896,248856,260707],AAA:[213305,229896,248856,260707]},
-    {id:'Log_Inv_Ultra',nombre:'Logística Inversa de Módulos Ultra desinstalados encontrados en Sitio',unidad:'Sitio',
-      nokia:[511934,551751,597256,625697],A:[255967,275875,298628,312848],AA:[255967,275875,298628,312848],AAA:[255967,275875,298628,312848]},
-    {id:'FO_ABIA',nombre:'FO + ABIA',unidad:'Sitio',
-      nokia:[522165,562777,597588,638201],A:[261082,281388,298794,319100],AA:[287190,309527,328673,351010],AAA:[383413,385734,398295,451616]},
-    {id:'ODH',nombre:'Adicional Traslado a Sitios (ODH)',unidad:'Sitio',
-      nokia:[3678500,3678500,3678500,3678500],A:[2574950,2574950,2942800,2942800],AA:[2574950,2574950,2942800,2942800],AAA:[2574950,2574950,2942800,2942800]},
-  ],
-  CR:[
-    {id:'Carro_Canasta',nombre:'Carro Canasta',unidad:'Diario',
-      nokia:[1630968,1630968,1630968,1630968],A:[775912,775912,775912,775912],AA:[775912,775912,775912,775912],AAA:[775912,775912,775912,775912]},
-    {id:'Andamios',nombre:'Andamios',unidad:'Diario',
-      nokia:[364001,364001,364001,364001],A:[173169,173169,173169,173169],AA:[173169,173169,173169,173169],AAA:[173169,173169,173169,173169]},
-    {id:'Trasiego_Cat5',nombre:'Trasiego_Cuadrilla_Categoria_5',unidad:'Diario',
-      nokia:[314564,314564,314564,314564],A:[149650,149650,149650,149650],AA:[149650,149650,149650,149650],AAA:[149650,149650,149650,149650]},
-    {id:'Trasiego_Cat6',nombre:'Trasiego_Cuadrilla_Categoria_6',unidad:'Diario',
-      nokia:[672219,672219,672219,672219],A:[319800,319800,319800,319800],AA:[319800,319800,319800,319800],AAA:[319800,319800,319800,319800]},
-    {id:'Trasiego_HW_CP_CS',nombre:'Trasiegos HW Ciudad_Principal y Ciudad_Secundaria',unidad:'Sitio',
-      nokia:[0,0,0,0],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]},
-    {id:'Trasiego_HW_CI_DA',nombre:'Trasiegos HW Ciudad_Intermedia y Difícil Acceso',unidad:'Sitio',
-      nokia:[0,0,2206259,4213955],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]},
-    {id:'Trasiegos_Power',nombre:'Trasiegos Power',unidad:'Sitio',
-      nokia:[0,0,2206259,4213955],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]},
-    {id:'Mov_Cuadrillas',nombre:'Movimiento de Cuadrillas Regionales',unidad:'Sitio',
-      nokia:[0,0,0,0],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]},
-    {id:'Riesgo_Bio_Poda',nombre:'Riesgo Biológico_Poda',unidad:'Sitio',
-      nokia:[474000,474000,474000,474000],A:[225500,225500,225500,225500],AA:[225500,225500,225500,225500],AAA:[225500,225500,225500,225500]},
-    {id:'Riesgo_Bio_Fumig',nombre:'Riesgo Biológico_Fumigación',unidad:'Sitio',
-      nokia:[736856,736856,736856,736856],A:[280440,280440,280440,280440],AA:[280440,280440,280440,280440],AAA:[280440,280440,280440,280440]},
-    {id:'Rec_Bodega_Antenas',nombre:'Recolección de HW en Bodega_Antenas',unidad:'Unidad',
-      nokia:[458761,458761,458761,458761],A:[152775,152775,152775,152775],AA:[152775,152775,152775,152775],AAA:[152775,152775,152775,152775]},
-    {id:'Rec_Bodega_Modulos',nombre:'Recolección de HW en Bodega_Módulos',unidad:'Unidad',
-      nokia:[326230,326230,326230,326230],A:[108640,108640,108640,108640],AA:[108640,108640,108640,108640],AAA:[108640,108640,108640,108640]},
-    {id:'Log_Inv_HW_Falla_Ant',nombre:'Logística_Inversa_HW_Falla_Antenas',unidad:'Unidad',
-      nokia:[458761,504637,550513,715667],A:[40000,40000,40000,40000],AA:[40000,40000,40000,40000],AAA:[40000,40000,40000,40000]},
-    {id:'Log_Inv_HW_Falla_Mod',nombre:'Logística_Inversa_HW_Falla_Módulos',unidad:'Unidad',
-      nokia:[458761,504637,550513,715667],A:[40000,40000,40000,40000],AA:[40000,40000,40000,40000],AAA:[40000,40000,40000,40000]},
-    {id:'Revisitas',nombre:'Revisitas',unidad:'Unidad',
-      nokia:[1237556,1237556,1732578,2119341],A:[380000,380000,855000,855000],AA:[418000,418000,940500,940500],AAA:[688751,688751,924252,1108250]},
-    {id:'Stand_BY',nombre:'Stand BY',unidad:'Unidad',
-      nokia:[0,0,0,728237],A:[0,0,0,485030],AA:[0,0,0,533533],AAA:[0,0,0,596450]},
-    {id:'SISO_dia',nombre:'SISO x día ciudad no base',unidad:'Diario',
-      nokia:[613299,613299,613299,613299],A:[291769,291769,291769,291769],AA:[291769,291769,291769,291769],AAA:[291769,291769,291769,291769]},
-    {id:'SISO_semana',nombre:'SISO x semana ciudad no base',unidad:'Semanal',
-      nokia:[3430133,3430133,3430133,3430133],A:[1631843,1631843,1631843,1631843],AA:[1631843,1631843,1631843,1631843],AAA:[1631843,1631843,1631843,1631843]},
-    {id:'SISO_dia_base',nombre:'SISO x día ciudad base (Bogotá/Barranquilla/Cali)',unidad:'Diario',
-      nokia:[439621,439621,439621,439621],A:[209144,209144,209144,209144],AA:[209144,209144,209144,209144],AAA:[209144,209144,209144,209144]},
-    {id:'SISO_semana_base',nombre:'SISO x semana ciudad base (Bogotá/Barranquilla/Cali)',unidad:'Semanal',
-      nokia:[2417919,2417919,2417919,2417919],A:[1150294,1150294,1150294,1150294],AA:[1150294,1150294,1150294,1150294],AAA:[1150294,1150294,1150294,1150294]},
-    {id:'Trasiego_HW_Falla_Mod',nombre:'Trasiego de HW en falla_Módulos',unidad:'Módulos',
-      nokia:[290625,290625,290625,290625],A:[145312,145312,145312,145312],AA:[145312,145312,145312,145312],AAA:[145312,145312,145312,145312]},
-    {id:'Transporte_Escalera',nombre:'Transporte Escalera',unidad:'Diario',
-      nokia:[252239,252239,252239,302688],A:[126119,126119,126119,151344],AA:[126119,126119,126119,151344],AAA:[126119,126119,126119,151344]},
-    {id:'HW_baja_6kg',nombre:'Paquete de HW de baja no Nokia hasta 6Kg de peso',unidad:'Sitio',
-      nokia:[109485,109485,109485,109485],A:[54742,54742,54742,54742],AA:[54742,54742,54742,54742],AAA:[54742,54742,54742,54742]},
-    {id:'HW_baja_15kg',nombre:'Paquete de HW de baja no Nokia hasta 15Kg de peso',unidad:'Sitio',
-      nokia:[266873,266873,266873,266873],A:[133436,133436,133436,133436],AA:[133436,133436,133436,133436],AAA:[133436,133436,133436,133436]},
-    {id:'HW_baja_20kg',nombre:'Paquete de HW de baja no Nokia hasta 20Kg de Peso',unidad:'Sitio',
-      nokia:[337582,337582,337582,337582],A:[168791,168791,168791,168791],AA:[168791,168791,168791,168791],AAA:[168791,168791,168791,168791]},
-    {id:'HW_baja_25kg',nombre:'Paquete de HW de baja no Nokia hasta 25Kg de Peso',unidad:'Sitio',
-      nokia:[417416,417416,417416,417416],A:[208708,208708,208708,208708],AA:[208708,208708,208708,208708],AAA:[208708,208708,208708,208708]},
-    {id:'HW_baja_50kg',nombre:'Paquete de HW de baja no Nokia hasta 50Kg de Peso',unidad:'Sitio',
-      nokia:[626124,626124,626124,626124],A:[313062,313062,313062,313062],AA:[313062,313062,313062,313062],AAA:[313062,313062,313062,313062]},
-    {id:'Trasiego_paq_25kg',nombre:'Trasiegos de paquetes hasta 25 KG',unidad:'Sitio',
-      nokia:[290625,290625,290625,290625],A:[145312,145312,145312,145312],AA:[145312,145312,145312,145312],AAA:[145312,145312,145312,145312]},
-    {id:'Trasiego_paq_25kg_mas',nombre:'Trasiegos de paquetes de más de 25KG',unidad:'Sitio',
-      nokia:[581251,581251,581251,581251],A:[290625,290625,290625,290625],AA:[290625,290625,290625,290625],AAA:[290625,290625,290625,290625]},
-    {id:'Transp_terrazas',nombre:'Transporte equipos a terrazas y azoteas',unidad:'Sitio',
-      nokia:[315300,315300,315300,315300],A:[157650,157650,157650,157650],AA:[157650,157650,157650,157650],AAA:[157650,157650,157650,157650]},
-    {id:'Trasiego_log_inv_Semov',nombre:'Trasiego logística inversa Semovientes/Acompañamiento/Coteros/Especiales',unidad:'Kilogramo',
-      nokia:[1681,1681,1681,1681],A:[840,840,840,840],AA:[840,840,840,840],AAA:[840,840,840,840]},
-    {id:'Trasiego_log_inv_Fluv',nombre:'Trasiego logística inversa Fluviales y Marítimos',unidad:'Kilogramo',
-      nokia:[2627,2627,2627,2627],A:[1313,1313,1313,1313],AA:[1313,1313,1313,1313],AAA:[1313,1313,1313,1313]},
-    {id:'Tapas_ASIx',nombre:'Tapas ASIx/ABIx',unidad:'Tapa',
-      nokia:[52550,52550,52550,52550],A:[26275,26275,26275,26275],AA:[26275,26275,26275,26275],AAA:[26275,26275,26275,26275]},
-    {id:'Bodegaje_HW',nombre:'Bodegaje temporal de HW durante Implementación',unidad:'Sitio',
-      nokia:[0,0,0,0],A:[0,0,0,0],AA:[0,0,0,0],AAA:[0,0,0,0]},
-    {id:'REUB_RF_AHFIHA',nombre:'REUB_RF_AHFIHA',unidad:'Unidad',
-      nokia:[449056,462527,499530,549483],A:[213632,220041,237645,261409],AA:[213632,220041,237645,261409],AAA:[324632,362041,379645,385409]},
-  ]
-};
+function fpGetYear(id){ return (_fpState[id]||{year:'todos'}).year; }
+function fpGetMes(id){ return (_fpState[id]||{mes:'todos'}).mes; };
 
 let SUBCS=[
   {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'TI Ingetel'},
@@ -1048,8 +910,8 @@ function renderDashboard(){
     <div class="stat" style="border-color:var(--g3)"><div class="sl">Gastos Registrados</div><div class="sv">${ST.gastos.length}</div><div class="ss">${cop(ST.gastos.reduce((s,g)=>s+(g.valor||0),0))}</div></div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
     <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge" style="background:${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'#7c3aed':s.tipo==='TSS'?'#1e3a5f':'#1a1a1a'};color:#fff;font-size:8px">${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'TI (SN)':s.tipo}</span>${s.catEfectiva?' <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
-    <td><span class="badge bg-gl" style="font-size:8px">${s.cat||'A'}</span></td>
     <td style="font-size:10px">${s.lc}</td>
+    <td><span class="badge bg-gl" style="font-size:8px">${s.cat||'A'}</span></td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
     <td class="num" style="color:var(--b);font-weight:700">${cop(c.totalVenta)}</td>
     <td class="num" style="color:var(--o)">${cop(c.totalCosto)}</td>
@@ -1064,7 +926,7 @@ function renderDashboard(){
     </div>`).join('');
   // Utilidad & Margen card
   const umEl=document.getElementById('dash-util-margen');
-  initFechaPicker('fp-dash',()=>renderDashboard());
+  initFechaPicker('fp-dash', renderDashboard);
   if(umEl){
     const mc=avgM>=.3?'#1a7a1a':avgM>=.2?'#FFC000':'#c0392b';
     umEl.innerHTML=`
@@ -1306,8 +1168,8 @@ function renderLiqSitio(sitio){
             <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','lc',this.value)">
               ${SUBCS.map(s=>`<option value="${s.lc}" ${sitio.lc===s.lc?'selected':''}>${s.lc} (Cat ${s.cat})</option>`).join('')}
             </select></div>
-          <div class="fg mb0" style="min-width:0"><label class="fl">Fecha</label>
-            <input type="date" class="fc" style="border:2px solid #1a5276;width:100%" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+          <div class="fg mb0"><label class="fl">Fecha</label>
+            <input type="date" class="fc" style="border:2px solid #1a5276;box-sizing:border-box;max-width:100%" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
           <div class="fg mb0"><label class="fl">Categoría Especial</label>
             <div style="display:flex;gap:6px;align-items:center">
@@ -1944,7 +1806,7 @@ let _charts={};
 function destroyChart(id){if(_charts[id]){_charts[id].destroy();delete _charts[id]}}
 
 function renderReportes(){
-  initFechaPicker('fp-rep',()=>renderReportes());
+  initFechaPicker('fp-rep', renderReportes);
   const year=fpGetYear('fp-rep')==='todos'?null:parseInt(fpGetYear('fp-rep'))||2026;
   const mesFiltro=fpGetMes('fp-rep');
   const isTodos=mesFiltro==='todos' || mesFiltro===null || mesFiltro===undefined;
@@ -2068,7 +1930,7 @@ function exportarReporteExcel(){
 // ANALÍTICA GERENCIAL - PROFESSIONAL CHARTS
 // ============================================================
 function renderAnalitica(){
-  const filTCAna=(document.getElementById('ana-tipo-cuadrilla')?.value)||'todos';
+  const filTCAna='todos'; // single LC filter only
   const filLCAna=(document.getElementById('ana-lc-filter')?.value)||'';
   const lcSelAna=document.getElementById('ana-lc-filter');
   if(lcSelAna){const cur=lcSelAna.value;const lcs=[...new Set(ST.sitios.filter(s=>matchTipoCuadrilla(s,filTCAna)).map(s=>s.lc).filter(Boolean))].sort();lcSelAna.innerHTML='<option value="">Todas las Cuadrillas</option>'+lcs.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');if(cur)lcSelAna.value=cur;}
