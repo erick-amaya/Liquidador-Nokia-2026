@@ -142,6 +142,18 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 /* PROFILE SETUP */
 .profile-card{background:#fff;border-radius:var(--rad);padding:24px;box-shadow:var(--shl);max-width:360px;margin:60px auto;text-align:center}
 .profile-card h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;margin-bottom:16px}
+.fecha-picker{position:relative;display:inline-block}
+.fecha-picker-btn{background:#fff;border:1px solid var(--g2);border-radius:20px;padding:5px 12px;font-size:11px;cursor:pointer;font-family:'Barlow',sans-serif;font-weight:600;color:var(--k);white-space:nowrap}
+.fecha-picker-btn:hover{background:var(--g1)}
+.fecha-picker-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid var(--g2);border-radius:8px;box-shadow:var(--sh);z-index:500;min-width:220px;padding:8px}
+.fecha-picker-drop.open{display:block}
+.fecha-picker-drop .fp-year{font-weight:700;font-size:11px;padding:4px 8px;cursor:pointer;border-radius:4px;display:flex;align-items:center;gap:4px}
+.fecha-picker-drop .fp-year:hover{background:var(--g1)}
+.fecha-picker-drop .fp-mes{font-size:10px;padding:3px 8px 3px 24px;cursor:pointer;border-radius:4px}
+.fecha-picker-drop .fp-mes:hover{background:var(--g1)}
+.fecha-picker-drop .fp-selected{background:var(--gf);color:var(--g);font-weight:700}
+.fecha-picker-drop .fp-all{font-size:10px;padding:4px 8px;cursor:pointer;border-radius:4px;border-bottom:1px solid var(--g2);margin-bottom:4px;font-weight:600}
+.fecha-picker-drop .fp-all:hover{background:var(--g1)}
 </style>
 </head>
 <body>
@@ -223,18 +235,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Proyecto Nokia 2026</h1>
     <div class="flex gap8">
       <input type="text" class="fc" placeholder="🔍 Buscar sitio…" style="width:160px" oninput="buscarSitio(this.value)">
-      <select class="fc" id="dash-year" style="width:80px" onchange="renderDashboard()">
-        <option value="todos">Todos los Años</option>
-        <option value="2026">2026</option>
-        <option value="2025">2025</option>
-      </select>
-      <select class="fc" id="dash-mes" style="width:115px" onchange="renderDashboard()">
-        <option value="todos">Todos los meses</option>
-        <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
-        <option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option>
-        <option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option>
-        <option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
-      </select>
+      <div class="fecha-picker" id="fp-dash"></div>
       <select class="fc" id="dash-tipo-cuadrilla" style="width:140px" onchange="renderDashboard()">
         <option value="todos">Todas las Cuadrillas</option>
         <option value="TI Ingetel">TI Ingetel</option>
@@ -257,7 +258,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <div style="padding:0;overflow-x:auto;max-height:calc(100vh - 320px);overflow-y:auto">
         <table class="tbl" id="tbl-dash">
           <thead style="position:sticky;top:0;z-index:2"><tr>
-            <th>Sitio</th><th>Tipo</th><th>LC</th><th>Ciudad</th>
+            <th>Sitio</th><th>LC</th><th>Cat</th><th>Ciudad</th>
             <th class="num th-nokia">Venta Nokia</th>
             <th class="num th-subc">Costo SubC</th>
             <th class="num">Utilidad</th><th class="num">% Margen</th><th></th>
@@ -400,9 +401,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700">Reportes por Mes</h1>
       <button class="btn bk btn-sm no-print" onclick="showScreen('dashboard',document.querySelector('.nt'))" style="font-size:10px">← Dashboard</button>
     <div class="flex gap8">
-      <select class="fc" id="rep-year" style="width:100px" onchange="renderReportes()">
-        <option value="todos">Todos los años</option><option value="2026">2026</option><option value="2025">2025</option>
-      </select>
+      <div class="fecha-picker" id="fp-rep"></div>
       <select class="fc" id="rep-tipo-cuadrilla" data-lc="true" style="width:140px" onchange="renderReportes()">
         <option value="todos">Todas las Cuadrillas (LC)</option>
         <option value="TI Ingetel">TI Ingetel</option>
@@ -414,13 +413,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
         <option value="TSS">TSS (todas)</option>
         <option value="TI">TI (todas)</option>
       </select>
-      <select class="fc" id="rep-mes" style="width:120px" onchange="renderReportes()">
-        <option value="todos">Todos los meses</option>
-        <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
-        <option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option>
-        <option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option>
-        <option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
-      </select>
+
       <button class="btn bp btn-sm" onclick="exportarReporteExcel()">⬇ Excel</button>
       <button class="btn bk btn-sm" onclick="window.print()">🖨 PDF</button>
     </div>
@@ -706,6 +699,70 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 const ZONAS=['Ciudad_Principal','Ciudad_Secundaria','Ciudad_Intermedia','Dificil Acceso'];
 const ZI={'Ciudad_Principal':0,'Ciudad_Secundaria':1,'Ciudad_Intermedia':2,'Dificil Acceso':3};
 const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const MESES_FULL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+// ── Unified date picker ───────────────────────────────────────
+// Usage: <div class="fecha-picker" id="fp-X"></div>  then initFechaPicker('fp-X', onChange)
+// State: {year:'todos'|'2026', mes:'todos'|'0'-'11'}
+const _fpState={};
+function initFechaPicker(id, onChange){
+  const el=document.getElementById(id);
+  if(!el) return;
+  if(!_fpState[id]) _fpState[id]={year:'todos',mes:'todos'};
+  _renderFP(id, onChange);
+  document.addEventListener('click', e=>{
+    if(!el.contains(e.target)) el.querySelector('.fecha-picker-drop')?.classList.remove('open');
+  }, {capture:true});
+}
+function _fpLabel(id){
+  const st=_fpState[id];
+  if(st.year==='todos') return 'Todas las Fechas';
+  if(st.mes==='todos') return st.year;
+  return MESES_FULL[parseInt(st.mes)]+' '+st.year;
+}
+function _renderFP(id, onChange){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const st=_fpState[id];
+  const years=['2026','2025','2024'];
+  let drop=`<div class="fp-all" onclick="_fpSetAll('${id}',${JSON.stringify(onChange.toString())})">✓ Todas las Fechas</div>`;
+  years.forEach(y=>{
+    const ySel=st.year===y;
+    drop+=`<div class="fp-year ${ySel&&st.mes==='todos'?'fp-selected':''}" onclick="_fpSetYear('${id}','${y}',${JSON.stringify(onChange.toString())})"><span>${ySel?'▾':'▸'}</span>${y}</div>`;
+    if(ySel){
+      MESES_FULL.forEach((m,i)=>{
+        const mSel=ySel&&st.mes===String(i);
+        drop+=`<div class="fp-mes ${mSel?'fp-selected':''}" onclick="_fpSetMes('${id}','${i}',${JSON.stringify(onChange.toString())})">${m}</div>`;
+      });
+    }
+  });
+  el.innerHTML=`<button class="fecha-picker-btn" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('open')">${_fpLabel(id)} ▾</button><div class="fecha-picker-drop">${drop}</div>`;
+}
+function _fpSetAll(id,cbStr){
+  _fpState[id]={year:'todos',mes:'todos'};
+  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
+  _renderFP(id,eval('('+cbStr+')'));
+  if(drop) drop.classList.add('open');
+  eval('('+cbStr+')')(id);
+}
+function _fpSetYear(id,y,cbStr){
+  const st=_fpState[id];
+  st.year=y; st.mes='todos';
+  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
+  _renderFP(id,eval('('+cbStr+')'));
+  if(drop) drop.classList.add('open');
+  eval('('+cbStr+')')(id);
+}
+function _fpSetMes(id,m,cbStr){
+  _fpState[id].mes=String(m);
+  const drop=document.getElementById(id)?.querySelector('.fecha-picker-drop');
+  _renderFP(id,eval('('+cbStr+')'));
+  if(drop) drop.classList.add('open');
+  eval('('+cbStr+')')(id);
+}
+function fpGetYear(id){ return _fpState[id]?.year||'todos'; }
+function fpGetMes(id){ return _fpState[id]?.mes||'todos'; }
+
 
 let CAT={
   BASE:[
@@ -966,8 +1023,8 @@ function calcSitio(sitio){
 // ============================================================
 function renderDashboard(){
   const filTCDash=(document.getElementById('dash-tipo-cuadrilla')?.value)||'todos';
-  const filYear=(document.getElementById('dash-year')?.value)||'todos';
-  const filMes=(document.getElementById('dash-mes')?.value)||'todos';
+  const filYear=fpGetYear('fp-dash');
+  const filMes=fpGetMes('fp-dash');
   const sitiosDash=ST.sitios.filter(s=>{
     if(!matchTipoCuadrilla(s,filTCDash)) return false;
     if(filYear!=='todos'||filMes!=='todos'){
@@ -990,8 +1047,8 @@ function renderDashboard(){
       <div class="sl">Margen Promedio</div><div class="sv" style="color:${avgM>=.4?'var(--go)':avgM>=.2?'var(--o)':'var(--r)'}">${pct(avgM)}</div><div class="ss">Utilidad: ${cop(tU)}</div></div>
     <div class="stat" style="border-color:var(--g3)"><div class="sl">Gastos Registrados</div><div class="sv">${ST.gastos.length}</div><div class="ss">${cop(ST.gastos.reduce((s,g)=>s+(g.valor||0),0))}</div></div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
-    <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'<span class="badge" style="background:#7c3aed;color:#fff;font-size:8px">TI (SN)</span>':`<span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>`} ${s.catEfectiva?'<span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
-    <td><span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}">${s.tipo}</span></td>
+    <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge" style="background:${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'#7c3aed':s.tipo==='TSS'?'#1e3a5f':'#1a1a1a'};color:#fff;font-size:8px">${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'TI (SN)':s.tipo}</span>${s.catEfectiva?' <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
+    <td><span class="badge bg-gl" style="font-size:8px">${s.cat||'A'}</span></td>
     <td style="font-size:10px">${s.lc}</td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
     <td class="num" style="color:var(--b);font-weight:700">${cop(c.totalVenta)}</td>
@@ -1007,6 +1064,7 @@ function renderDashboard(){
     </div>`).join('');
   // Utilidad & Margen card
   const umEl=document.getElementById('dash-util-margen');
+  initFechaPicker('fp-dash',()=>renderDashboard());
   if(umEl){
     const mc=avgM>=.3?'#1a7a1a':avgM>=.2?'#FFC000':'#c0392b';
     umEl.innerHTML=`
@@ -1104,7 +1162,7 @@ function renderConsolidadoTSS(){
     const cc=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
     tV+=cc.totalVenta;tC+=cc.totalCosto;
     return`<tr>
-      <td style="white-space:nowrap"><strong>${s.nombre}</strong>${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?' <span style="color:#7c3aed;font-size:9px;font-weight:700">(SN)</span>':''}</td>
+      <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge" style="background:${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'#7c3aed':s.tipo==='TSS'?'#1e3a5f':'#1a1a1a'};color:#fff;font-size:8px">${s.actividades?.some(a=>a.sec==='SITIO NUEVO')?'TI (SN)':s.tipo}</span></td>
       <td style="font-size:10px">${s.fecha||'—'}</td>
       <td style="font-size:10px">${s.lc||'—'}</td>
       <td><span class="badge bg-b" style="font-size:8px">${(s.ciudad||'').replace('Ciudad_','')}</span></td>
@@ -1886,10 +1944,10 @@ let _charts={};
 function destroyChart(id){if(_charts[id]){_charts[id].destroy();delete _charts[id]}}
 
 function renderReportes(){
-  const yearVal=document.getElementById('rep-year').value;
-  const year=yearVal==='todos'?null:parseInt(yearVal)||2026;
-  const mesFiltro=document.getElementById('rep-mes').value;
-  const isTodos=mesFiltro==='todos';
+  initFechaPicker('fp-rep',()=>renderReportes());
+  const year=fpGetYear('fp-rep')==='todos'?null:parseInt(fpGetYear('fp-rep'))||2026;
+  const mesFiltro=fpGetMes('fp-rep');
+  const isTodos=mesFiltro==='todos' || mesFiltro===null || mesFiltro===undefined;
   const filTCRep=(document.getElementById('rep-tipo-cuadrilla')?.value)||'todos';
 
   const mesesData=Array.from({length:12},(_,m)=>{
