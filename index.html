@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
 <title>Liquidador Sitios · Ingetel Nokia 2026</title>
 <!-- PWA / iPhone -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,14 +33,14 @@ body{font-family:'Barlow',sans-serif;background:#f0f2f0;color:var(--k);font-size
 .bs{color:var(--gl);font-size:9px;letter-spacing:.5px}
 .htit{color:var(--gl);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
 /* NAV */
-.nav{background:#111;display:flex;gap:1px;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto}
+.nav{background:#111;display:flex;gap:1px;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nt{background:none;border:none;color:var(--g3);font-family:'Barlow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:8px 12px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
 .nt:hover{color:#fff}.nt.active{color:var(--gl);border-bottom-color:var(--gl)}
 /* USER BADGE */
 .user-badge{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer}
 .ub-admin{background:#fef9c3;color:#856404}.ub-op{background:var(--gf);color:var(--go)}
 /* MAIN */
-.main{padding:18px;max-width:1400px;margin:0 auto}
+.main{padding:18px;padding-bottom:max(18px,env(safe-area-inset-bottom));max-width:1400px;margin:0 auto}
 .screen{display:none}.screen.active{display:block}
 /* CARD */
 .card{background:#fff;border-radius:var(--rad);box-shadow:var(--sh);overflow:hidden;margin-bottom:14px}
@@ -139,6 +139,132 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
 /* SECTION DIVIDER */
 .sec-div{background:var(--gf);border:1px solid var(--g2);border-radius:6px;padding:6px 12px;margin:14px 0 4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--go);border-left:3px solid var(--g)}
 /* PRINT */
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE / iPHONE — responsive overrides
+   Breakpoints: ≤768px tablet/mobile, ≤480px phone
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width:768px){
+
+  /* ── Header ── */
+  .hdr{padding:0 10px;height:46px}
+  .htit{display:none}
+  .hdr-brand img{height:28px!important}
+  .user-badge{font-size:9px;padding:3px 7px}
+  .hdr .flex.gap8{gap:4px}
+  .hdr .btn-sm{padding:3px 7px;font-size:9px}
+
+  /* ── Nav: bottom tab bar on mobile ── */
+  .nav{
+    position:fixed;bottom:0;left:0;right:0;top:auto;
+    background:#111;
+    padding:0;
+    border-top:2px solid var(--g);
+    border-bottom:none;
+    display:flex;justify-content:space-around;
+    z-index:190;
+    height:52px;
+    -webkit-overflow-scrolling:touch;
+    overflow-x:auto;
+    overscroll-behavior:none;
+  }
+  .nt{
+    flex:1;min-width:0;
+    font-size:8px;padding:4px 2px 6px;
+    border-bottom:none;border-top:2px solid transparent;
+    letter-spacing:0;
+    display:flex;flex-direction:column;align-items:center;gap:1px;
+  }
+  .nt.active{border-top-color:var(--gl);border-bottom:none;color:var(--gl)}
+
+  /* ── Main padding + bottom nav clearance ── */
+  .main{padding:10px 10px 70px;max-width:100%}
+  body{padding-bottom:52px}
+
+  /* ── Stat cards: 2 cols on tablet, 1 on phone ── */
+  .g4,.g5{grid-template-columns:1fr 1fr!important;gap:8px}
+  .g3{grid-template-columns:1fr 1fr!important;gap:8px}
+  .g2{grid-template-columns:1fr!important;gap:8px}
+
+  /* ── Dashboard two-col layout → stack ── */
+  #screen-dashboard .main > div[style*="grid-template-columns:1fr 340px"],
+  div[style*="grid-template-columns:1fr 340px"]{
+    display:flex!important;flex-direction:column!important;gap:10px!important;
+  }
+
+  /* ── Page headers ── */
+  h1{font-size:16px!important}
+  .fb{flex-wrap:wrap;gap:6px}
+  .fb .flex.gap8{flex-wrap:wrap;gap:4px}
+
+  /* ── Tables: horizontal scroll ── */
+  .card > div[style*="overflow-x:auto"]{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:10px}
+  .tbl th{font-size:8px;padding:5px 6px}
+  .tbl td{padding:5px 6px}
+
+  /* ── Dashboard table: hide less critical cols ── */
+  #tbl-dash th:nth-child(4),#tbl-dash td:nth-child(4),
+  #tbl-dash th:nth-child(6),#tbl-dash td:nth-child(6){display:none}
+
+  /* ── Cards ── */
+  .card-b{padding:10px}
+  .card-h h2{font-size:12px}
+
+  /* ── Liquidador: 4-col → 2-col → 1-col ── */
+  div[style*="grid-template-columns:1fr 1fr 1fr 1fr"]{
+    grid-template-columns:1fr 1fr!important;
+  }
+  div[style*="grid-template-columns:1fr 1fr;gap:14px"]{
+    grid-template-columns:1fr!important;
+  }
+
+  /* ── Modals ── */
+  .modal{width:96%!important;max-height:88vh}
+  .mb{padding:12px}
+
+  /* ── Charts ── */
+  .chart-box{padding:10px}
+  .chart-box canvas{max-height:200px}
+
+  /* ── Filtro row wrap ── */
+  .flex.gap8{flex-wrap:wrap}
+
+  /* ── Buttons ── */
+  .btn-lg{padding:8px 14px;font-size:12px}
+
+  /* ── Login modal ── */
+  #login-overlay > div{width:88%!important;padding:20px!important}
+
+  /* ── Catálogo header sticky offset ── */
+  #screen-catalogo .fb.mb14[style*="sticky"]{top:46px}
+}
+
+@media (max-width:480px){
+  /* Phone-only overrides */
+  .g4,.g5{grid-template-columns:1fr 1fr!important}
+
+  /* Stats: 2 cols */
+  #stats-cards{grid-template-columns:1fr 1fr!important}
+  .sv{font-size:18px}
+
+  /* Nav text shorter */
+  .nt{font-size:7px}
+
+  /* Dashboard: hide Ciudad col too */
+  #tbl-dash th:nth-child(3),#tbl-dash td:nth-child(3){display:none}
+
+  /* Liquidador header 4-col → 1-col */
+  div[style*="grid-template-columns:1fr 1fr 1fr 1fr"]{
+    grid-template-columns:1fr!important;
+  }
+
+  /* Liquidador dual card → stack */
+  #liq-content > div[style*="grid"]{
+    display:flex!important;flex-direction:column!important;
+  }
+}
+
 @media print{.hdr,.nav,.no-print{display:none!important}body{background:#fff}.main{padding:0;max-width:100%}}
 /* PROFILE SETUP */
 .profile-card{background:#fff;border-radius:var(--rad);padding:24px;box-shadow:var(--shl);max-width:360px;margin:60px auto;text-align:center}
