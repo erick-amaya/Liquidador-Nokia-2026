@@ -1030,7 +1030,7 @@ function renderDashboard(){
 // ============================================================
 function renderConsolidado(){
   const filTC=(document.getElementById('fil-tipo-cuadrilla')?.value)||'todos';
-  let tV=0,tC=0,tTI=0,tADJ=0,tCW=0,tCR=0,tSTC=0,tSCW=0,tMTI=0,tMCW=0,tLog=0,tAd=0;
+  let tV=0,tC=0,tTI=0,tADJ=0,tCW=0,tCR=0,tSTC=0,tSCW=0,tMTI=0,tMCW=0,tLog=0,tAd=0,tMIMOtot=0;
   const sitiosFiltrados=ST.sitios.filter(s=>{
     if(filTC==='todos') return true;
     const sub=SUBCS.find(x=>x.lc===s.lc);
@@ -1038,20 +1038,26 @@ function renderConsolidado(){
   });
   const rows=sitiosFiltrados.map(s=>{
     const c=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
+    // Calculate MIMO total from MIMO-section activities
+    const mimoTotal=s.actividades.filter(a=>a.sec==='MIMO').reduce((sum,a)=>{
+      const p=getPrecio(a.tipo||'BASE',a.id,s.ciudad,s.catEfectiva||s.cat,null);
+      return sum+p.nokia*(a.cant||0);
+    },0);
     tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=c.nokiaADJ;
     tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=c.subcTI;tSCW+=c.subcCW;
     tMTI+=c.matTI;tMCW+=c.matCW;tLog+=c.logist;tAd+=c.adicion;
+    let tMIMO=0; tMIMO+=mimoTotal; tMIMOtot+=mimoTotal;
     return`<tr>
       <td style="white-space:nowrap"><strong>${s.nombre}</strong> <span class="badge ${s.tipo==='TSS'?'bg-b':'bg-k'}" style="font-size:8px">${s.tipo}</span>${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
       <td style="font-size:10px">${s.fecha}</td>
       <td style="font-size:10px">${s.lc}</td>
       <td style="font-size:10px">${sub?.empresa||'—'}</td>
       <td><span class="badge bg-gl" style="font-size:8px">${s.cat}</span></td>
-      <td class="num" style="background:#eff6ff">${s.actividades.some(a=>a.sec==='SITIO NUEVO')?'<span style="color:#7c3aed;font-weight:700">TI (Sitio Nuevo)</span>':cop(c.nokiaTI)}</td>
+      <td class="num" style="background:#eff6ff">${cop(c.nokiaTI)}${s.actividades.some(a=>a.sec==='SITIO NUEVO')?' <span style="font-size:9px;color:#7c3aed">(SN)</span>':''}</td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaADJ)}</td>
       <td class="num" style="background:#eff6ff">${c.nokiaCW>0?cop(c.nokiaCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaCR)}</td>
-      <td class="num fw7" style="background:#dbeafe;border-right:2px solid #93c5fd">${cop(c.totalVenta)}</td>
+      <td class="num fw7" style="background:#dbeafe;border-right:2px solid #93c5fd">${mimoTotal>0?cop(mimoTotal):'<span class="tm">$0</span>'}</td>
       <td class="num" style="background:#fffbeb">${cop(c.subcTI)}</td>
       <td class="num" style="background:#fffbeb">${c.subcCW>0?cop(c.subcCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matTI)}</td>
@@ -1068,7 +1074,7 @@ function renderConsolidado(){
     <td colspan="5"><strong>TOTAL PROYECTO</strong></td>
     <td class="num">${cop(tTI)}</td><td class="num">${cop(tADJ)}</td>
     <td class="num">${cop(tCW)}</td><td class="num">${cop(tCR)}</td>
-    <td class="num fw8">${cop(tV)}</td>
+    <td class="num fw8">${cop(tMIMOtot)}</td>
     <td class="num">${cop(tSTC)}</td><td class="num">${cop(tSCW)}</td>
     <td class="num">${cop(tMTI)}</td><td class="num">${cop(tMCW)}</td>
     <td class="num">${cop(tLog)}</td><td class="num">${cop(tAd)}</td>
@@ -1236,7 +1242,7 @@ function renderLiqSitio(sitio){
           <div class="fg mb0"><label class="fl">Categoría Especial</label>
             <div style="display:flex;gap:6px;align-items:center">
               <select class="fc" style="width:120px" onchange="setSitioEspecial('${sitio.id}',this.value)">
-                <option value="">Normal (${s.cat})</option>
+                <option value="">Normal (${sitio.cat})</option>
                 <option value="AA" ${sitio.catEfectiva==='AA'?'selected':''}>AA (Especial) ⭐</option>
                 <option value="AAA" ${sitio.catEfectiva==='AAA'?'selected':''}>AAA (Especial) ⭐⭐</option>
               </select>
