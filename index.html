@@ -893,13 +893,21 @@ function doLogout(){if(!confirm('¿Cerrar sesión?'))return;document.getElementB
 // ============================================================
 function getPrecio(tipo,id,zona,cat,ciudadTSS){
   const z=ZI[ciudadTSS||zona]??0;
-  const lista=tipo==='BASE'?CAT.BASE:tipo==='ADJ'?CAT.ADJ:CAT.CR;
-  const def=lista.find(a=>a.id===id);
+  // Normalize tipo: handle legacy 'TI' and 'CR' as well as 'BASE'/'ADJ'/'CR'
+  const tipoNorm = (tipo==='BASE'||tipo==='TI'||tipo==='TI_BASE')?'BASE'
+    :(tipo==='ADJ')?'ADJ':'CR';
+  // Try primary list first, then search all lists as fallback
+  const primaryList = tipoNorm==='BASE'?CAT.BASE:tipoNorm==='ADJ'?CAT.ADJ:CAT.CR;
+  let def=primaryList.find(a=>a.id===id);
+  // Fallback: search all lists if not found in primary
+  if(!def){
+    def=CAT.BASE.find(a=>a.id===id)||CAT.ADJ.find(a=>a.id===id)||CAT.CR.find(a=>a.id===id);
+  }
   if(!def)return{nokia:0,subc:0,def:null};
-  const nokia=def.nokia[z]||0;
+  const nokia=def.nokia?.[z]||0;
   const cats=['A','AA','AAA'];
   const c=cats.includes(cat)?cat:'A';
-  const subc=def[c]?(def[c][z]||0):0;
+  const subc=def[c]?.(def[c][z]||0)||0;
   return{nokia,subc,def};
 }
 
@@ -912,8 +920,9 @@ function calcSitio(sitio){
   const acts=sitio.actividades.map(act=>{
     const p=getPrecio(act.tipo,act.id,sitio.ciudad,cat,act.ciudad||null);
     const tN=p.nokia*(act.cant||0),tS=p.subc*(act.cant||0);
-    if(act.tipo==='CR'){nokiaCR+=tN;subcCR+=tS}
-    else if(act.tipo==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
+    const tipoAct=act.tipo||'BASE';
+    if(tipoAct==='CR'){nokiaCR+=tN;subcCR+=tS}
+    else if(tipoAct==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
     else{nokiaTI+=tN;subcTI+=tS}
     return{...act,def:p.def,preNokia:p.nokia,preSubc:p.subc,totalNokia:tN,totalSubc:tS};
   });
