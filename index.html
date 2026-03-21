@@ -1942,7 +1942,7 @@ function updCosto(sid,campo,val){
 }
 // ── Google Sheets Sync ─────────────────────────────────────
 // Reemplaza esta URL con la de tu Google Apps Script desplegado
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbylcCQ_1rIzuOCuQSuvO3_24upAXQsbzHmxq_bSOdyLCR2xZFEiY40ws993VH3wIb7HtQ/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzNTxzUAK6znFiq3nmQED-WU2dGnj6DCwb6yKLajpGWQJEQWmO49lTTgDbwmaEAnGyI/exec';
 const USE_SHEETS = true; // Sheets sync activo
 
 let _syncTimer = null;
@@ -1960,7 +1960,30 @@ function saveState(){
 
 function syncToSheets(){
   if(!USE_SHEETS) return;
-  const payload = JSON.stringify({sitios:ST.sitios, gastos:ST.gastos});
+  // Include pre-calculated values so GAS gets accurate numbers
+  const calcs=ST.sitios.map(s=>{
+    const cc=calcSitio(s);
+    const sub=SUBCS.find(x=>x.lc===s.lc);
+    return{
+      id:s.id, nombre:s.nombre, tipo:s.tipo, fecha:s.fecha,
+      lc:s.lc, empresa:sub?.empresa||'', cat:s.catEfectiva||s.cat,
+      ciudad:(s.ciudad||'').replace('Ciudad_',''),
+      tiene_cw:s.tiene_cw, estado:s.estado||'pre',
+      nokiaTI:cc.nokiaTI, nokiaADJ:cc.nokiaADJ,
+      nokiaCW:cc.nokiaCW, nokiaCR:cc.nokiaCR,
+      totalVenta:cc.totalVenta,
+      subcTI:cc.subcTI, subcADJ:cc.subcADJ||0,
+      subcCW:cc.subcCW, subcCR:cc.subcCR||0,
+      matTI:cc.matTI, matCW:cc.matCW,
+      logist:cc.logist, adicion:cc.adicion,
+      backoffice:cc.backoffice||0,
+      totalCosto:cc.totalCosto,
+      utilidad:cc.utilidad,
+      margen:parseFloat((cc.margen*100).toFixed(1)),
+      acts:cc.acts.map(a=>({id:a.id,nombre:a.nombre||a.def?.nombre||a.id,sec:a.sec,unidad:a.unidad||a.def?.unidad||'',cant:a.cant,preNokia:a.preNokia,preSubc:a.preSubc,totalNokia:a.totalNokia,totalSubc:a.totalSubc}))
+    };
+  });
+  const payload = JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs});
   fetch(GAS_URL, {
     method:'POST',
     headers:{'Content-Type':'text/plain'},
@@ -1980,9 +2003,14 @@ async function loadFromSheets(){
     const r = await fetch(GAS_URL+'?action=get', {cache:'no-store'});
     const d = await r.json();
     if(d && d.sitios && d.sitios.length > 0){
-      ST.sitios = d.sitios;
-      if(d.gastos) ST.gastos = d.gastos;
-      toast('✓ Datos sincronizados con Google Sheets');
+      // Only load from Sheets if it has more or equal sites than local
+      if(d.sitios.length >= ST.sitios.length){
+        // Reset estado to pre when loading (user must re-mark as final)
+        d.sitios.forEach(function(s){s.estado='pre';});
+        ST.sitios = d.sitios;
+        if(d.gastos) ST.gastos = d.gastos;
+        toast('✓ Datos sincronizados con Google Sheets ('+d.sitios.length+' sitios)');
+      }
       return true;
     }
   }catch(e){console.warn('Load from Sheets failed:',e);}
