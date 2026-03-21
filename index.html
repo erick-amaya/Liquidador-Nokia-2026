@@ -2005,9 +2005,7 @@ async function loadFromSheets(){
     if(d && d.sitios && d.sitios.length > 0){
       // Only load from Sheets if it has more or equal sites than local
       if(d.sitios.length >= ST.sitios.length){
-        // Reset estado to pre when loading (user must re-mark as final)
-        d.sitios.forEach(function(s){s.estado='pre';});
-        ST.sitios = d.sitios;
+        ST.sitios = d.sitios; // respect saved estado
         if(d.gastos) ST.gastos = d.gastos;
         toast('✓ Datos sincronizados con Google Sheets ('+d.sitios.length+' sitios)');
       }
@@ -2022,8 +2020,7 @@ function loadState(){
     const d=JSON.parse(localStorage.getItem('igt26')||'{}');
     if(d.sitios&&d.sitios.length>=_DEFAULT_SITIOS_COUNT){
       // Reset all loaded sites to 'pre' so user marks them final manually
-      d.sitios.forEach(function(s){s.estado='pre';});
-      ST.sitios=d.sitios;
+      ST.sitios=d.sitios; // respect saved estado
       if(d.gastos)ST.gastos=d.gastos;
     } else if(d.gastos&&d.gastos.length){ST.gastos=d.gastos;}
   }catch(e){}
