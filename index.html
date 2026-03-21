@@ -102,7 +102,7 @@ input[type=date].fc{min-width:0;width:100%;box-sizing:border-box;-webkit-appeara
 /* STAT */
 .stat{background:#fff;border-radius:var(--rad);padding:12px 16px;border-left:4px solid var(--g);box-shadow:var(--sh)}
 .sl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--g4);margin-bottom:4px}
-.sv{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--k);line-height:1}
+.sv{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:400;line-height:1;color:var(--k)}
 .ss{font-size:10px;color:var(--g3);margin-top:2px}
 /* MBAR */
 .mbar{height:7px;background:var(--g2);border-radius:4px;overflow:hidden;margin-top:4px}
@@ -1178,7 +1178,7 @@ function renderDashboard(){
     </div>
     <div class="stat" style="border-color:${_mc}">
       <div class="sl">Margen Promedio</div>
-      <div class="sv" style="font-size:20px;color:${_mc};font-weight:500">${pct(avgM)}</div>
+      <div class="sv"><span style="font-size:20px;font-weight:500;color:${_mc}">${pct(avgM)}</span></div>
       <div class="ss">Utilidad: ${cop(tU)}</div>
     </div>`;
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
