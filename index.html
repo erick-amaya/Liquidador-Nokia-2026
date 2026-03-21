@@ -980,23 +980,25 @@ let CAT={
 };
 
 let SUBCS=[
-  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'JOSE SUAREZ',empresa:'FIMAT',cat:'A',tel:'3016089573',email:'josesuarezb95@gmail.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'HUGO SALIM MARTINEZ',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
-  {lc:'JOHN CARLOS GAMBA',empresa:'OCET',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
-  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:'',tipoCuadrilla:'TI Ingetel'},
-  {lc:'FABIAN CAMILO MONTOYA',empresa:'INGETEL',cat:'A',tel:'3171224391',email:'',tipoCuadrilla:'TI Ingetel'},
-  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com',tipoCuadrilla:'TI Ingetel'},
+  {lc:'ALVARO GONZALEZ',empresa:'ALVARO GONZALEZ',cat:'A',tel:'3165363197',email:'algo.65@hotmail.com',tipoCuadrilla:'TI Scytel'},
+  {lc:'JOSE DORRONSORO',empresa:'JOSE DORRONSORO',cat:'A',tel:'3113782638',email:'Josedorronsorobuitrago@gmail.com',tipoCuadrilla:'TI Scytel'},
+  {lc:'EDWIN GIRALDO',empresa:'EDWIN GIRALDO',cat:'A',tel:'3148119240',email:'Edwin.giraldo@telcobras.com',tipoCuadrilla:'TI Scytel'},
+  {lc:'EDRYS CUBILLOS',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'3106310653',email:'',tipoCuadrilla:'TI Scytel'},
+  {lc:'ERASMO VUELBAS',empresa:'TECNITEL',cat:'A',tel:'3223685144',email:'Erasmo.buelvas@telcobras.com',tipoCuadrilla:'TI Scytel'},
   {lc:'CARLOS RODRIGUEZ',empresa:'CARLOS RODRIGUEZ',cat:'A',tel:'',email:'cuadrilla5sfd@gmail.com',tipoCuadrilla:'TI Ingetel'},
   {lc:'YORMAN ORTEGA',empresa:'INGETEL',cat:'A',tel:'',email:'yormano643@gmail.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'MAURICIO LOPEZ',empresa:'INGETEL',cat:'A',tel:'3132181373',email:'mauricio.lopz@telcobras.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com',tipoCuadrilla:'TI Ingetel'},
-  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
-  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'MOISES LADINO',empresa:'MOISES LADINO',cat:'A',tel:'3107484812',email:'moises.av.ladino@gmail.com',tipoCuadrilla:'TI Scytel'},
+  {lc:'JOHAN BOLAÑO',empresa:'JOHAN BOLAÑO',cat:'A',tel:'3202110727',email:'Jbolanos@ingenieros.com',tipoCuadrilla:'TI Scytel'},
+  {lc:'FELIX ZEA',empresa:'EDRYS CUBILLOS',cat:'AAA',tel:'',email:'',tipoCuadrilla:'TI Scytel'},
+  {lc:'JOHAN VELOZA',empresa:'JOHAN VELOZA',cat:'A',tel:'3112401831',email:'johandavidveloza@gmail.com',tipoCuadrilla:'TI Scytel'},
   {lc:'INGETEL (Cuadrilla Propia)',empresa:'INGETEL',cat:'INGETEL',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'BALDOMIRO BENAVIDES',empresa:'BALDOMIRO BENAVIDES',cat:'A',tel:'3152303678',email:'',tipoCuadrilla:'TI Scytel'},
+  {lc:'JECSON FESTES',empresa:'JECSON FESTES',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JHON ALVARO MUÑOZ',empresa:'INGETEL',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'EDISON CANO',empresa:'INGETEL',cat:'A',tel:'3128369503',email:'',tipoCuadrilla:'TI Ingetel'},
+  {lc:'JONATAN ANGARITA',empresa:'JONATAN ANGARITA',cat:'A',tel:'3202855500',email:'',tipoCuadrilla:'TI Scytel'},
+  {lc:'JOSE GREGORIO ATILANO',empresa:'JOSE DORRONSORO',cat:'A',tel:'',email:'',tipoCuadrilla:'TI Scytel'},
+  {lc:'ELIAS GUILLERMO ANDRADE',empresa:'JAVIER PUELLO',cat:'A',tel:'3016395679',email:'',tipoCuadrilla:'TI Scytel'},
 ];
 
 const PINS={admin:'N0ki@',operador:'1234'};
@@ -1095,15 +1097,19 @@ function getPrecio(tipo,id,zona,cat,ciudadTSS){
 // ============================================================
 function calcSitio(sitio){
   const cat=sitio.catEfectiva||sitio.cat||'A'; // catEfectiva = override for special sites
+  const crExclSet=new Set(sitio.crSubcExcluded||[]); // indices of CR acts excluded from SubC
   let nokiaTI=0,nokiaADJ=0,nokiaCR=0,subcTI=0,subcADJ=0,subcCR=0;
-  const acts=sitio.actividades.map(act=>{
+  const acts=sitio.actividades.map((act,actIdx)=>{
     const p=getPrecio(act.tipo,act.id,sitio.ciudad,cat,act.ciudad||null);
     const tN=p.nokia*(act.cant||0),tS=p.subc*(act.cant||0);
     const at=act.tipo||'BASE';
-    if(at==='CR'){nokiaCR+=tN;subcCR+=tS}
+    // If CR act is excluded from SubC, count Nokia but not SubC cost
+    const subcExcluded=at==='CR'&&crExclSet.has(actIdx);
+    if(at==='CR'){nokiaCR+=tN;if(!subcExcluded)subcCR+=tS;}
     else if(at==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
     else{nokiaTI+=tN;subcTI+=tS}
-    return{...act,def:p.def,preNokia:p.nokia,preSubc:p.subc,totalNokia:tN,totalSubc:tS};
+    return{...act,def:p.def,preNokia:p.nokia,preSubc:p.subc,
+           totalNokia:tN,totalSubc:subcExcluded?0:tS,subcExcluded};
   });
   const nokiaCW=sitio.cw_nokia||0,subcCW=sitio.cw_costo||0;
   const totalVenta=nokiaTI+nokiaADJ+nokiaCW+nokiaCR;
@@ -1211,7 +1217,7 @@ function renderConsolidado(){
     },0);
     tADJ+=adjTotal;
     tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=adjTotal;
-    tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=c.subcTI;tSCW+=c.subcCW;
+    tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=(c.subcTI||0)+(c.subcCR||0);tSCW+=c.subcCW;
     tMTI+=c.matTI;tMCW+=c.matCW;tLog+=c.logist;tAd+=c.adicion;
     let tMIMO=0; tMIMO+=mimoTotal; tMIMOtot+=mimoTotal;
     return`<tr>
@@ -1225,7 +1231,7 @@ function renderConsolidado(){
       <td class="num" style="background:#eff6ff">${c.nokiaCW>0?cop(c.nokiaCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaCR)}</td>
       <td class="num fw7" style="background:#dbeafe;border-right:2px solid #93c5fd">${mimoTotal>0?cop(mimoTotal):'<span class="tm">$0</span>'}</td>
-      <td class="num" style="background:#fffbeb">${cop(c.subcTI)}</td>
+      <td class="num" style="background:#fffbeb">${cop((c.subcTI||0)+(c.subcCR||0))}</td>
       <td class="num" style="background:#fffbeb">${c.subcCW>0?cop(c.subcCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matTI)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matCW)}</td>
@@ -1306,12 +1312,18 @@ function cargarSitio(id){
   if(s.tipo==='TSS')renderLiqTSS(s);else renderLiqSitio(s);
 }
 
+function _crDelBtn(sid,idx,act,isNokia){
+  if(!isNokia&&(act.tipo==='CR'||act.sec==='CR'))
+    return '<button class="btn-del" title="Excluir de SubC" onclick="exclCRSubc(\''+sid+'\','+idx+')">✕ SubC</button>';
+  return '<button class="btn-del" onclick="delAct(\''+sid+'\','+idx+')">✕</button>';
+}
 function buildActTable(sitio,c,modo){
   // modo: 'nokia' o 'subc'
   const isNokia=modo==='nokia';
   const secciones={};
   // PM has no SubC price - exclude from subc card
-  const filteredActs = modo==='subc' ? c.acts.filter(a=>a.id!=='PM') : c.acts;
+  const crExcl=new Set(sitio.crSubcExcluded||[]);
+  const filteredActs = modo==='subc' ? c.acts.filter((a,i)=>a.id!=='PM' && !(crExcl.has(i) && (a.tipo==='CR'||a.sec==='CR'))) : c.acts;
   filteredActs.forEach(act=>{const k=act.sec||'OTROS';if(!secciones[k])secciones[k]=[];secciones[k].push(act)});
   let rows='';
   for(const[sec,acts]of Object.entries(secciones)){
@@ -1329,7 +1341,7 @@ function buildActTable(sitio,c,modo){
         <td class="num fw7" id="${modo==='nokia'?`act-tot-${sitio.id}-${aIdx}`:`act-tots-${sitio.id}-${aIdx}`}">${cop(tShow)}</td>
         <td class="no-print">
           <button class="btn-edit" onclick="editAct('${sitio.id}',${aIdx})">✏</button>
-          <button class="btn-del" onclick="delAct('${sitio.id}',${aIdx})">✕</button>
+          ${_crDelBtn(sitio.id,aIdx,act,isNokia)}
         </td>
       </tr>`;
     });
@@ -1738,7 +1750,20 @@ function confirmarEditAct(){
 }
 function delAct(sid,idx){
   const s=ST.sitios.find(x=>x.id===sid);
-  if(s){s.actividades.splice(idx,1);saveState();cargarSitio(sid);toast('Actividad eliminada')}
+  if(s){
+    s.actividades.splice(idx,1);
+    if(s.crSubcExcluded&&s.crSubcExcluded.length)
+      s.crSubcExcluded=s.crSubcExcluded.filter(i=>i!==idx).map(i=>i>idx?i-1:i);
+    saveState();cargarSitio(sid);toast('Actividad eliminada');
+  }
+}
+function exclCRSubc(sid,idx){
+  const s=ST.sitios.find(x=>x.id===sid);
+  if(!s) return;
+  if(!s.crSubcExcluded) s.crSubcExcluded=[];
+  if(!s.crSubcExcluded.includes(idx)) s.crSubcExcluded.push(idx);
+  saveState();cargarSitio(sid);
+  toast('CR excluido del SubC — permanece en Nokia');
 }
 function setSitioEspecial(sid,catOver){
   const s=ST.sitios.find(x=>x.id===sid);
