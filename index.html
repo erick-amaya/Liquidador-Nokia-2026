@@ -369,7 +369,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <div style="padding:0;overflow-x:auto;max-height:calc(100vh - 320px);overflow-y:auto">
         <table class="tbl" id="tbl-dash">
           <thead style="position:sticky;top:0;z-index:2"><tr>
-            <th>Sitio</th><th>LC</th><th>Cat</th><th>Ciudad</th>
+            <th>Sitio</th><th>LC</th><th>Liquidación</th><th>Ciudad</th>
             <th class="num th-nokia">Venta Nokia</th>
             <th class="num th-subc">Costo SubC</th>
             <th class="num">Utilidad</th><th class="num">% Margen</th><th></th>
@@ -417,8 +417,8 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
       <table class="tbl" id="tbl-cons">
         <thead style="position:sticky;top:0;z-index:2">
           <tr>
-            <th rowspan="2">Sitio</th><th rowspan="2">Fecha</th>
-            <th rowspan="2">LC</th><th rowspan="2">Empresa</th><th rowspan="2">Cat</th>
+            <th rowspan="2">Sitio</th><th rowspan="2">Ciudad</th>
+            <th rowspan="2">Fecha</th><th rowspan="2">LC</th><th rowspan="2">Cat</th>
             <th class="num th-nokia" colspan="5">VENTA NOKIA</th>
             <th class="num th-subc" colspan="6">COSTOS SITIO</th>
             <th rowspan="2"></th>
@@ -1096,19 +1096,21 @@ function getPrecio(tipo,id,zona,cat,ciudadTSS){
 // CALC SITIO
 // ============================================================
 function calcSitio(sitio){
-  const cat=sitio.catEfectiva||sitio.cat||'A'; // catEfectiva = override for special sites
-  const crExclSet=new Set(sitio.crSubcExcluded||[]); // indices of CR acts excluded from SubC
+  const cat=sitio.catEfectiva||sitio.cat||'A';
+  const isFinal=sitio.estado==='final';
+  const crExclSet=new Set(sitio.crSubcExcluded||[]);
   let nokiaTI=0,nokiaADJ=0,nokiaCR=0,subcTI=0,subcADJ=0,subcCR=0;
   const acts=sitio.actividades.map((act,actIdx)=>{
-    const p=getPrecio(act.tipo,act.id,sitio.ciudad,cat,act.ciudad||null);
+    const p=isFinal&&act.snapNokia!=null
+      ?{nokia:act.snapNokia,subc:act.snapSubc,def:null}
+      :getPrecio(act.tipo,act.id,sitio.ciudad,cat,act.ciudad||null);
     const tN=p.nokia*(act.cant||0),tS=p.subc*(act.cant||0);
     const at=act.tipo||'BASE';
-    // If CR act is excluded from SubC, count Nokia but not SubC cost
     const subcExcluded=at==='CR'&&crExclSet.has(actIdx);
     if(at==='CR'){nokiaCR+=tN;if(!subcExcluded)subcCR+=tS;}
     else if(at==='ADJ'){nokiaADJ+=tN;subcADJ+=tS}
     else{nokiaTI+=tN;subcTI+=tS}
-    return{...act,def:p.def,preNokia:p.nokia,preSubc:p.subc,
+    return{...act,def:p.def||null,preNokia:p.nokia,preSubc:p.subc,
            totalNokia:tN,totalSubc:subcExcluded?0:tS,subcExcluded};
   });
   const nokiaCW=sitio.cw_nokia||0,subcCW=sitio.cw_costo||0;
@@ -1157,7 +1159,7 @@ function renderDashboard(){
   document.getElementById('tbody-dash').innerHTML=calcs.map(({s,c})=>`<tr>
     <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${tipoBadge(s)}${s.catEfectiva?' <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>':''}</td>
     <td style="font-size:10px">${s.lc}</td>
-    <td><span class="badge bg-gl" style="font-size:8px">${s.cat||'A'}</span></td>
+    <td>${s.estado==='final'?'<span class="badge" style="background:#1a7a1a;color:#fff;font-size:9px;padding:2px 8px">FINAL</span>':'<span class="badge" style="background:#d68910;color:#fff;font-size:9px;padding:2px 8px">PRE</span>'}</td>
     <td><span class="badge bg-b" style="font-size:8px">${s.ciudad==='varios'?'Var':s.ciudad.replace('Ciudad_','').substring(0,4)}</span></td>
     <td class="num" style="color:var(--b);font-weight:700">${cop(c.totalVenta)}</td>
     <td class="num" style="color:var(--o)">${cop(c.totalCosto)}</td>
@@ -1217,21 +1219,21 @@ function renderConsolidado(){
     },0);
     tADJ+=adjTotal;
     tV+=c.totalVenta;tC+=c.totalCosto;tTI+=c.nokiaTI;tADJ+=adjTotal;
-    tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=(c.subcTI||0)+(c.subcCR||0);tSCW+=c.subcCW;
+    tCW+=c.nokiaCW;tCR+=c.nokiaCR;tSTC+=c.subcTI;tSCW+=c.subcCW;
     tMTI+=c.matTI;tMCW+=c.matCW;tLog+=c.logist;tAd+=c.adicion;
     let tMIMO=0; tMIMO+=mimoTotal; tMIMOtot+=mimoTotal;
     return`<tr>
       <td style="white-space:nowrap"><strong>${s.nombre}</strong> ${tipoBadge(s)}${s.catEfectiva?` <span style="background:#7c3aed;color:#fff;border-radius:50%;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:800">E</span>`:''}</td>
+      <td><span class="badge bg-b" style="font-size:8px">${(s.ciudad||'').replace('Ciudad_','').substring(0,4)}</span></td>
       <td style="font-size:10px">${s.fecha}</td>
       <td style="font-size:10px">${s.lc}</td>
-      <td style="font-size:10px">${sub?.empresa||'—'}</td>
-      <td><span class="badge bg-gl" style="font-size:8px">${s.cat}</span></td>
+      <td><span class="badge bg-gl" style="font-size:8px">${s.catEfectiva||s.cat}</span></td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaTI)}</td>
       <td class="num" style="background:#eff6ff">${cop(adjTotal)}</td>
       <td class="num" style="background:#eff6ff">${c.nokiaCW>0?cop(c.nokiaCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#eff6ff">${cop(c.nokiaCR)}</td>
       <td class="num fw7" style="background:#dbeafe;border-right:2px solid #93c5fd">${mimoTotal>0?cop(mimoTotal):'<span class="tm">$0</span>'}</td>
-      <td class="num" style="background:#fffbeb">${cop((c.subcTI||0)+(c.subcCR||0))}</td>
+      <td class="num" style="background:#fffbeb">${cop(c.subcTI)}</td>
       <td class="num" style="background:#fffbeb">${c.subcCW>0?cop(c.subcCW):'<span class="tm">N/A</span>'}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matTI)}</td>
       <td class="num" style="background:#fffbeb">${cop(c.matCW)}</td>
@@ -1322,8 +1324,7 @@ function buildActTable(sitio,c,modo){
   const isNokia=modo==='nokia';
   const secciones={};
   // PM has no SubC price - exclude from subc card
-  const crExcl=new Set(sitio.crSubcExcluded||[]);
-  const filteredActs = modo==='subc' ? c.acts.filter((a,i)=>a.id!=='PM' && !(crExcl.has(i) && (a.tipo==='CR'||a.sec==='CR'))) : c.acts;
+  const filteredActs = modo==='subc' ? c.acts.filter(a=>a.id!=='PM') : c.acts;
   filteredActs.forEach(act=>{const k=act.sec||'OTROS';if(!secciones[k])secciones[k]=[];secciones[k].push(act)});
   let rows='';
   for(const[sec,acts]of Object.entries(secciones)){
@@ -1333,15 +1334,15 @@ function buildActTable(sitio,c,modo){
       const pShow=modo==='nokia'?act.preNokia:act.preSubc;
       const tShow=modo==='nokia'?act.totalNokia:act.totalSubc;
       rows+=`<tr>
-        <td>${act.def?.nombre||act.id}</td>
-        <td><span class="badge bg-k">${act.def?.unidad||''}</span></td>
+        <td>${act.def?.nombre||act.nombre||act.id}</td>
+        <td><span class="badge bg-k">${act.def?.unidad||act.unidad||''}</span></td>
         <td><input class="iq" type="number" value="${act.cant||0}" min="0"
           onchange="updCant('${sitio.id}',${aIdx},this.value)"></td>
         <td class="num">${cop(pShow)}</td>
         <td class="num fw7" id="${modo==='nokia'?`act-tot-${sitio.id}-${aIdx}`:`act-tots-${sitio.id}-${aIdx}`}">${cop(tShow)}</td>
         <td class="no-print">
           <button class="btn-edit" onclick="editAct('${sitio.id}',${aIdx})">✏</button>
-          ${_crDelBtn(sitio.id,aIdx,act,isNokia)}
+          <button class="btn-del" onclick="delAct('${sitio.id}',${aIdx})">✕</button>
         </td>
       </tr>`;
     });
@@ -1402,16 +1403,16 @@ function renderLiqSitio(sitio){
   const mc2=c.margen>=.3?'#1a7a1a':c.margen>=.2?'#FFC000':'#c0392b';
   const gastosSitio=ST.gastos.filter(g=>g.sitio===sitio.id);
 
+  const _liqBadge=_getLiqBadge(sitio);
+  const _liqBtn=_getLiqBtn(sitio.id,sitio.estado);
   const infoHeader=`
     <div class="card" style="margin-bottom:10px">
-      <div class="card-h"><h2>${sitio.nombre}</h2>
-        <div class="flex gap8">
-          <span class="badge bg-b">${sitio.ciudad.replace('Ciudad_','')}</span>
-          <span class="badge bg-gl">Cat ${c.cat}</span>
-        </div>
+      <div class="card-h" style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:1px">${sitio.nombre.toUpperCase()}</h2>
+        <div class="flex gap8" style="align-items:center">${_liqBadge} ${_liqBtn}</div>
       </div>
       <div class="card-b">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
+        <div style="display:grid;grid-template-columns:1fr 2fr 1fr 1fr;gap:10px">
           <div class="fg mb0"><label class="fl">Tipo Ciudad</label>
             <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','ciudad',this.value)">
               ${ZONAS.map(z=>`<option value="${z}" ${sitio.ciudad===z?'selected':''}>${z.replace('Ciudad_','')}</option>`).join('')}
@@ -1420,22 +1421,11 @@ function renderLiqSitio(sitio){
             <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','lc',this.value)">
               ${SUBCS.map(s=>`<option value="${s.lc}" ${sitio.lc===s.lc?'selected':''}>${s.lc} (Cat ${s.cat})</option>`).join('')}
             </select></div>
-          <div class="fg mb0"><label class="fl">Fecha</label>
-            <input type="date" class="fc" style="border:2px solid #1a5276;box-sizing:border-box;max-width:100%" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+          <div class="fg mb0"><label class="fl">Subir Categoría</label>
+            ${_catEspHtml(sitio)}
           </div>
-          <div class="fg mb0"><label class="fl">Categoría Especial</label>
-            <div style="display:flex;gap:6px;align-items:center">
-              ${(()=>{
-                const baseCat=sitio.cat||'A';
-                const opts=baseCat==='A'?['AA','AAA']:baseCat==='AA'?['AAA']:[];
-                const disabled=baseCat==='AAA';
-                return`<select class="fc" style="border:2px solid #7c3aed;width:140px" ${disabled?'disabled':''} onchange="setSitioEspecial('${sitio.id}',this.value)">
-                  <option value="">Normal (${baseCat})${disabled?' — máx':''}</option>
-                  ${opts.map(o=>`<option value="${o}" ${sitio.catEfectiva===o?'selected':''}>${o} ⭐</option>`).join('')}
-                </select>`;
-              })()}
-              ${sitio.catEfectiva?`<span style="background:#7c3aed;color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">E</span>`:''}
-            </div>
+          <div class="fg mb0" style="min-width:0;overflow:hidden"><label class="fl">Fecha</label>
+            <input type="date" class="fc" style="border:2px solid #1a5276;width:100%;min-width:0;box-sizing:border-box;display:block" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
         </div>
       </div>
@@ -1750,20 +1740,7 @@ function confirmarEditAct(){
 }
 function delAct(sid,idx){
   const s=ST.sitios.find(x=>x.id===sid);
-  if(s){
-    s.actividades.splice(idx,1);
-    if(s.crSubcExcluded&&s.crSubcExcluded.length)
-      s.crSubcExcluded=s.crSubcExcluded.filter(i=>i!==idx).map(i=>i>idx?i-1:i);
-    saveState();cargarSitio(sid);toast('Actividad eliminada');
-  }
-}
-function exclCRSubc(sid,idx){
-  const s=ST.sitios.find(x=>x.id===sid);
-  if(!s) return;
-  if(!s.crSubcExcluded) s.crSubcExcluded=[];
-  if(!s.crSubcExcluded.includes(idx)) s.crSubcExcluded.push(idx);
-  saveState();cargarSitio(sid);
-  toast('CR excluido del SubC — permanece en Nokia');
+  if(s){s.actividades.splice(idx,1);saveState();cargarSitio(sid);toast('Actividad eliminada')}
 }
 function setSitioEspecial(sid,catOver){
   const s=ST.sitios.find(x=>x.id===sid);
@@ -1772,6 +1749,68 @@ function setSitioEspecial(sid,catOver){
   saveState();
   cargarSitio(sid);
   toast(catOver?`Sitio especial: Cat ${catOver} aplicada`:'Categoría especial eliminada');
+}
+
+
+
+function _migrateExistingSites(){
+  var n=0;
+  ST.sitios.forEach(function(s){
+    if(!s.estado){
+      s.actividades.forEach(function(act){
+        if(act.snapNokia==null){
+          var p=getPrecio(act.tipo,act.id,s.ciudad,s.catEfectiva||s.cat,act.ciudad||null);
+          act.snapNokia=p.nokia; act.snapSubc=p.subc;
+          if(p.def&&!act.nombre) act.nombre=p.def.nombre;
+          if(p.def&&!act.unidad) act.unidad=p.def.unidad;
+        }
+      });
+      s.estado='pre'; n++;
+    }
+  });
+  if(n>0){ saveState(); console.log('Migrated '+n+' sites to Liquidación Final'); }
+}
+
+function _catEspHtml(sitio){
+  var baseCat=sitio.cat||'A';
+  var opts=baseCat==='A'?['AA','AAA']:baseCat==='AA'?['AAA']:[];
+  var disabled=baseCat==='AAA';
+  var q="'";
+  var sel='<select class="fc" style="border:2px solid #7c3aed" '+(disabled?'disabled':'')+' onchange="setSitioEspecial('+q+sitio.id+q+',this.value)">';
+  var curVal=sitio.catEfectiva||'';
+  sel+='<option value="" '+(curVal===''?'selected':'')+'>Categoría '+baseCat+(disabled?' (máx)':'')+'</option>';
+  opts.forEach(function(o){sel+='<option value="'+o+'" '+(curVal===o?'selected':'')+'>Subir a  '+o+' ⭐</option>';});
+  sel+='</select>';
+  var badge=sitio.catEfectiva?'<span style="background:#7c3aed;color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-left:4px">E</span>':'';
+  return '<div style="display:flex;align-items:center;gap:4px">'+sel+badge+'</div>';
+}
+function _getLiqBadge(sitio){
+  if(sitio.estado==='final')
+    return '<span style="background:#1a7a1a;color:#fff;padding:3px 12px;border-radius:20px;font-size:10px;font-weight:800">✓ LIQUIDACIÓN FINAL</span>';
+  return '<span style="background:#d68910;color:#fff;padding:3px 12px;border-radius:20px;font-size:10px;font-weight:800">⏳ PRE LIQUIDACIÓN</span>';
+}
+function _getLiqBtn(sid,estado){
+  if(estado==='final') return '';
+  var q="'";
+  return '<button class="btn bp btn-sm no-print" style="font-size:9px;font-weight:700" onclick="marcarLiquidado('+q+sid+q+')">✓ Marcar Liquidación Final</button>';
+}
+function marcarLiquidado(sid){
+  const s=ST.sitios.find(x=>x.id===sid);if(!s)return;
+  s.actividades.forEach(act=>{
+    const p=getPrecio(act.tipo,act.id,s.ciudad,s.catEfectiva||s.cat,act.ciudad||null);
+    act.snapNokia=p.nokia;act.snapSubc=p.subc;
+    if(p.def&&!act.nombre)act.nombre=p.def.nombre;
+    if(p.def&&!act.unidad)act.unidad=p.def.unidad;
+  });
+  s.estado='final';saveState();cargarSitio(sid);
+  toast('✓ Liquidación Final — precios congelados');
+}
+function exclCRSubc(sid,idx){
+  const s=ST.sitios.find(x=>x.id===sid);if(!s)return;
+  if(!s.crSubcExcluded)s.crSubcExcluded=[];
+  if(!s.crSubcExcluded.includes(idx))s.crSubcExcluded.push(idx);
+  saveState();cargarSitio(sid);
+  toast('CR excluido del SubC — permanece en Nokia');
 }
 function updCant(sid,idx,val){
   const s=ST.sitios.find(x=>x.id===sid);
@@ -1915,14 +1954,19 @@ async function loadFromSheets(){
 function loadState(){
   try{
     const d=JSON.parse(localStorage.getItem('igt26')||'{}');
-    if(d.sitios&&d.sitios.length>=_DEFAULT_SITIOS_COUNT){ST.sitios=d.sitios;if(d.gastos)ST.gastos=d.gastos;}
-    else if(d.gastos&&d.gastos.length){ST.gastos=d.gastos;}
+    if(d.sitios&&d.sitios.length>=_DEFAULT_SITIOS_COUNT){
+      // Reset all loaded sites to 'pre' so user marks them final manually
+      d.sitios.forEach(function(s){s.estado='pre';});
+      ST.sitios=d.sitios;
+      if(d.gastos)ST.gastos=d.gastos;
+    } else if(d.gastos&&d.gastos.length){ST.gastos=d.gastos;}
   }catch(e){}
 }
 
 async function syncInit(){
   // Al arrancar: primero local (rápido), luego Sheets (actualizado)
   loadState();
+  _migrateExistingSites();
   if(USE_SHEETS){
     const loaded = await loadFromSheets();
     if(loaded){ renderDashboard(); initSelLiq(); refreshSelects(); }
