@@ -69,6 +69,7 @@ body{font-family:'Barlow',sans-serif;background:#f0f2f0;color:var(--k);font-size
 .fc{width:100%;border:1.5px solid var(--g2);border-radius:5px;padding:7px 9px;font-family:'Barlow',sans-serif;font-size:12px;background:#fff;transition:border-color .15s;outline:none}
 .fc:focus{border-color:var(--g)}
 input[type=number].fc{text-align:right}
+input[type=date].fc{min-width:0;width:100%;box-sizing:border-box}
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
@@ -862,7 +863,7 @@ function fpGetMes(id){ return (_fpState[id]||{mes:'todos'}).mes; };
 
 let CAT={
   BASE:[
-    {id:'PM',nombre:'PM (Project Manager)',unidad:'Sitio',
+    {id:'PM',nombre:'PM',unidad:'Sitio',
       nokia:[1899091,2046799,2215607,2321112],A:[null,null,null,null],AA:[null,null,null,null],AAA:[null,null,null,null]},
     {id:'IMP_RF',nombre:'IMP_RF',unidad:'Unidad',
       nokia:[1229107,1324704,1433958,1502242],A:[456091,491564,529948,562433],AA:[501700,540721,582942,618676],AAA:[584732,630211,682187,714672]},
@@ -1412,7 +1413,7 @@ function renderLiqSitio(sitio){
         <div class="flex gap8" style="align-items:center">${_liqBadge} ${_liqBtn}</div>
       </div>
       <div class="card-b">
-        <div style="display:grid;grid-template-columns:1fr 2fr 1fr 1fr;gap:10px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
           <div class="fg mb0"><label class="fl">Tipo Ciudad</label>
             <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','ciudad',this.value)">
               ${ZONAS.map(z=>`<option value="${z}" ${sitio.ciudad===z?'selected':''}>${z.replace('Ciudad_','')}</option>`).join('')}
@@ -1424,8 +1425,8 @@ function renderLiqSitio(sitio){
           <div class="fg mb0"><label class="fl">Subir Categoría</label>
             ${_catEspHtml(sitio)}
           </div>
-          <div class="fg mb0" style="min-width:0;overflow:hidden"><label class="fl">Fecha</label>
-            <input type="date" class="fc" style="border:2px solid #1a5276;width:100%;min-width:0;box-sizing:border-box;display:block" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+          <div class="fg mb0"><label class="fl">Fecha</label>
+            <input type="date" class="fc" style="border:2px solid #1a5276;box-sizing:border-box;width:100%;max-width:100%;min-width:0" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
         </div>
       </div>
@@ -2440,10 +2441,11 @@ function addCatRow(lista){CAT[lista].push({id:'act_'+Date.now(),nombre:'Nueva Ac
 function exportarExcel(){
   const wb=XLSX.utils.book_new();
   // CONSOLIDATED
-  const consData=[['Sitio','Fecha','LC','Empresa','Cat','Venta TI','Venta ADJ','Venta CW','Venta CR','Total Venta','SubC TI','SubC CW','Mat TI','Mat CW','Logística','Adicionales','Total Costo','Utilidad','% Margen']];
+  const consData=[['Sitio','Fecha','LC','Empresa','TI','ADJ','CW','CR','Venta Nokia','SubC TI','SubC CW','Mat TI','Mat CW','Logística','Adicionales','Costo SubC','Utilidad','% Margen']];
   ST.sitios.forEach(s=>{
     const c=calcSitio(s),sub=SUBCS.find(x=>x.lc===s.lc);
-    consData.push([s.nombre,s.fecha,s.lc,sub?.empresa||'',s.cat,c.nokiaTI,c.nokiaADJ,c.nokiaCW,c.nokiaCR,c.totalVenta,c.subcTI,c.subcCW,c.matTI,c.matCW,c.logist,c.adicion,c.totalCosto,c.utilidad,parseFloat((c.margen*100).toFixed(1))]);
+    const costoSubc=(c.subcTI||0)+(c.subcADJ||0)+(c.subcCR||0)+(c.subcCW||0);
+    consData.push([s.nombre,s.fecha,s.lc,sub?.empresa||'',c.nokiaTI,c.nokiaADJ,c.nokiaCW,c.nokiaCR,c.totalVenta,c.subcTI,c.subcCW,c.matTI,c.matCW,c.logist,c.adicion,costoSubc,c.utilidad,parseFloat((c.margen*100).toFixed(1))]);
   });
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(consData),'Consolidado');
   const gastData=[['Sitio','Tipo','Descripcion','Valor']];
