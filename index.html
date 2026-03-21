@@ -69,7 +69,7 @@ body{font-family:'Barlow',sans-serif;background:#f0f2f0;color:var(--k);font-size
 .fc{width:100%;border:1.5px solid var(--g2);border-radius:5px;padding:7px 9px;font-family:'Barlow',sans-serif;font-size:12px;background:#fff;transition:border-color .15s;outline:none}
 .fc:focus{border-color:var(--g)}
 input[type=number].fc{text-align:right}
-input[type=date].fc{min-width:0;width:100%;box-sizing:border-box}
+input[type=date].fc{min-width:0;width:100%;box-sizing:border-box;-webkit-appearance:none;appearance:none;font-family:'Barlow',sans-serif;font-size:12px;height:34px}
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
@@ -1241,7 +1241,7 @@ function renderConsolidado(){
       <td class="num" style="background:#fffbeb">${cop(c.logist)}</td>
       <td class="num" style="background:#fffbeb;border-right:2px solid #fbbf24">${cop(c.adicion)}</td>
       <td><button class="btn bou btn-sm" onclick="abrirLiquidador('${s.id}')">Abrir</button>
-      <button class="btn-del" onclick="eliminarSitio('${s.id}')">✕</button></td>
+      ${(s.estado!=='final')?'<button class="btn-del" onclick="eliminarSitio(\''+s.id+'\')">✕</button>':''}</td>
     </tr>`;
   }).join('');
   document.getElementById('tbody-cons').innerHTML=rows;
@@ -1281,7 +1281,7 @@ function renderConsolidadoTSS(){
       <td class="num fw7" style="color:var(--b)">${cop(cc.totalVenta)}</td>
       <td class="num" style="color:var(--o)">${cop(cc.totalCosto)}</td>
       <td><button class="btn bou btn-sm" onclick="abrirLiquidador('${s.id}')">Abrir</button>
-      <button class="btn-del" onclick="eliminarSitio('${s.id}')">✕</button></td>
+      ${(s.estado!=='final')?'<button class="btn-del" onclick="eliminarSitio(\''+s.id+'\')">✕</button>':''}</td>
     </tr>`;
   }).join('');
   document.getElementById('tbody-tss-cons').innerHTML=rows||'<tr><td colspan="8" class="tm" style="padding:20px;text-align:center">Sin sitios TSS</td></tr>';
@@ -1321,11 +1321,13 @@ function _crDelBtn(sid,idx,act,isNokia){
   return '<button class="btn-del" onclick="delAct(\''+sid+'\','+idx+')">✕</button>';
 }
 function buildActTable(sitio,c,modo){
-  // modo: 'nokia' o 'subc'
   const isNokia=modo==='nokia';
+  const locked=sitio.estado==='final'; // ALL users: read-only when final
+  const crExcl=new Set(sitio.crSubcExcluded||[]);
   const secciones={};
-  // PM has no SubC price - exclude from subc card
-  const filteredActs = modo==='subc' ? c.acts.filter(a=>a.id!=='PM') : c.acts;
+  const filteredActs=modo==='subc'
+    ?c.acts.filter((a,i)=>a.id!=='PM'&&!(crExcl.has(i)&&(a.tipo==='CR'||a.sec==='CR')))
+    :c.acts;
   filteredActs.forEach(act=>{const k=act.sec||'OTROS';if(!secciones[k])secciones[k]=[];secciones[k].push(act)});
   let rows='';
   for(const[sec,acts]of Object.entries(secciones)){
@@ -1337,14 +1339,16 @@ function buildActTable(sitio,c,modo){
       rows+=`<tr>
         <td>${act.def?.nombre||act.nombre||act.id}</td>
         <td><span class="badge bg-k">${act.def?.unidad||act.unidad||''}</span></td>
-        <td><input class="iq" type="number" value="${act.cant||0}" min="0"
-          onchange="updCant('${sitio.id}',${aIdx},this.value)"></td>
+        <td>${locked
+          ?`<span style="font-weight:600;padding:2px 8px;font-size:12px">${act.cant||0}</span>`
+          :`<input class="iq" type="number" value="${act.cant||0}" min="0" onchange="updCant('${sitio.id}',${aIdx},this.value)">`
+        }</td>
         <td class="num">${cop(pShow)}</td>
         <td class="num fw7" id="${modo==='nokia'?`act-tot-${sitio.id}-${aIdx}`:`act-tots-${sitio.id}-${aIdx}`}">${cop(tShow)}</td>
-        <td class="no-print">
+        <td class="no-print">${locked?'':`
           <button class="btn-edit" onclick="editAct('${sitio.id}',${aIdx})">✏</button>
-          <button class="btn-del" onclick="delAct('${sitio.id}',${aIdx})">✕</button>
-        </td>
+          ${_crDelBtn(sitio.id,aIdx,act,isNokia)}`
+        }</td>
       </tr>`;
     });
   }
@@ -1393,7 +1397,7 @@ function buildActTable(sitio,c,modo){
   rows+=`<tr style="background:${totBg};border-top:2px solid ${totClr}30">
     <td colspan="3" style="padding:8px;font-weight:800;color:${totClr}">${totLabel}</td>
     <td></td>
-    <td style="text-align:right;padding:8px;font-weight:900;font-size:13px;color:${totClr}">${cop(isNokia?totNokia:totSubc)}</td>
+    <td style="text-align:right;padding:8px;font-weight:900;font-size:13px;color:${totClr}" id="${isNokia?'liq-tot-nokia-row-':'liq-tot-subc-row-'}${sitio.id}">${cop(isNokia?totNokia:totSubc)}</td>
     <td></td>
   </tr>`;
   return rows;
@@ -1413,20 +1417,20 @@ function renderLiqSitio(sitio){
         <div class="flex gap8" style="align-items:center">${_liqBadge} ${_liqBtn}</div>
       </div>
       <div class="card-b">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;overflow:hidden">
           <div class="fg mb0"><label class="fl">Tipo Ciudad</label>
-            <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','ciudad',this.value)">
+            <select class="fc" style="border:2px solid #1a5276" ${sitio.estado==='final'?'disabled':''} onchange="updSitio('${sitio.id}','ciudad',this.value)">
               ${ZONAS.map(z=>`<option value="${z}" ${sitio.ciudad===z?'selected':''}>${z.replace('Ciudad_','')}</option>`).join('')}
             </select></div>
           <div class="fg mb0"><label class="fl">LC / Subcontratista</label>
-            <select class="fc" style="border:2px solid #1a5276" onchange="updSitio('${sitio.id}','lc',this.value)">
+            <select class="fc" style="border:2px solid #1a5276" ${sitio.estado==='final'?'disabled':''} onchange="updSitio('${sitio.id}','lc',this.value)">
               ${SUBCS.map(s=>`<option value="${s.lc}" ${sitio.lc===s.lc?'selected':''}>${s.lc} (Cat ${s.cat})</option>`).join('')}
             </select></div>
           <div class="fg mb0"><label class="fl">Subir Categoría</label>
             ${_catEspHtml(sitio)}
           </div>
           <div class="fg mb0"><label class="fl">Fecha</label>
-            <input type="date" class="fc" style="border:2px solid #1a5276;box-sizing:border-box;width:100%;max-width:100%;min-width:0" value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
+            <input type="date" class="fc" style="border:2px solid #1a5276;box-sizing:border-box;width:100%;max-width:100%;min-width:0" ${sitio.estado==='final'?'disabled':''} value="${sitio.fecha}" onchange="updSitio('${sitio.id}','fecha',this.value)">
           </div>
         </div>
       </div>
@@ -1435,8 +1439,8 @@ function renderLiqSitio(sitio){
   const actRows=buildActTable(sitio,c,'nokia');
   const actRowsSubc=buildActTable(sitio,c,'subc');
 
-  const addBtn=`<button class="btn btn-sm no-print" style="background:#CDFBF2;color:#000000;font-weight:700" onclick="openAddAct('${sitio.id}')">＋ Actividad</button>`;
-  const addBtnSubc=`<button class="btn btn-sm no-print" style="background:#FFC000;color:#000000;font-weight:700" onclick="openAddAct('${sitio.id}')">＋ Actividad</button>`;
+  const addBtn=sitio.estado==='final'?'':`<button class="btn btn-sm no-print" style="background:#CDFBF2;color:#000000;font-weight:700" onclick="openAddAct('${sitio.id}')">＋ Actividad</button>`;
+  const addBtnSubc=sitio.estado==='final'?'':`<button class="btn btn-sm no-print" style="background:#FFC000;color:#000000;font-weight:700" onclick="openAddAct('${sitio.id}')">＋ Actividad</button>`;
 
   // CW row
   const cwLabel=sitio.cw_conjunto?'CW en Conjunto':sitio.tiene_cw?'Incluye CW':'Sin CW';
@@ -1791,9 +1795,20 @@ function _getLiqBadge(sitio){
   return '<span style="background:#d68910;color:#fff;padding:3px 12px;border-radius:20px;font-size:10px;font-weight:800">⏳ PRE LIQUIDACIÓN</span>';
 }
 function _getLiqBtn(sid,estado){
-  if(estado==='final') return '';
   var q="'";
+  if(estado==='final'){
+    // Only admin can reopen
+    if(ST.isAdmin)
+      return '<button class="btn bou btn-sm no-print" style="font-size:9px;border-color:#c0392b;color:#c0392b" onclick="desmarcarLiquidado('+q+sid+q+')">↩ Reabrir</button>';
+    return '';
+  }
   return '<button class="btn bp btn-sm no-print" style="font-size:9px;font-weight:700" onclick="marcarLiquidado('+q+sid+q+')">✓ Marcar Liquidación Final</button>';
+}
+function desmarcarLiquidado(sid){
+  const s=ST.sitios.find(x=>x.id===sid);if(!s)return;
+  s.estado='pre';
+  saveState();cargarSitio(sid);
+  toast('Sitio reabierto — PRE LIQUIDACIÓN');
 }
 function marcarLiquidado(sid){
   const s=ST.sitios.find(x=>x.id===sid);if(!s)return;
@@ -1823,12 +1838,19 @@ function updCant(sid,idx,val){
   const mc=cc.margen>=.3?'#1a7a1a':cc.margen>=.2?'#FFC000':'#c0392b';
   const set=(id,v)=>{const el=document.getElementById(id+sid);if(el)el.textContent=v;};
   const setC=(id,clr)=>{const el=document.getElementById(id+sid);if(el)el.style.color=clr;};
-  // Per-row totals
+  // Per-row totals + sync SubC qty inputs to match Nokia qty
   cc.acts.forEach((act,i)=>{
     const nEl=document.getElementById(`act-tot-${sid}-${i}`);
     const sEl=document.getElementById(`act-tots-${sid}-${i}`);
     if(nEl) nEl.textContent=cop(act.totalNokia||0);
     if(sEl) sEl.textContent=cop(act.totalSubc||0);
+    // Sync the SubC qty input (same activity, different card) if it exists
+    const subcQtyInputs=document.querySelectorAll(`#liq-content input.iq`);
+    subcQtyInputs.forEach(inp=>{
+      // Find inputs in the subc card (act-tots- prefix identifies subc rows)
+      const row=inp.closest('tr');
+      if(row){const totCell=row.querySelector(`[id="act-tots-${sid}-${i}"]`);if(totCell)inp.value=act.cant||0;}
+    });
   });
   // Summary totals
   set('liq-ti-val-',cop(cc.nokiaTI));
@@ -1838,6 +1860,14 @@ function updCant(sid,idx,val){
   set('liq-subc-val-',cop(cc.subcTI+cc.subcADJ+cc.subcCR));
   set('liq-tot-val-',cop(cc.totalCosto));
   set('liq-tot2-val-',cop(cc.totalCosto));
+  // Update the TOTAL row in both Nokia and SubC act tables
+  const nTotRow=document.getElementById('liq-tot-nokia-row-'+sid);
+  const sTotRow=document.getElementById('liq-tot-subc-row-'+sid);
+  const hasCW=cc.nokiaCW>0||cc.subcCW>0;
+  const totNokia=cc.nokiaTI+cc.nokiaADJ+cc.nokiaCR+(hasCW?cc.nokiaCW:0);
+  const totSubc=(cc.subcTI||0)+(cc.subcADJ||0)+(cc.subcCR||0)+(hasCW?cc.subcCW:0);
+  if(nTotRow) nTotRow.textContent=cop(totNokia);
+  if(sTotRow) sTotRow.textContent=cop(totSubc);
   set('liq-ut-val-',cop(cc.utilidad)); setC('liq-ut-val-',mc);
   set('liq-mg-val-',pct(cc.margen));   setC('liq-mg-val-',mc);
   const bar=document.getElementById('liq-bar-'+sid);
