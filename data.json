@@ -430,6 +430,12 @@
           "tipo": "CR",
           "id": "Riesgo_Bio_Poda",
           "cant": 1
+        },
+        {
+          "sec": "CR",
+          "tipo": "CR",
+          "id": "Trasiego_HW_CI_DA",
+          "cant": 1
         }
       ],
       "estado": "pre"
@@ -1529,5 +1535,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-26T22:54:19.460Z"
+  "lastUpdated": "2026-03-26T22:56:50.991Z"
 }
