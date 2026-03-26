@@ -1465,6 +1465,12 @@
           "tipo": "BASE",
           "id": "DESMONTE_BB",
           "cant": 2
+        },
+        {
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "id": "IMP_Rectificador",
+          "cant": 1
         }
       ]
     }
@@ -1579,5 +1585,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-26T23:02:59.405Z"
+  "lastUpdated": "2026-03-26T23:03:24.792Z"
 }
