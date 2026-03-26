@@ -1509,7 +1509,13 @@
       "tipo": "Adicionales",
       "desc": "Recogida Hw Faltante - TOL.El Vergel (FPKC)",
       "valor": 120000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Materiales TI",
+      "desc": "Material Supervendor del sitio",
+      "valor": 1492366
     }
   ],
-  "lastUpdated": "2026-03-26T22:47:49.672Z"
+  "lastUpdated": "2026-03-26T22:49:57.423Z"
 }
