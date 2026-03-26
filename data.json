@@ -1431,7 +1431,13 @@
       "tipo": "Logistica",
       "desc": "Bodegaje logistica inversa",
       "valor": 100000
+    },
+    {
+      "sitio": "CAL.Compartir",
+      "tipo": "Adicionales",
+      "desc": "Excedente",
+      "valor": 495025.8
     }
   ],
-  "lastUpdated": "2026-03-26T21:04:19.256Z"
+  "lastUpdated": "2026-03-26T21:04:55.103Z"
 }
