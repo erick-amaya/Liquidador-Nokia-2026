@@ -1455,7 +1455,13 @@
       "tipo": "Logistica",
       "desc": "Cargue a Hombro Logistica Directa desde finca leidy hasta EB",
       "valor": 500000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Logistica",
+      "desc": "cargue a Hombro logistica Inversa desde EB hasta finca leidy",
+      "valor": 400000
     }
   ],
-  "lastUpdated": "2026-03-26T21:21:03.356Z"
+  "lastUpdated": "2026-03-26T21:21:29.339Z"
 }
