@@ -1409,49 +1409,8 @@
         }
       ],
       "estado": "pre"
-    },
-    {
-      "id": "CAL.Prueba",
-      "nombre": "CAL.Prueba",
-      "tipo": "TI",
-      "fecha": "2026-03-26",
-      "ciudad": "Ciudad_Principal",
-      "lc": "ALVARO GONZALEZ",
-      "cat": "A",
-      "cw_nokia": 0,
-      "cw_costo": 0,
-      "tiene_cw": false,
-      "cw_conjunto": false,
-      "costos": {
-        "matTI": 0,
-        "matCW": 0,
-        "backoffice": 0
-      },
-      "actividades": [
-        {
-          "sec": "MODERNIZACION",
-          "tipo": "BASE",
-          "id": "PM",
-          "cant": 1,
-          "snapNokia": 1899091,
-          "snapSubc": 0,
-          "nombre": "PM",
-          "unidad": "Sitio"
-        },
-        {
-          "sec": "SITIO_NUEVO",
-          "tipo": "BASE",
-          "id": "IMP_RF",
-          "cant": 3,
-          "snapNokia": 1229107,
-          "snapSubc": 456091,
-          "nombre": "IMP_RF",
-          "unidad": "Unidad"
-        }
-      ],
-      "estado": "pre"
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T15:03:11.303Z"
+  "lastUpdated": "2026-03-26T15:10:10.353Z"
 }
