@@ -1461,13 +1461,7 @@
       "tipo": "Logistica",
       "desc": "cargue a Hombro logistica Inversa desde EB hasta finca leidy",
       "valor": 400000
-    },
-    {
-      "sitio": "TOL.El Vergel",
-      "tipo": "Logistica",
-      "desc": "4x4 para bajar equipos desde finca de leidy hasta el vergel",
-      "valor": 400000
     }
   ],
-  "lastUpdated": "2026-03-26T21:22:04.136Z"
+  "lastUpdated": "2026-03-26T21:23:00.224Z"
 }
