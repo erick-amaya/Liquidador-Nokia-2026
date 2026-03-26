@@ -1423,6 +1423,32 @@
         }
       ],
       "estado": "pre"
+    },
+    {
+      "id": "NAR.Tumaco-6",
+      "nombre": "NAR.Tumaco-6",
+      "tipo": "TI",
+      "fecha": "2026-03-26",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "BALDOMIRO BENAVIDES",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": true,
+      "cw_conjunto": true,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [
@@ -1535,5 +1561,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-26T23:00:09.722Z"
+  "lastUpdated": "2026-03-26T23:02:08.684Z"
 }
