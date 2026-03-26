@@ -1467,7 +1467,13 @@
       "tipo": "Logistica",
       "desc": "4x4 para bajar equipos LI desde finca de Leidy hasta El vergel",
       "valor": 600000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Logistica",
+      "desc": "Transporte desde el vergel hasta Ortega (Adicional por rio crecido)",
+      "valor": 200000
     }
   ],
-  "lastUpdated": "2026-03-26T21:23:35.406Z"
+  "lastUpdated": "2026-03-26T21:24:14.295Z"
 }
