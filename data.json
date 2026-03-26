@@ -1440,9 +1440,10 @@
           "id": "IMP_RF",
           "cant": 3
         }
-      ]
+      ],
+      "catEfectiva": "AA"
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T17:20:06.125Z"
+  "lastUpdated": "2026-03-26T17:20:08.810Z"
 }
