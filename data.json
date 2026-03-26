@@ -1437,7 +1437,13 @@
       "tipo": "Adicionales",
       "desc": "Excedente",
       "valor": 495025.8
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Logistica",
+      "desc": "Transporte Equipos Logisitica Directa Bodega Cali - El Vergel",
+      "valor": 600000
     }
   ],
-  "lastUpdated": "2026-03-26T21:18:53.616Z"
+  "lastUpdated": "2026-03-26T21:19:55.980Z"
 }
