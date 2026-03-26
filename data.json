@@ -1424,13 +1424,7 @@
       "tipo": "Logistica",
       "desc": "Logistica Inversa Chaparral - Bodega Cali",
       "valor": 600000
-    },
-    {
-      "sitio": "TOL.Chaparral",
-      "tipo": "Logistica",
-      "desc": "Almacenamiento HW Logistica Inversa",
-      "valor": 100000
     }
   ],
-  "lastUpdated": "2026-03-26T20:40:59.547Z"
+  "lastUpdated": "2026-03-26T20:41:03.343Z"
 }
