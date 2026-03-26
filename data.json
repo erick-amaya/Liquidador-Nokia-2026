@@ -1503,7 +1503,13 @@
       "tipo": "Adicionales",
       "desc": "Poda Estación - TOL.El Vergel",
       "valor": 200000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Adicionales",
+      "desc": "Recogida Hw Faltante - TOL.El Vergel (FPKC)",
+      "valor": 120000
     }
   ],
-  "lastUpdated": "2026-03-26T22:47:38.463Z"
+  "lastUpdated": "2026-03-26T22:47:49.672Z"
 }
