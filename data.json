@@ -981,7 +981,8 @@
           "nombre": "REUB_RF Airscale AHPCx"
         }
       ],
-      "estado": "pre"
+      "estado": "pre",
+      "catEfectiva": "AA"
     },
     {
       "id": "CAL.Compartir",
@@ -1424,19 +1425,7 @@
       "tipo": "Logistica",
       "desc": "Logistica Inversa Chaparral - Bodega Cali",
       "valor": 600000
-    },
-    {
-      "sitio": "TOL.Chaparral",
-      "tipo": "Logistica",
-      "desc": "Almacenamiento HW Logistica Inversa",
-      "valor": 100000
-    },
-    {
-      "sitio": "TOL.Chaparral",
-      "tipo": "Logistica",
-      "desc": "Cargue a Hombro Logistica Inversa",
-      "valor": 50000
     }
   ],
-  "lastUpdated": "2026-03-26T20:42:21.553Z"
+  "lastUpdated": "2026-03-26T20:42:25.941Z"
 }
