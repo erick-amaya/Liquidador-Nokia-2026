@@ -1409,8 +1409,34 @@
         }
       ],
       "estado": "pre"
+    },
+    {
+      "id": "CAL.Ptrueba",
+      "nombre": "CAL.Ptrueba",
+      "tipo": "TI",
+      "fecha": "2026-03-26",
+      "ciudad": "Ciudad_Principal",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T17:18:51.052Z"
+  "lastUpdated": "2026-03-26T17:19:45.406Z"
 }
