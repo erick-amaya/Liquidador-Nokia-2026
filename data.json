@@ -1479,7 +1479,13 @@
       "tipo": "Logistica",
       "desc": "Transporte Equipos Logisitica Inversa desde ortega hasta Bodega Cali",
       "valor": 600000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Logistica",
+      "desc": "PRUEBA",
+      "valor": 2222222
     }
   ],
-  "lastUpdated": "2026-03-26T21:27:06.596Z"
+  "lastUpdated": "2026-03-26T21:27:21.403Z"
 }
