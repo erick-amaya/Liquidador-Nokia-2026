@@ -1491,7 +1491,13 @@
       "tipo": "Adicionales",
       "desc": "PagoTransporte (50% unico transporte ) - adicional a johan veloza",
       "valor": 500000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Adicionales",
+      "desc": "Transporte 4X4  - 50 % TOL.El Vergel - Se le reconcone adicional a Johan Veloza",
+      "valor": 250000
     }
   ],
-  "lastUpdated": "2026-03-26T22:46:33.454Z"
+  "lastUpdated": "2026-03-26T22:47:19.044Z"
 }
