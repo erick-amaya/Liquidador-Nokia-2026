@@ -1497,7 +1497,13 @@
       "tipo": "Adicionales",
       "desc": "Transporte 4X4  - 50 % TOL.El Vergel - Se le reconcone adicional a Johan Veloza",
       "valor": 250000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Adicionales",
+      "desc": "Poda Estación - TOL.El Vergel",
+      "valor": 200000
     }
   ],
-  "lastUpdated": "2026-03-26T22:47:19.044Z"
+  "lastUpdated": "2026-03-26T22:47:38.463Z"
 }
