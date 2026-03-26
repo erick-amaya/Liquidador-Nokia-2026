@@ -328,6 +328,7 @@ hr.div{border:none;border-top:1px solid var(--g2);margin:10px 0}
     <button class="btn bp btn-sm no-print" onclick="openModal('m-nuevo-sitio')">＋ Sitio</button>
     <button class="btn bo btn-sm no-print" onclick="openModal('m-nuevo-tss')">＋ TSS</button>
     <button class="btn bk btn-sm no-print" onclick="exportarExcel()">⬇ Excel</button>
+    <button class="btn bg btn-sm no-print" onclick="exportToSheets()" title="Exportar a Google Sheets">📊 Sheets</button>
   </div>
 </div>
 
@@ -2199,6 +2200,53 @@ async function forceSync(){
   renderDashboard();
   initSelLiq();
   refreshSelects();
+}
+
+// ============================================================
+// EXPORTACIÓN OPCIONAL A GOOGLE SHEETS
+// ============================================================
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzNTxzUAK6znFiq3nmQED-WU2dGnj6DCwb6yKLajpGWQJEQWmO49lTTgDbwmaEAnGyI/exec';
+
+function exportToSheets(){
+  toast('Exportando a Google Sheets...');
+  // Include pre-calculated values so GAS gets accurate numbers
+  const calcs=ST.sitios.map(s=>{
+    const cc=calcSitio(s);
+    const sub=SUBCS.find(x=>x.lc===s.lc);
+    return{
+      id:s.id, nombre:s.nombre, tipo:s.tipo, fecha:s.fecha,
+      lc:s.lc, empresa:sub?.empresa||'', cat:s.catEfectiva||s.cat,
+      ciudad:(s.ciudad||'').replace('Ciudad_',''),
+      tiene_cw:s.tiene_cw, estado:s.estado||'pre',
+      nokiaTI:cc.nokiaTI, nokiaADJ:cc.nokiaADJ,
+      nokiaCW:cc.nokiaCW, nokiaCR:cc.nokiaCR,
+      totalVenta:cc.totalVenta,
+      subcTI:cc.subcTI, subcADJ:cc.subcADJ||0,
+      subcCW:cc.subcCW, subcCR:cc.subcCR||0,
+      matTI:cc.matTI, matCW:cc.matCW,
+      logist:cc.logist, adicion:cc.adicion,
+      backoffice:cc.backoffice||0,
+      totalCosto:cc.totalCosto,
+      utilidad:cc.utilidad,
+      margen:parseFloat((cc.margen*100).toFixed(1)),
+      acts:cc.acts.map(a=>({id:a.id,nombre:a.nombre||a.def?.nombre||a.id,sec:a.sec,unidad:a.unidad||a.def?.unidad||'',cant:a.cant,preNokia:a.preNokia,preSubc:a.preSubc,totalNokia:a.totalNokia,totalSubc:a.totalSubc}))
+    };
+  });
+  const payload = JSON.stringify({sitios:ST.sitios, gastos:ST.gastos, calcs:calcs, export:true});
+  fetch(GAS_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body: payload
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.ok)toast('✓ Exportado a Sheets ('+d.sitios+' sitios)');
+    else{toast('Error de exportación: '+(d.error||'desconocido'),'err');console.warn('Sheets error:',d.error);}
+  })
+  .catch(e=>{
+    console.warn('Export failed:',e);
+    toast('Error al exportar a Sheets','err');
+  });
 }
 
 // ============================================================
