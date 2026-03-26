@@ -1433,10 +1433,16 @@
           "tipo": "BASE",
           "id": "PM",
           "cant": 1
+        },
+        {
+          "sec": "SITIO_NUEVO",
+          "tipo": "BASE",
+          "id": "IMP_RF",
+          "cant": 3
         }
       ]
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T17:19:45.406Z"
+  "lastUpdated": "2026-03-26T17:19:57.356Z"
 }
