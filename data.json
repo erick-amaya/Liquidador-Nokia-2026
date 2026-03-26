@@ -1485,7 +1485,13 @@
       "tipo": "Adicionales",
       "desc": "Edicion de fotos para Reporte radiante (Yorleidis camacho)",
       "valor": 40000
+    },
+    {
+      "sitio": "TOL.El Vergel",
+      "tipo": "Adicionales",
+      "desc": "PagoTransporte (50% unico transporte ) - adicional a johan veloza",
+      "valor": 500000
     }
   ],
-  "lastUpdated": "2026-03-26T22:43:01.885Z"
+  "lastUpdated": "2026-03-26T22:46:33.454Z"
 }
