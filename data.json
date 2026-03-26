@@ -766,8 +766,7 @@
           "nombre": "DESMONTE_BB"
         }
       ],
-      "estado": "pre",
-      "catEfectiva": "AAA"
+      "estado": "pre"
     },
     {
       "id": "CAQ.Getucha",
@@ -1446,5 +1445,5 @@
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T17:20:42.978Z"
+  "lastUpdated": "2026-03-26T17:20:49.855Z"
 }
