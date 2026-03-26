@@ -1,1 +1,1442 @@
-{"sitios":[],"gastos":[],"lastUpdated":""}
+{
+  "sitios": [
+    {
+      "id": "CAL.Vallegrande-2",
+      "nombre": "CAL.Vallegrande-2",
+      "tipo": "TI",
+      "fecha": "2026-01-01",
+      "ciudad": "Ciudad_Principal",
+      "lc": "JOHAN VELOZA",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 1899091,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "IMP_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1368107,
+          "snapSubc": 507670,
+          "nombre": "IMP_BB"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "5G",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "IMP_Rectificador",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 241848,
+          "snapSubc": 120924,
+          "nombre": "IMP_Rectificador"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAU.Santa Leticia",
+      "nombre": "CAU.Santa Leticia",
+      "tipo": "TI",
+      "fecha": "2026-01-23",
+      "ciudad": "Dificil Acceso",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2321112,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1502242,
+          "snapSubc": 562433,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1042829,
+          "snapSubc": 390430,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1290421,
+          "snapSubc": 483128,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 579324,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "FLO.Ciudadela-2",
+      "nombre": "FLO.Ciudadela-2",
+      "tipo": "TI",
+      "fecha": "2026-02-01",
+      "ciudad": "Ciudad_Principal",
+      "lc": "MOISES LADINO",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 1899091,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 473992,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "FLO.Berlin",
+      "nombre": "FLO.Berlin",
+      "tipo": "TI",
+      "fecha": "2026-02-03",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "NAR.Leiva-2",
+      "nombre": "NAR.Leiva-2",
+      "tipo": "TI",
+      "fecha": "2026-02-07",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JECSON FESTES",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 552991,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "TOL.El Vergel",
+      "nombre": "TOL.El Vergel",
+      "tipo": "TI",
+      "fecha": "2026-02-09",
+      "ciudad": "Dificil Acceso",
+      "lc": "JOHAN VELOZA",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2321112,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1502242,
+          "snapSubc": 562433,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1042829,
+          "snapSubc": 390430,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1290421,
+          "snapSubc": 483128,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 579324,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "FLO.Bocana-2",
+      "nombre": "FLO.Bocana-2",
+      "tipo": "TI",
+      "fecha": "2026-02-09",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "MOISES LADINO",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 7,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 552991,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "FLO.Villa Monica",
+      "nombre": "FLO.Villa Monica",
+      "tipo": "TI",
+      "fecha": "2026-02-09",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "VAL.Yumbo-2",
+      "nombre": "VAL.Yumbo-2",
+      "tipo": "TI",
+      "fecha": "2026-01-01",
+      "ciudad": "Ciudad_Principal",
+      "lc": "JHON ALVARO MUÑOZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 1899091,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 449056,
+          "snapSubc": 224528,
+          "nombre": "REUB_RF Airscale AHPCx"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 449056,
+          "snapSubc": 224528,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "POP.La Esmeralda",
+      "nombre": "POP.La Esmeralda",
+      "tipo": "TI",
+      "fecha": "2026-02-16",
+      "ciudad": "Ciudad_Secundaria",
+      "lc": "JECSON FESTES",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2046799,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1324704,
+          "snapSubc": 491564,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 9,
+          "unidad": "Unidad",
+          "snapNokia": 919585,
+          "snapSubc": 341235,
+          "nombre": "DESMONTE_RF"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAD.Guarinocito",
+      "nombre": "CAD.Guarinocito",
+      "tipo": "TI",
+      "fecha": "2026-02-19",
+      "ciudad": "Dificil Acceso",
+      "lc": "BALDOMIRO BENAVIDES",
+      "cat": "AA",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2321112,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1502242,
+          "snapSubc": 618676,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 1042829,
+          "snapSubc": 429473,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1290421,
+          "snapSubc": 531441,
+          "nombre": "DESMONTE_BB"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAQ.Getucha",
+      "nombre": "CAQ.Getucha",
+      "tipo": "TI",
+      "fecha": "2026-02-19",
+      "ciudad": "Dificil Acceso",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2321112,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 9,
+          "unidad": "Unidad",
+          "snapNokia": 1502242,
+          "snapSubc": 562433,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "IMP_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1672131,
+          "snapSubc": 626038,
+          "nombre": "IMP_BB"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1042829,
+          "snapSubc": 390430,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1290421,
+          "snapSubc": 483128,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 549483,
+          "snapSubc": 274741,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "TOL.Chaparral",
+      "nombre": "TOL.Chaparral",
+      "tipo": "TI",
+      "fecha": "2026-02-23",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JOHAN VELOZA",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "TOL.Mariquita",
+      "nombre": "TOL.Mariquita",
+      "tipo": "TI",
+      "fecha": "2026-02-24",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JECSON FESTES",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAL.Compartir",
+      "nombre": "CAL.Compartir",
+      "tipo": "TI",
+      "fecha": "2026-03-01",
+      "ciudad": "Ciudad_Principal",
+      "lc": "MOISES LADINO",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 1899091,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 8,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 7,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 449056,
+          "snapSubc": 224528,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAQ.Doncello",
+      "nombre": "CAQ.Doncello",
+      "tipo": "TI",
+      "fecha": "2026-03-06",
+      "ciudad": "Dificil Acceso",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2321112,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1502242,
+          "snapSubc": 562433,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "IMP_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1672131,
+          "snapSubc": 626038,
+          "nombre": "IMP_BB"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1042829,
+          "snapSubc": 390430,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 1290421,
+          "snapSubc": 483128,
+          "nombre": "DESMONTE_BB"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "NAR.Tumaco-2",
+      "nombre": "NAR.Tumaco-2",
+      "tipo": "TI",
+      "fecha": "2026-03-09",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "BALDOMIRO BENAVIDES",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 7,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 10,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "HUI.Palestina-2",
+      "nombre": "HUI.Palestina-2",
+      "tipo": "TI",
+      "fecha": "2026-03-09",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JECSON FESTES",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 4,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 552991,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "ANT.Pueblo Nuevo",
+      "nombre": "ANT.Pueblo Nuevo",
+      "tipo": "TI",
+      "fecha": "2026-03-14",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JOSE DORRONSORO",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 5,
+          "unidad": "Unidad",
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 552991,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 1,
+          "unidad": "Unidad",
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAL.Prados del Sur",
+      "nombre": "CAL.Prados del Sur",
+      "tipo": "TI",
+      "fecha": "2026-03-14",
+      "ciudad": "Ciudad_Principal",
+      "lc": "MOISES LADINO",
+      "cat": "A",
+      "tiene_cw": false,
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "costos": {
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "id": "PM",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 1,
+          "unidad": "Sitio",
+          "snapNokia": 1899091,
+          "snapSubc": 0,
+          "nombre": "PM"
+        },
+        {
+          "id": "IMP_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 6,
+          "unidad": "Unidad",
+          "snapNokia": 1229107,
+          "snapSubc": 456091,
+          "nombre": "IMP_RF"
+        },
+        {
+          "id": "DESMONTE_RF",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 7,
+          "unidad": "Unidad",
+          "snapNokia": 853223,
+          "snapSubc": 316610,
+          "nombre": "DESMONTE_RF"
+        },
+        {
+          "id": "DESMONTE_BB",
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "cant": 2,
+          "unidad": "Unidad",
+          "snapNokia": 1055799,
+          "snapSubc": 391780,
+          "nombre": "DESMONTE_BB"
+        },
+        {
+          "id": "Logistica_Inversa_Antenas",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 473992,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas"
+        },
+        {
+          "id": "REUB_RF_Airscale_AHPCx",
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "cant": 3,
+          "unidad": "Unidad",
+          "snapNokia": 449056,
+          "snapSubc": 224528,
+          "nombre": "REUB_RF Airscale AHPCx"
+        }
+      ],
+      "estado": "pre"
+    },
+    {
+      "id": "CAL.Prueba",
+      "nombre": "CAL.Prueba",
+      "tipo": "TI",
+      "fecha": "2026-03-26",
+      "ciudad": "Ciudad_Principal",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
+    }
+  ],
+  "gastos": [],
+  "lastUpdated": "2026-03-26T14:49:33.900Z"
+}
