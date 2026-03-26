@@ -1973,7 +1973,19 @@ function setGitHubToken(token){
 }
 
 // Mostrar modal para ingresar token
-function showTokenModal(){
+let _tokenModalShown = false;
+
+function showTokenModal(force=false){
+  // Solo mostrar automáticamente una vez, a menos que force=true
+  if(!force && _tokenModalShown) return;
+  _tokenModalShown = true;
+
+  // Si ya existe el modal, no crear otro
+  if(document.getElementById('m-token')){
+    document.getElementById('m-token').style.display='flex';
+    return;
+  }
+
   const html = `
     <div id="m-token" class="mod" style="display:flex">
       <div class="mc" style="max-width:450px;padding:30px">
@@ -1981,14 +1993,15 @@ function showTokenModal(){
           <div class="mt" style="font-size:18px">Configurar Sincronización</div>
         </div>
         <p style="margin-bottom:15px;font-size:13px;color:#94a3b8">
-          Para sincronizar datos con GitHub, ingresa tu Personal Access Token.
+          Para sincronizar datos con GitHub entre múltiples usuarios, ingresa tu Personal Access Token.
         </p>
         <input type="password" id="inp-github-token" placeholder="ghp_... o github_pat_..."
-          style="width:100%;padding:12px;border-radius:6px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;margin-bottom:15px;font-family:monospace">
-        <p style="margin-bottom:20px;font-size:11px;color:#64748b">
-          El token se guarda localmente en tu navegador y solo se usa para sincronizar datos.
+          style="width:100%;padding:12px;border-radius:6px;border:1px solid #334155;background:#0f172a;color:#e2e8f0;margin-bottom:10px;font-family:monospace">
+        <p style="margin-bottom:15px;font-size:11px;color:#64748b">
+          El token se guarda solo en este navegador. Usa el mismo token en todos tus dispositivos.
         </p>
-        <div style="display:flex;gap:10px;justify-content:flex-end">
+        <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+          <button onclick="useOfflineMode()" class="bbtn" style="background:#475569;margin-right:auto">Usar sin sync</button>
           <button onclick="closeModal('m-token')" class="bbtn" style="background:#334155">Cancelar</button>
           <button onclick="saveGitHubToken()" class="bbtn" style="background:#3b82f6">Guardar</button>
         </div>
@@ -1996,6 +2009,19 @@ function showTokenModal(){
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function useOfflineMode(){
+  localStorage.setItem('igt26_offline_mode', 'true');
+  closeModal('m-token');
+  toast('Modo offline activado. Los datos se guardarán solo localmente.');
+  updateSyncBadge('local');
+}
+
+function clearOfflineMode(){
+  localStorage.removeItem('igt26_offline_mode');
+  toast('Modo sync reactivado. Configura el token para sincronizar.');
+  showTokenModal(true);
 }
 
 function saveGitHubToken(){
@@ -2020,7 +2046,7 @@ function saveState(){
   }
 }
 
-async function syncToGitHub(){
+async function syncToGitHub(retryCount=0, maxRetries=3){
   const token = getGitHubToken();
   if(!token || !USE_GITHUB) return;
 
@@ -2072,21 +2098,40 @@ async function syncToGitHub(){
       _githubSha = data.content.sha;
       toast(`✓ Guardado en GitHub (${ST.sitios.length} sitios)`);
       updateSyncBadge('synced');
+    }else if(res.status === 409 || res.status === 422){
+      // Conflicto de SHA - el archivo cambió en el servidor
+      console.warn('SHA conflict, refetching...');
+      _githubSha = null; // Forzar refetch del SHA
+      if(retryCount < maxRetries){
+        setTimeout(() => syncToGitHub(retryCount + 1, maxRetries), 1000);
+      }else{
+        toast('Conflicto de sincronización. Intenta de nuevo.', 'err');
+      }
+    }else if(res.status === 401){
+      const err = await res.json();
+      console.warn('GitHub sync error:',err);
+      toast('Token inválido. Configura de nuevo.', 'err');
+      localStorage.removeItem('igt26_github_token');
+      _githubToken = null;
+      showTokenModal(true);
     }else{
       const err = await res.json();
       console.warn('GitHub sync error:',err);
-      if(res.status === 401){
-        toast('Token inválido. Configura de nuevo.', 'err');
-        localStorage.removeItem('igt26_github_token');
-        _githubToken = null;
-        showTokenModal();
+      if(retryCount < maxRetries){
+        setTimeout(() => syncToGitHub(retryCount + 1, maxRetries), 1000);
       }else{
-        toast('Error al guardar en GitHub', 'err');
+        toast('Error al guardar en GitHub (reintentos agotados)', 'err');
+        updateSyncBadge('error');
       }
     }
   }catch(e){
     console.warn('Sync failed:',e);
-    toast('Error de conexión con GitHub', 'err');
+    if(retryCount < maxRetries){
+      setTimeout(() => syncToGitHub(retryCount + 1, maxRetries), 1000);
+    }else{
+      toast('Error de conexión con GitHub', 'err');
+      updateSyncBadge('error');
+    }
   }
 }
 
@@ -2177,14 +2222,20 @@ async function syncInit(){
 
   if(USE_GITHUB){
     const token = getGitHubToken();
-    if(!token){
+    const offlineMode = localStorage.getItem('igt26_offline_mode') === 'true';
+
+    if(!token && !offlineMode){
+      // Primera vez: mostrar modal
       showTokenModal();
-      return;
+    }else if(token){
+      // Hay token, intentar sincronizar
+      const loaded = await loadFromGitHub();
+      if(loaded){ renderDashboard(); initSelLiq(); refreshSelects(); }
+    }else{
+      // Modo offline
+      updateSyncBadge('local');
     }
-    const loaded = await loadFromGitHub();
-    if(loaded){ renderDashboard(); initSelLiq(); refreshSelects(); }
   }
-  updateSyncBadge('local');
 }
 
 // Función para forzar sincronización manual
@@ -2842,16 +2893,47 @@ if('serviceWorker' in navigator){
 if(USE_GITHUB){
   const syncBadge=document.createElement('span');
   syncBadge.id='sync-badge';
-  syncBadge.style.cssText='font-size:9px;color:#fbbf24;letter-spacing:.5px;opacity:.7;cursor:pointer';
+  syncBadge.style.cssText='font-size:9px;color:#fbbf24;letter-spacing:.5px;opacity:.7;cursor:pointer;user-select:none';
   syncBadge.textContent='● GITHUB';
-  syncBadge.title='Clic para sincronizar manualmente o configurar token';
-  syncBadge.onclick = function(){
+  syncBadge.title='Clic izquierdo: sincronizar | Clic derecho: opciones';
+
+  // Clic izquierdo: sincronizar
+  syncBadge.onclick = function(e){
+    e.preventDefault();
     if(getGitHubToken()){
       forceSync();
     }else{
-      showTokenModal();
+      showTokenModal(true);
     }
   };
+
+  // Clic derecho: menú contextual
+  syncBadge.oncontextmenu = function(e){
+    e.preventDefault();
+    const menu = document.createElement('div');
+    menu.id = 'sync-context-menu';
+    menu.style.cssText = 'position:fixed;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:5px 0;z-index:10000;min-width:180px;';
+    menu.innerHTML = `
+      <div style="padding:8px 15px;font-size:11px;color:#94a3b8;cursor:pointer;hover:bg:#334155" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='transparent'" onclick="forceSync();document.getElementById('sync-context-menu').remove();">🔄 Forzar sincronización</div>
+      <div style="padding:8px 15px;font-size:11px;color:#94a3b8;cursor:pointer;hover:bg:#334155" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='transparent'" onclick="showTokenModal(true);document.getElementById('sync-context-menu').remove();">⚙️ Cambiar token</div>
+      <div style="padding:8px 15px;font-size:11px;color:#94a3b8;cursor:pointer;hover:bg:#334155" onmouseover="this.style.background='#334155'" onmouseout="this.style.background='transparent'" onclick="useOfflineMode();document.getElementById('sync-context-menu').remove();">📴 Modo offline</div>
+      <hr style="border:0;border-top:1px solid #334155;margin:5px 0;">
+      <div style="padding:8px 15px;font-size:10px;color:#64748b;">Estado: ${getGitHubToken()?'Configurado':'Sin token'}</div>
+    `;
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+    document.body.appendChild(menu);
+
+    // Cerrar menú al hacer clic fuera
+    const closeMenu = function(e){
+      if(!e.target.closest('#sync-context-menu')){
+        document.getElementById('sync-context-menu')?.remove();
+        document.removeEventListener('click', closeMenu);
+      }
+    };
+    setTimeout(() => document.addEventListener('click', closeMenu), 10);
+  };
+
   document.querySelector('.htit')?.after(syncBadge);
 }
 
