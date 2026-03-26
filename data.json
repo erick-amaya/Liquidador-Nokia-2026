@@ -981,7 +981,8 @@
           "nombre": "REUB_RF Airscale AHPCx"
         }
       ],
-      "estado": "pre"
+      "estado": "pre",
+      "catEfectiva": "AA"
     },
     {
       "id": "CAL.Compartir",
@@ -1426,5 +1427,5 @@
       "valor": 600000
     }
   ],
-  "lastUpdated": "2026-03-26T20:41:03.343Z"
+  "lastUpdated": "2026-03-26T20:41:15.324Z"
 }
