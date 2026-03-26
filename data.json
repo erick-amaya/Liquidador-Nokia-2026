@@ -717,7 +717,7 @@
       "fecha": "2026-02-19",
       "ciudad": "Dificil Acceso",
       "lc": "BALDOMIRO BENAVIDES",
-      "cat": "AA",
+      "cat": "A",
       "tiene_cw": false,
       "cw_nokia": 0,
       "cw_costo": 0,
@@ -766,7 +766,8 @@
           "nombre": "DESMONTE_BB"
         }
       ],
-      "estado": "pre"
+      "estado": "pre",
+      "catEfectiva": "AA"
     },
     {
       "id": "CAQ.Getucha",
@@ -1445,5 +1446,5 @@
     }
   ],
   "gastos": [],
-  "lastUpdated": "2026-03-26T17:21:38.411Z"
+  "lastUpdated": "2026-03-26T17:21:55.493Z"
 }
