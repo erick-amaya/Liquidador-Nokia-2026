@@ -1559,6 +1559,12 @@
           "tipo": "BASE",
           "id": "IMP_RF",
           "cant": 6
+        },
+        {
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "id": "REUB_RF_Airscale_AHPCx",
+          "cant": 1
         }
       ]
     }
@@ -1673,5 +1679,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-27T15:25:31.329Z"
+  "lastUpdated": "2026-03-27T15:33:10.224Z"
 }
