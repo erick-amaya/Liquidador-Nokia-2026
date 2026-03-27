@@ -1497,6 +1497,12 @@
           "tipo": "BASE",
           "id": "PM",
           "cant": 1
+        },
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "IMP_RF",
+          "cant": 6
         }
       ]
     }
@@ -1611,5 +1617,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-27T15:18:24.250Z"
+  "lastUpdated": "2026-03-27T15:18:40.943Z"
 }
