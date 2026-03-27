@@ -1473,6 +1473,32 @@
           "cant": 1
         }
       ]
+    },
+    {
+      "id": "NAR.Cartago",
+      "nombre": "NAR.Cartago",
+      "tipo": "TI",
+      "fecha": "2026-03-27",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "MOISES LADINO",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [
@@ -1585,5 +1611,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-27T15:15:44.902Z"
+  "lastUpdated": "2026-03-27T15:18:24.250Z"
 }
