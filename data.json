@@ -1684,6 +1684,12 @@
           "tipo": "ADJ",
           "id": "REUB_RF_Airscale_AHPCx",
           "cant": 2
+        },
+        {
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "id": "Logistica_Inversa_Antenas",
+          "cant": 4
         }
       ]
     }
@@ -1798,5 +1804,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-29T03:10:22.872Z"
+  "lastUpdated": "2026-03-29T03:10:37.248Z"
 }
