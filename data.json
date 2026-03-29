@@ -1645,8 +1645,8 @@
       "ciudad": "Ciudad_Intermedia",
       "lc": "JOSE DORRONSORO",
       "cat": "A",
-      "cw_nokia": 0,
-      "cw_costo": 0,
+      "cw_nokia": 350000,
+      "cw_costo": 350000,
       "tiene_cw": true,
       "cw_conjunto": false,
       "costos": {
@@ -1804,5 +1804,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-29T03:12:37.937Z"
+  "lastUpdated": "2026-03-29T03:30:55.063Z"
 }
