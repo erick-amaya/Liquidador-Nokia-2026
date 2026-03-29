@@ -1636,6 +1636,32 @@
         }
       ],
       "estado": "pre"
+    },
+    {
+      "id": "ANT.El Tie",
+      "nombre": "ANT.El Tie",
+      "tipo": "TI",
+      "fecha": "2026-03-29",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "JOSE DORRONSORO",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [
@@ -1748,5 +1774,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-29T03:06:46.566Z"
+  "lastUpdated": "2026-03-29T03:08:29.180Z"
 }
