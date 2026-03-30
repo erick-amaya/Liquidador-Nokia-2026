@@ -428,6 +428,12 @@
         {
           "sec": "CR",
           "tipo": "CR",
+          "id": "Riesgo_Bio_Poda",
+          "cant": 1
+        },
+        {
+          "sec": "CR",
+          "tipo": "CR",
           "id": "Trasiego_HW_CI_DA",
           "cant": 1
         }
@@ -1861,6 +1867,32 @@
           "cant": 2
         }
       ]
+    },
+    {
+      "id": "NAR.Iscuande",
+      "nombre": "NAR.Iscuande",
+      "tipo": "TI",
+      "fecha": "2026-03-30",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "BALDOMIRO BENAVIDES",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [
@@ -1973,5 +2005,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T22:01:59.175Z"
+  "lastUpdated": "2026-03-30T22:04:35.549Z"
 }
