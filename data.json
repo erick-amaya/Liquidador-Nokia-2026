@@ -1692,32 +1692,6 @@
           "cant": 4
         }
       ]
-    },
-    {
-      "id": "CAL.prueba",
-      "nombre": "CAL.prueba",
-      "tipo": "TI",
-      "fecha": "2026-03-30",
-      "ciudad": "Ciudad_Principal",
-      "lc": "ALVARO GONZALEZ",
-      "cat": "A",
-      "cw_nokia": 0,
-      "cw_costo": 0,
-      "tiene_cw": false,
-      "cw_conjunto": false,
-      "costos": {
-        "matTI": 0,
-        "matCW": 0,
-        "backoffice": 0
-      },
-      "actividades": [
-        {
-          "sec": "MODERNIZACION",
-          "tipo": "BASE",
-          "id": "PM",
-          "cant": 1
-        }
-      ]
     }
   ],
   "gastos": [
@@ -1828,13 +1802,7 @@
       "tipo": "Logistica",
       "desc": "Transporte al Terminal para despacho de enconmienda",
       "valor": 20000
-    },
-    {
-      "sitio": "CAL.prueba",
-      "tipo": "Materiales TI",
-      "desc": "materiales",
-      "valor": 1000000
     }
   ],
-  "lastUpdated": "2026-03-30T02:17:55.657Z"
+  "lastUpdated": "2026-03-30T02:18:18.359Z"
 }
