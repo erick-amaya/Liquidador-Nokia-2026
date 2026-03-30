@@ -1815,6 +1815,12 @@
           "tipo": "BASE",
           "id": "IMP_RF",
           "cant": 5
+        },
+        {
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "id": "Logistica_Inversa_Antenas",
+          "cant": 2
         }
       ]
     }
@@ -1929,5 +1935,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T20:49:39.421Z"
+  "lastUpdated": "2026-03-30T20:50:41.478Z"
 }
