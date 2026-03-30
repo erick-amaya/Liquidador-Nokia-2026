@@ -4,7 +4,7 @@
       "id": "CAL.Vallegrande-2",
       "nombre": "CAL.Vallegrande-2",
       "tipo": "TI",
-      "fecha": "2026-01-02",
+      "fecha": "2026-01-01",
       "ciudad": "Ciudad_Principal",
       "lc": "JOHAN VELOZA",
       "cat": "A",
@@ -1434,8 +1434,8 @@
       "cat": "A",
       "cw_nokia": 0,
       "cw_costo": 0,
-      "tiene_cw": false,
-      "cw_conjunto": false,
+      "tiene_cw": true,
+      "cw_conjunto": true,
       "costos": {
         "matTI": 0,
         "matCW": 0,
@@ -1659,39 +1659,64 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "PM",
-          "cant": 1
+          "cant": 1,
+          "snapNokia": 2215607,
+          "snapSubc": 0,
+          "nombre": "PM",
+          "unidad": "Sitio"
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_BB",
-          "cant": 1
+          "cant": 1,
+          "snapNokia": 1231765,
+          "snapSubc": 455223,
+          "nombre": "DESMONTE_BB",
+          "unidad": "Unidad"
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 5
+          "cant": 5,
+          "snapNokia": 995427,
+          "snapSubc": 367880,
+          "nombre": "DESMONTE_RF",
+          "unidad": "Unidad"
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "IMP_RF",
-          "cant": 6
+          "cant": 6,
+          "snapNokia": 1433958,
+          "snapSubc": 529948,
+          "nombre": "IMP_RF",
+          "unidad": "Unidad"
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "REUB_RF_Airscale_AHPCx",
-          "cant": 2
+          "cant": 2,
+          "snapNokia": 499530,
+          "snapSubc": 249765,
+          "nombre": "REUB_RF Airscale AHPCx",
+          "unidad": "Unidad"
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "Logistica_Inversa_Antenas",
-          "cant": 4
+          "cant": 4,
+          "snapNokia": 552991,
+          "snapSubc": 70000,
+          "nombre": "Logística Inversa Antenas",
+          "unidad": "Unidad"
         }
-      ]
+      ],
+      "estado": "pre"
     }
   ],
   "gastos": [
@@ -1804,5 +1829,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T02:54:39.167Z"
+  "lastUpdated": "2026-03-30T13:48:42.620Z"
 }
