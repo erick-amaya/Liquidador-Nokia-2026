@@ -1753,6 +1753,12 @@
           "tipo": "BASE",
           "id": "DESMONTE_RF",
           "cant": 8
+        },
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "IMP_RF",
+          "cant": 4
         }
       ]
     }
@@ -1867,5 +1873,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T19:44:18.921Z"
+  "lastUpdated": "2026-03-30T19:44:31.931Z"
 }
