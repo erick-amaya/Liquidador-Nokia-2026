@@ -1773,6 +1773,32 @@
           "cant": 1
         }
       ]
+    },
+    {
+      "id": "HUI.Palestina",
+      "nombre": "HUI.Palestina",
+      "tipo": "TI",
+      "fecha": "2026-03-30",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "ALVARO GONZALEZ",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
+        }
+      ]
     }
   ],
   "gastos": [
@@ -1885,5 +1911,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T19:46:56.525Z"
+  "lastUpdated": "2026-03-30T20:49:04.452Z"
 }
