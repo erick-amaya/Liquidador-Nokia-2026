@@ -1782,8 +1782,8 @@
       "ciudad": "Ciudad_Intermedia",
       "lc": "ALVARO GONZALEZ",
       "cat": "A",
-      "cw_nokia": 0,
-      "cw_costo": 0,
+      "cw_nokia": 420000,
+      "cw_costo": 420000,
       "tiene_cw": true,
       "cw_conjunto": false,
       "costos": {
@@ -1827,6 +1827,32 @@
           "tipo": "ADJ",
           "id": "REUB_RF_Airscale_AHPCx",
           "cant": 2
+        }
+      ]
+    },
+    {
+      "id": "NAR.Samaniego",
+      "nombre": "NAR.Samaniego",
+      "tipo": "TI",
+      "fecha": "2026-03-30",
+      "ciudad": "Ciudad_Intermedia",
+      "lc": "BALDOMIRO BENAVIDES",
+      "cat": "A",
+      "cw_nokia": 0,
+      "cw_costo": 0,
+      "tiene_cw": false,
+      "cw_conjunto": false,
+      "costos": {
+        "matTI": 0,
+        "matCW": 0,
+        "backoffice": 0
+      },
+      "actividades": [
+        {
+          "sec": "MODERNIZACION",
+          "tipo": "BASE",
+          "id": "PM",
+          "cant": 1
         }
       ]
     }
@@ -1941,5 +1967,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T20:54:27.042Z"
+  "lastUpdated": "2026-03-30T21:57:14.894Z"
 }
