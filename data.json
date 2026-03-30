@@ -1828,7 +1828,13 @@
       "tipo": "Logistica",
       "desc": "Transporte al Terminal para despacho de enconmienda",
       "valor": 20000
+    },
+    {
+      "sitio": "CAL.prueba",
+      "tipo": "Materiales TI",
+      "desc": "materiales",
+      "valor": 1000000
     }
   ],
-  "lastUpdated": "2026-03-30T02:17:42.352Z"
+  "lastUpdated": "2026-03-30T02:17:55.657Z"
 }
