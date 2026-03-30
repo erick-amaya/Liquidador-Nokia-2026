@@ -1909,6 +1909,12 @@
           "tipo": "BASE",
           "id": "IMP_RF",
           "cant": 3
+        },
+        {
+          "sec": "ADJ",
+          "tipo": "ADJ",
+          "id": "FO_ABIA",
+          "cant": 1
         }
       ]
     }
@@ -2023,5 +2029,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T22:05:00.562Z"
+  "lastUpdated": "2026-03-30T22:06:03.225Z"
 }
