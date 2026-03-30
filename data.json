@@ -4,7 +4,7 @@
       "id": "CAL.Vallegrande-2",
       "nombre": "CAL.Vallegrande-2",
       "tipo": "TI",
-      "fecha": "2026-01-01",
+      "fecha": "2026-01-02",
       "ciudad": "Ciudad_Principal",
       "lc": "JOHAN VELOZA",
       "cat": "A",
@@ -1804,5 +1804,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-30T02:54:31.741Z"
+  "lastUpdated": "2026-03-30T02:54:39.167Z"
 }
