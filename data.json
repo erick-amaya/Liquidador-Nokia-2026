@@ -1740,64 +1740,39 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "PM",
-          "cant": 1,
-          "snapNokia": 2046799,
-          "snapSubc": 0,
-          "nombre": "PM",
-          "unidad": "Sitio"
+          "cant": 1
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_BB",
-          "cant": 1,
-          "snapNokia": 1137916,
-          "snapSubc": 422252,
-          "nombre": "DESMONTE_BB",
-          "unidad": "Unidad"
+          "cant": 1
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 8,
-          "snapNokia": 919585,
-          "snapSubc": 341235,
-          "nombre": "DESMONTE_RF",
-          "unidad": "Unidad"
+          "cant": 8
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "IMP_RF",
-          "cant": 4,
-          "snapNokia": 1324704,
-          "snapSubc": 491564,
-          "nombre": "IMP_RF",
-          "unidad": "Unidad"
+          "cant": 4
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "REUB_RF_Airscale_AHPCx",
-          "cant": 1,
-          "snapNokia": 462527,
-          "snapSubc": 231263,
-          "nombre": "REUB_RF Airscale AHPCx",
-          "unidad": "Unidad"
+          "cant": 1
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "Logistica_Inversa_Antenas",
-          "cant": 1,
-          "snapNokia": 510858,
-          "snapSubc": 70000,
-          "nombre": "Logística Inversa Antenas",
-          "unidad": "Unidad"
+          "cant": 1
         }
-      ],
-      "estado": "pre"
+      ]
     },
     {
       "id": "HUI.Palestina",
@@ -1821,64 +1796,39 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "PM",
-          "cant": 1,
-          "snapNokia": 2215607,
-          "snapSubc": 0,
-          "nombre": "PM",
-          "unidad": "Sitio"
+          "cant": 1
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_BB",
-          "cant": 4,
-          "snapNokia": 1231765,
-          "snapSubc": 455223,
-          "nombre": "DESMONTE_BB",
-          "unidad": "Unidad"
+          "cant": 4
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 6,
-          "snapNokia": 995427,
-          "snapSubc": 367880,
-          "nombre": "DESMONTE_RF",
-          "unidad": "Unidad"
+          "cant": 6
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "IMP_RF",
-          "cant": 5,
-          "snapNokia": 1433958,
-          "snapSubc": 529948,
-          "nombre": "IMP_RF",
-          "unidad": "Unidad"
+          "cant": 5
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "Logistica_Inversa_Antenas",
-          "cant": 2,
-          "snapNokia": 552991,
-          "snapSubc": 70000,
-          "nombre": "Logística Inversa Antenas",
-          "unidad": "Unidad"
+          "cant": 2
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "REUB_RF_Airscale_AHPCx",
-          "cant": 2,
-          "snapNokia": 499530,
-          "snapSubc": 249765,
-          "nombre": "REUB_RF Airscale AHPCx",
-          "unidad": "Unidad"
+          "cant": 2
         }
-      ],
-      "estado": "pre"
+      ]
     },
     {
       "id": "NAR.Samaniego",
@@ -1902,34 +1852,21 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "PM",
-          "cant": 1,
-          "snapNokia": 2215607,
-          "snapSubc": 0,
-          "nombre": "PM",
-          "unidad": "Sitio"
+          "cant": 1
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 4,
-          "snapNokia": 995427,
-          "snapSubc": 367880,
-          "nombre": "DESMONTE_RF",
-          "unidad": "Unidad"
+          "cant": 4
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 2,
-          "snapNokia": 995427,
-          "snapSubc": 367880,
-          "nombre": "DESMONTE_RF",
-          "unidad": "Unidad"
+          "cant": 2
         }
-      ],
-      "estado": "pre"
+      ]
     },
     {
       "id": "NAR.Iscuande",
@@ -1953,54 +1890,33 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "PM",
-          "cant": 1,
-          "snapNokia": 2215607,
-          "snapSubc": 0,
-          "nombre": "PM",
-          "unidad": "Sitio"
+          "cant": 1
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_BB",
-          "cant": 3,
-          "snapNokia": 1231765,
-          "snapSubc": 455223,
-          "nombre": "DESMONTE_BB",
-          "unidad": "Unidad"
+          "cant": 3
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 4,
-          "snapNokia": 995427,
-          "snapSubc": 367880,
-          "nombre": "DESMONTE_RF",
-          "unidad": "Unidad"
+          "cant": 4
         },
         {
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "IMP_RF",
-          "cant": 3,
-          "snapNokia": 1433958,
-          "snapSubc": 529948,
-          "nombre": "IMP_RF",
-          "unidad": "Unidad"
+          "cant": 3
         },
         {
           "sec": "ADJ",
           "tipo": "ADJ",
           "id": "FO_ABIA",
-          "cant": 1,
-          "snapNokia": 597588,
-          "snapSubc": 298794,
-          "nombre": "FO + ABIA",
-          "unidad": "Sitio"
+          "cant": 1
         }
-      ],
-      "estado": "pre"
+      ]
     }
   ],
   "gastos": [
@@ -2113,5 +2029,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-03-31T15:11:26.994Z"
+  "lastUpdated": "2026-03-31T15:42:38.350Z"
 }
