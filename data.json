@@ -1859,6 +1859,12 @@
           "tipo": "BASE",
           "id": "DESMONTE_RF",
           "cant": 2
+        },
+        {
+          "sec": "SITIO_NUEVO",
+          "tipo": "BASE",
+          "id": "IMP_RF",
+          "cant": 2
         }
       ],
       "catEfectiva": "AAA"
@@ -2024,5 +2030,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-04-05T22:15:44.325Z"
+  "lastUpdated": "2026-04-05T22:15:53.631Z"
 }
