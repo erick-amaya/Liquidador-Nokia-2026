@@ -1866,7 +1866,8 @@
           "id": "DESMONTE_RF",
           "cant": 2
         }
-      ]
+      ],
+      "catEfectiva": "AA"
     },
     {
       "id": "NAR.Iscuande",
@@ -2029,5 +2030,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-04-05T21:39:23.485Z"
+  "lastUpdated": "2026-04-05T21:39:27.448Z"
 }
