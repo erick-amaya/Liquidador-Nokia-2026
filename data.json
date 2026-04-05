@@ -1866,8 +1866,7 @@
           "id": "IMP_RF",
           "cant": 2
         }
-      ],
-      "catEfectiva": "AAA"
+      ]
     },
     {
       "id": "NAR.Iscuande",
@@ -2030,5 +2029,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-04-05T22:16:11.622Z"
+  "lastUpdated": "2026-04-05T22:16:17.103Z"
 }
