@@ -1858,12 +1858,6 @@
           "sec": "MODERNIZACION",
           "tipo": "BASE",
           "id": "DESMONTE_RF",
-          "cant": 4
-        },
-        {
-          "sec": "MODERNIZACION",
-          "tipo": "BASE",
-          "id": "DESMONTE_RF",
           "cant": 2
         }
       ],
@@ -2030,5 +2024,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-04-05T22:15:32.925Z"
+  "lastUpdated": "2026-04-05T22:15:44.325Z"
 }
