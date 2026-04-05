@@ -1867,7 +1867,7 @@
           "cant": 2
         }
       ],
-      "catEfectiva": "AA"
+      "catEfectiva": "AAA"
     },
     {
       "id": "NAR.Iscuande",
@@ -2030,5 +2030,5 @@
       "valor": 20000
     }
   ],
-  "lastUpdated": "2026-04-05T22:17:54.870Z"
+  "lastUpdated": "2026-04-05T22:17:56.419Z"
 }
